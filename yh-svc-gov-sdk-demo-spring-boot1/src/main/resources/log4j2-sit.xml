@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+	<properties>
+		<!-- 文件输出格式 -->
+		<property name="PATTERN">[%d{yyyy-MM-dd HH:mm:ss:SSS z}] [%t] %5p %l: %m%n</property>
+	    <Property name="FILE_PATH">/service/logs/app/sit/YhInfra/demo-spring-boot1</Property>
+    </properties>
+
+	<appenders>
+		<Console name="CONSOLE" target="system_out">
+			<PatternLayout pattern="${PATTERN}" />
+		</Console>
+		<!-- error -->
+		<RollingFile name="errorRollingFile" fileName="${FILE_PATH}/error.log" filePattern="${FILE_PATH}/error-%i.log">
+
+			<SizeBasedTriggeringPolicy size="50MB" />
+			<!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，这里设置了10 -->
+			<DefaultRolloverStrategy max="2" />
+			<ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY" />
+			<JsonLayout locationinfo="true" eventEol="true" compact="true" stacktraceAsString="true" includeStacktrace="true">
+	            <KeyValuePair key="timestamp" value="$${date:yyyy-MM-dd HH:mm:ss:SSS}"/>
+	            <KeyValuePair key="project_name" value="demo-spring-boot1"/>
+	        </JsonLayout>
+		</RollingFile>
+
+		<!-- warn -->
+		<RollingFile name="warnRollingFile" fileName="${FILE_PATH}/warn.log" filePattern="${FILE_PATH}/warn-%i.log">
+			<SizeBasedTriggeringPolicy size="50MB" />
+			<!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，这里设置了10 -->
+			<DefaultRolloverStrategy max="2" />
+			<Filters>
+				<ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL" />
+				<ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY" />
+			</Filters>
+			<JsonLayout locationinfo="true" eventEol="true" compact="true" stacktraceAsString="true" includeStacktrace="true">
+	            <KeyValuePair key="timestamp" value="$${date:yyyy-MM-dd HH:mm:ss:SSS}"/>
+	            <KeyValuePair key="project_name" value="demo-spring-boot1"/>
+	        </JsonLayout>
+		</RollingFile>
+
+		<!-- info -->
+		<RollingFile name="infoRollingFile" fileName="${FILE_PATH}/info.log" filePattern="${FILE_PATH}/info-%i.log">
+			<SizeBasedTriggeringPolicy size="50MB" />
+			<!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，这里设置了10 -->
+			<DefaultRolloverStrategy max="2" />
+			<Filters>
+				<ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL" />
+				<ThresholdFilter level="warn" onMatch="DENY" onMismatch="NEUTRAL" />
+				<ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY" />
+			</Filters>
+			<JsonLayout locationinfo="true" eventEol="true" compact="true" stacktraceAsString="true" includeStacktrace="true">
+	            <KeyValuePair key="timestamp" value="$${date:yyyy-MM-dd HH:mm:ss:SSS}"/>
+	            <KeyValuePair key="project_name" value="demo-spring-boot1"/>
+				<KeyValuePair key="traceId" value="$${tracer:traceId:-}"/>
+				<KeyValuePair key="spanId" value="$${tracer:spanId:-}"/>
+				<KeyValuePair key="segmentId" value="$${tracer:segmentId:-}"/>
+	        </JsonLayout>
+		</RollingFile>
+
+		<!-- debug -->
+		<RollingFile name="debugRollingFile" fileName="${FILE_PATH}/debug.log" filePattern="${FILE_PATH}/debug-%i.log">
+			<SizeBasedTriggeringPolicy size="50MB" />
+			<!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，这里设置了10 -->
+			<DefaultRolloverStrategy max="2" />
+			<Filters>
+				<ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL" />
+				<ThresholdFilter level="warn" onMatch="DENY" onMismatch="NEUTRAL" />
+				<ThresholdFilter level="info" onMatch="DENY" onMismatch="NEUTRAL" />
+				<ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY" />
+			</Filters>
+			<JsonLayout locationinfo="true" eventEol="true" compact="true" stacktraceAsString="true" includeStacktrace="true">
+	            <KeyValuePair key="timestamp" value="$${date:yyyy-MM-dd HH:mm:ss:SSS}"/>
+	            <KeyValuePair key="project_name" value="demo-spring-boot1"/>
+	        </JsonLayout>
+		</RollingFile>
+		
+		<!-- all -->
+		<RollingFile name="rollingFile" fileName="${FILE_PATH}/k8s.log" filePattern="${FILE_PATH}/k8s-%i.log">
+			<SizeBasedTriggeringPolicy size="50MB" />
+			<DefaultRolloverStrategy max="10" />
+			<PatternLayout pattern="${PATTERN}" />
+		</RollingFile>
+
+
+		<RollingFile name="almRollingFile" fileName="${FILE_PATH}/alm.trace" filePattern="${FILE_PATH}/alm-%i.trace">
+			<SizeBasedTriggeringPolicy size="500MB" />
+			<DefaultRolloverStrategy max="5" />
+			<JsonLayout locationinfo="true" eventEol="true" compact="true" stacktraceAsString="true" includeStacktrace="true">
+				<KeyValuePair key="timestamp" value="$${date:yyyy-MM-dd HH:mm:ss:SSS}"/>
+				<KeyValuePair key="project_name" value="demo-spring-boot1"/>
+				<KeyValuePair key="traceId" value="$${tracer:traceId:-}"/>
+				<KeyValuePair key="spanId" value="$${tracer:spanId:-}"/>
+				<KeyValuePair key="segmentId" value="$${tracer:segmentId:-}"/>
+			</JsonLayout>
+		</RollingFile>
+
+
+	</appenders>
+
+
+
+	<loggers>
+
+		<logger name="PG-Monitor-Log" level="info" additivity="false">
+			<appenderref ref="almRollingFile" />
+		</logger>
+
+  		<logger name="com.yh.svc.gov.test" level="INFO" />
+ 		<logger name="com.yh.infra.svc.gov.sdk" level="DEBUG" />
+ 		<logger name="com.yh.infra.svc.gov.agent" level="DEBUG" />
+
+		<logger name="RocketmqClient" level="ERROR" additivity="false" />
+ 		<logger name="springfox" level="WARN"/>
+
+
+		<root level="info">
+<!--
+ 			<appenderref ref="CONSOLE" />
+ -->
+ 			<appenderref ref="rollingFile" />
+ 			<appenderref ref="errorRollingFile" />
+			<appenderref ref="warnRollingFile" />
+			<appenderref ref="infoRollingFile" />
+			<appenderref ref="debugRollingFile" />
+
+		</root>
+	</loggers>
+
+</configuration>  

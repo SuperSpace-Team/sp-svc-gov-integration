@@ -1,0 +1,47 @@
+---
+svc-gov-sdk:
+  appKey: pg-app-demo2
+  gatewayUrl: http://union-gateway-sit.yonghui.cn/api
+#  retry:
+#    enabled: false
+#    shardingEnabled: false
+#    shardingColumn: db_tag
+  secret: 12345678
+sdk-demo:
+  sdk-enabled: false
+  app-id: pg-app-demo1
+  app-secret: 12345678
+  server:
+    host: localhost-1
+    ip: 10.0.0.1
+  chain:
+    mq:
+      topic:
+        receive: MQ_GSDK_DEMO_${sdk-demo.app-id}
+        forward: MQ_GSDK_DEMO_${sdk-demo.chain.next.app-id}
+    next:
+      app-id: pg-app-demo2
+      msg-type: 
+      service: 
+        id: app-ecs-gsdk-demo-${spring.profiles.active}-${sdk-demo.chain.next.app-id}
+        url:   
+    node:
+      name: ${sdk-demo.app-id}-node1
+server:
+  port: 9001
+
+spring: 
+  datasource: 
+    dbcp2: 
+      connection-properties: characterEncoding=utf8
+      initial-size: 5
+      max-total: 50
+      max-wait-millis: 10000
+      validation-query: "SELECT 1"
+    type: org.apache.commons.dbcp2.BasicDataSource
+    url: "jdbc:mysql://w-kh-public-sit-mysql.service.testdb:3306/db_gs_retry_service_sit?useUnicode=true&characterEncoding=utf-8&useSSL=false&autoReconnect=true"
+    username: u_gs_retry_service_sit
+    password: 5FjN8cYBhg
+    
+    
+    

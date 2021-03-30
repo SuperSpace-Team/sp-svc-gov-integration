@@ -1,0 +1,13 @@
+FROM ic-harbor.yonghui.cn/ic/alpine-jdk1.8_231:v1.1
+
+USER vmuser 
+RUN mkdir /opt/project/ -p
+WORKDIR  /opt/project
+ADD  ./demo-spring-boot1/docker/startup.sh  /opt/project
+ADD  ./demo-spring-boot1/target/demo-spring-boot1.jar /opt/project
+
+# skywalking agent包，无需修改
+ADD yonghui-skywalking-agent.tar.gz /opt/
+
+
+ENTRYPOINT ["sh", "startup.sh", "demo-spring-boot1"]

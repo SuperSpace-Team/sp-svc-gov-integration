@@ -1,0 +1,52 @@
+--- 
+feign:
+  hystrix:
+    enabled: false
+  compression:
+    request:
+      enabled: false
+    response:
+      enabled: false  
+logging: 
+  config: "classpath:log4j2.xml"
+management:
+  health:
+    consul:
+      enabled: false
+    mongo:
+      enabled: false 
+    redis:
+      enabled: false
+    elasticsearch:
+      enabled: false
+  security:
+    enabled: false
+server:
+  port: 9301
+spring: 
+  application: 
+    name: demo-spring-boot2
+  cloud: 
+    consul: 
+      discovery: 
+        catalog-services-watch:
+          enabled: false
+        catalogServicesWatchDelay: 30000
+        deregister: true
+        enabled: true
+        health-check-critical-timeout: 30m
+        health-check-interval: 15s
+        instance-id: "m-${spring.cloud.client.hostname}-${spring.application.name}-${spring.cloud.consul.host}-${spring.cloud.consul.port}"
+        prefer-ip-address: true
+        register: false
+        service-name: "test-app-${spring.application.name}-${spring.profiles.active}"
+#        tags: app=${spring.application.name},env=${spring.profiles.active},project=YhInfra,product=YhInfra
+      enabled: true
+      host: consul-sit-common.cloud.bz
+      port: 80
+    discovery: 
+      client: 
+        composite-indicator: 
+          enabled: false
+  profiles: 
+    active: dev

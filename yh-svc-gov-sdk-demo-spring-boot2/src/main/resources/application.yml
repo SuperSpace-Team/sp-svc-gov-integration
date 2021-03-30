@@ -1,0 +1,43 @@
+---
+svc-gov-sdk:
+  alm:
+    enabled: false
+  appKey: pg-app-demo2
+  gatewayUrl: http://sit-api-base.cloud.bz/api
+  retry:
+    dbType: mysql
+    enabled: false
+  secret: 12345678
+  versionChecker: false
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  metrics:
+    enable:
+      jvm: false
+      log4j2: false
+      uptime: false
+      processor: false
+gs:
+  metrics:
+    meters:
+      test-counter2:
+        key: yh_infra_demo_bz_counter_test2_dev
+        type: counter
+      test-gauge2:
+        key: yh_infra_demo_bz_gauge_test2_dev
+        type: gauge
+      test-gauge3:
+        key: yh_infra_demo_bz_gauge_test3_dev
+        type: gauge
+        dimensions:
+          - "shop=nike1"
+          - "shop=nike2"
+sdk-demo-sb2:
+  sdk-enabled: true
+  app-id: pg-app-demo1
+  app-secret: 12345678
+  api-gateway:
+    url: http://localhost:1205/api

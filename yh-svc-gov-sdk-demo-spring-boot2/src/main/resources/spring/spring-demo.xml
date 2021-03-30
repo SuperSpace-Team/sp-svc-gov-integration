@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd"
+	default-autowire="byName">
+
+	<!-- 配置 client -->
+<!-- 	
+	<bean id="pgClientLauncher" class="com.yh.infra.svc.gov.sdk.pg.PgClientLauncher" init-method="init"  >
+		<property name="appId" value="${sdk-demo-sb2.app-id}" />
+		<property name="secret" value="${sdk-demo-sb2.app-secret}"/>
+		<property name="apiGateWayUrl" value="${sdk-demo-sb2.api-gateway.url}" />
+		<property name="enabled" value="${sdk-demo-sb2.sdk-enabled}" />
+		<property name="config" ref="pgConfig" />
+	</bean>
+	<bean id="pgConfig" class="com.yh.infra.svc.gov.sdk.config.AppRegConfig" >
+		<property name="versionPullInterval" value="10" />
+	</bean>
+ -->	
+</beans>

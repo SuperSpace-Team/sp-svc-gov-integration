@@ -1,0 +1,64 @@
+---
+sdk:
+  app-id: saas-sit
+  app-secret: 12345678
+  api-gateway-url: http://sit-api-base.cloud.bz/api
+gs:
+  metrics:
+    meters:
+      test-counter:
+        key: yh_infra_demosb1_counter_test1_sit
+        type: counter
+      test-gauge:
+        key: yh_infra_demosb1_gauge_test1_sit
+        type: gauge
+svc-gov-sdk:
+  alm: 
+    enabled: true
+  appKey: pg-app-demo2
+  gatewayUrl: http://sit-api-base.cloud.bz/api
+  retry: 
+    enabled: false
+    shardingEnabled: false
+    shardingColumn: db_tag
+  secret: 12345678
+sdk-demo:
+  sdk-enabled: true
+  app-id: pg-app-demo1
+  app-secret: 12345678
+  chain:
+    mq:
+      topic:
+        receive: MQ_GSDK_DEMO_${sdk-demo.app-id}
+        forward: MQ_GSDK_DEMO_${sdk-demo.chain.next.app-id}
+    next:
+      app-id: pg-app-demo2
+      msg-type: ~
+      service: 
+        id: app-ecs-gsdk-demo-${spring.profiles.active}-${sdk-demo.chain.next.app-id}
+        url: 
+    node:
+      name: ${sdk-demo.app-id}-node1
+  api-gateway:
+    url: http://sit-api-base.cloud.bz/api
+
+spring:
+  datasource:
+    dbcp2:
+      connection-properties: characterEncoding=utf8
+      initial-size: 5
+      max-total: 50
+      max-wait-millis: 10000
+      validation-query: "SELECT 1"
+    type: org.apache.commons.dbcp2.BasicDataSource
+    url: "jdbc:mysql://w-kh-public-sit-mysql.service.testdb:3306/db_gs_retry_service_sit?useUnicode=true&characterEncoding=utf-8&useSSL=false&autoReconnect=true"
+    username: u_gs_retry_service_sit
+    password: 5FjN8cYBhg
+log: 
+  service: 
+    secret: ec865a850d20db45
+    ip: 
+      address: http://api-base.cloud.bz/api/log
+    customer: 
+      code: test_log
+

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:msg="http://www.springframework.org/schema/msghandle"
+	xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/msghandle
+            http://www.springframework.org/schema/msghandle.xsd"
+	default-autowire="byName">
+
+<!--	<bean id="consumerParent" abstract="true" class="com.yh.infra.svc.gov.sdk.platform.baseservice.message.rocketmq.service.init.RocketMQConcurrentlyConsumerInit" init-method="init" destroy-method="destroy" >-->
+<!--		<property name="namesrvAddr" value="${mq.namesrvAddr}"/>-->
+<!--		<property name="threadMin" value="${mq.threadMin}"/>-->
+<!--		<property name="threadMax" value="${mq.threadMax}"/>-->
+<!--		<property name="consumeMessageBatchMaxSize" value="${mq.consumeMessageBatchMaxSize}" />-->
+<!--		<property name="consumeFromWhere" value="${mq.consumeFromWhere}"/>-->
+<!--		<property name="messageHandler" ref="messageHandler" />-->
+<!--	</bean>-->
+
+
+<!--	<bean id="PG_${sdk-demo.chain.mq.topic.receive}_common" parent="consumerParent">-->
+<!--		<property name="consumerGroup" value="SDK_DEMO_${sdk-demo.chain.mq.topic.receive}_common" />-->
+<!--		<property name="consumerInstanceName" value="SDK_DEMO_${sdk-demo.chain.mq.topic.receive}" />-->
+<!--		<property name="subscription" value="{'${sdk-demo.chain.mq.topic.receive}':'common'}" />-->
+<!--	</bean>-->
+<!--	<bean id="PG_${sdk-demo.chain.mq.topic.receive}_trans" parent="consumerParent">-->
+<!--		<property name="consumerGroup" value="SDK_DEMO_${sdk-demo.chain.mq.topic.receive}_trans" />-->
+<!--		<property name="consumerInstanceName" value="SDK_DEMO_${sdk-demo.chain.mq.topic.receive}" />-->
+<!--		<property name="subscription" value="{'${sdk-demo.chain.mq.topic.receive}':'trans'}" />-->
+<!--	</bean>-->
+
+<!--	<bean id="messageHandler" class="com.yh.infra.svc.gov.sdk.platform.baseservice.message.rocketmq.service.handle.MessageHandler">-->
+<!--		<property name="businessList">-->
+<!--            <list>-->
+<!--            	<msg:msghandle beanNameId="mqManager" method="receiveMq" topic="${sdk-demo.chain.mq.topic.receive}" tags="common"/>-->
+<!--            	<msg:msghandle beanNameId="mqManager" method="receiveTransMq" topic="${sdk-demo.chain.mq.topic.receive}" tags="trans"/>-->
+<!--            </list>-->
+<!--        </property>-->
+<!--	</bean>-->
+</beans>

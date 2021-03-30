@@ -1,0 +1,103 @@
+pipeline {
+    agent any
+    environment {
+        USER_EMAIL = 'luchao1@yonghui.cn'
+        USER = "luchao1"
+        SFTP_SECRET_ACCESS_KEY = credentials('jenkins-sftp-secret-access-key')
+        SFTP_SERVER = "10.101.6.87"
+        VALIDATE_URL = "http://bee-backend.yonghui.cn/ci_validate/"
+        REMOTE_DIR = "/upload"
+        LOCAL_DIR= "$WORKSPACE/demo-spring-boot1/target"
+        PACKAGE_NAME = "demo-spring-boot1.jar"
+        PROJECT_NAME = "YhInfra"
+        APP_NAME = "demo-spring-boot1"
+        ENV_NAME = "sit uat"
+        HARBOR_ADDR = "ic-harbor.yonghui.cn"
+        DOCKER_NAME = "demo-spring-boot1/docker/Dockerfile-ecs"
+        POM_NAME = "demo-spring-boot1/pom.xml"
+        COVERAGE = "0"
+        AGENT_VERSION = "1.1.9"
+    }
+
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
+    }
+	
+    post {
+        success {
+            script {
+                wrap([$class: 'BuildUser']) {
+                    emailext body: '$DEFAULT_CONTENT', recipientProviders: [developers()], mimeType: 'text/html', subject: '$DEFAULT_SUBJECT', to: "$USER_EMAIL"                
+                }
+            }
+        }
+        failure {
+            script {
+                wrap([$class: 'BuildUser']) {
+                    emailext body: '$DEFAULT_CONTENT', recipientProviders: [developers()], mimeType: 'text/html', subject: '$DEFAULT_SUBJECT', to: "$USER_EMAIL"                
+                    }
+            }
+
+        }
+        unstable {
+            script {
+                wrap([$class: 'BuildUser']) {
+                    emailext body: '$DEFAULT_CONTENT', recipientProviders: [developers()], mimeType: 'text/html', subject: '$DEFAULT_SUBJECT', to: "$USER_EMAIL"                
+                }
+            }
+        }
+        aborted {
+            script {
+                wrap([$class: 'BuildUser']) {
+                    emailext body: '$DEFAULT_CONTENT', recipientProviders: [developers()], mimeType: 'text/html', subject: '$DEFAULT_SUBJECT', to: "$USER_EMAIL"                
+                }
+            }
+        }
+    } 
+	stages {
+        stage('打包&上传镜像') {
+            when { anyOf{branch 'develop'} }
+            steps {
+                timeout(time: 20, unit: 'MINUTES') {
+                    sh '''
+                        mvn clean package -f ${POM_NAME} -Dmaven.test.skip=true
+                        
+
+                        wget http://itcentral.yonghui.cn/nexus/content/repositories/releases/com/yonghui/YhInfra/yonghui-agent/$AGENT_VERSION/yonghui-agent-$AGENT_VERSION.tar.gz -O yonghui-skywalking-agent.tar.gz 2>/dev/null
+                        wget http://itcentral.yonghui.cn/nexus/content/repositories/releases/com/yonghui/YhInfra/yonghui-agent/$AGENT_VERSION/yonghui-agent-$AGENT_VERSION.tar.gz.md5 -O yonghui-skywalking-agent.tar.gz.md5 2>/dev/null
+                        down_md5=`md5sum yonghui-skywalking-agent.tar.gz|awk '{print $1}'`
+                        source_md5=`cat yonghui-skywalking-agent.tar.gz.md5`
+
+                        if [ $down_md5 != $source_md5 ];then
+                            echo 'skywalking agent下载有问题!'
+                            exit
+                        fi
+                        
+                        
+                        appname=()
+                        dockername=()
+                        envname=()
+                        for app in $APP_NAME;do
+                            appname=(${appname[@]} $app)
+                        done
+                        for docker in $DOCKER_NAME;do
+                            dockername=(${dockername[@]} $docker)
+                        done
+                        for e_name in $ENV_NAME;do
+                            envname=(${envname[@]} $e_name)
+                        done
+                        appname_len=${#appname[@]}
+						envname_len=${#envname[@]}
+                        for ((i = 0; i < appname_len; i++));do
+                            for ((j = 0; j < envname_len; j++));do
+                                docker images  --filter="reference=${HARBOR_ADDR}/${envname[$j]}/${PROJECT_NAME}_${appname[$i]}:*" -q | xargs --no-run-if-empty docker rmi --force
+                                docker build --no-cache -t ${HARBOR_ADDR}/${envname[$j]}/${PROJECT_NAME}_${appname[$i]}:${GIT_COMMIT:0:7} -f  ${dockername[$i]} ./
+                                docker push ${HARBOR_ADDR}/${envname[$j]}/${PROJECT_NAME}_${appname[$i]}:${GIT_COMMIT:0:7}
+                            done
+                        done
+					'''
+                }
+            }
+        }
+    }
+}

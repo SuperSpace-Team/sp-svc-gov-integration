@@ -1,0 +1,20 @@
+---
+sdk-demo:
+  app-id: pg-app-demo4
+  app-secret: 12345678
+  chain:
+    mq:
+      topic:
+        receive: MQ_GSDK_DEMO_${sdk-demo.app-id}
+        forward: MQ_GSDK_DEMO_${sdk-demo.chain.next.app-id}
+    next:
+      app-id: ~
+      msg-type: ~
+      service: ~  
+    node:
+      name: ${sdk-demo.app-id}-node1
+  api-gateway:
+    url: http://10.101.6.66:1205/api
+server:
+  port: 9004
+
