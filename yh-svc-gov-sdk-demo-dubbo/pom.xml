@@ -195,7 +195,6 @@
 			<version>1.2.16</version>
 		</dependency>
 
-
 		<dependency>
 			<groupId>org.javassist</groupId>
 			<artifactId>javassist</artifactId>
@@ -213,9 +212,18 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
-
 	</dependencies>
+
+	<distributionManagement>
+		<repository>
+			<id>nexus-releases</id>
+			<url>http://nexus.yonghuivip.com/nexus/content/repositories/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>nexus-snapshots</id>
+			<url>http://nexus.yonghuivip.com/nexus/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 	<build>
 		<plugins>
@@ -263,9 +271,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
 		</plugins>
-
 	</build>
-
 </project>

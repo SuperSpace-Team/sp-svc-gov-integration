@@ -16,11 +16,11 @@ public interface ComponentInit {
 	 * @param appRegContext
 	 * @return
 	 */
-	public boolean init(AppRegContext appRegContext);
+	boolean init(AppRegContext appRegContext);
 
 	/**
 	 * 从IOC容器清除组件
 	 * @param appRegContext
 	 */
-	public void clean(AppRegContext appRegContext);
+	void clean(AppRegContext appRegContext);
 }

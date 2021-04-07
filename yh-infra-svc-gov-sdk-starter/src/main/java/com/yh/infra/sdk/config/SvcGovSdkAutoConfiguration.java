@@ -1,6 +1,6 @@
 package com.yh.infra.sdk.config;
 
-import com.yh.infra.svc.gov.sdk.config.DisabledConfiguration;
+//import com.yh.infra.svc.gov.sdk.config.DisabledConfiguration;
 import com.yh.infra.svc.gov.sdk.config.SvcGovSdkConfiguration;
 import com.yh.infra.svc.gov.sdk.init.AppRegLauncher;
 import org.slf4j.Logger;
@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Import;
 import com.yh.infra.svc.gov.sdk.init.SvcGovSdkInitializer;
 
 @Configuration
-@Import(value = { SvcGovSdkConfiguration.class, DisabledConfiguration.class})
+@Import(value = { SvcGovSdkConfiguration.class })	//, DisabledConfiguration.class})
 public class SvcGovSdkAutoConfiguration {
 	private static final Logger logger = LoggerFactory.getLogger(SvcGovSdkConfiguration.class);
 
@@ -34,8 +34,10 @@ public class SvcGovSdkAutoConfiguration {
 		AppRegLauncher client = SvcGovSdkInitializer.initSvcGovSdk(
 				//almProperties,
 				enableVersionChecker, appKey, secret, apiGatewayUrl, versionPullInterval);
-		if (client != null)
+		if (client != null) {
 			client.init();
+		}
+
 		return client;
 	}
 }

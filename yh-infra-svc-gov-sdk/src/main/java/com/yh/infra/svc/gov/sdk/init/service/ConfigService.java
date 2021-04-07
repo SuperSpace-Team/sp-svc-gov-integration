@@ -63,7 +63,6 @@ public class ConfigService {
                     return;
                 }
                 logger.info("Callback service {} passed for version {}. check next one.", svr.getCallbackName(), resp.getVersion());
-                
                 cbDataMap.put(svr.getClass().getName(), datamap);
             }
         } catch (Throwable t) {
@@ -90,9 +89,9 @@ public class ConfigService {
         // 更新版本
         if (resp.getVersion() != null) {
         	context.setCurrentVersion(resp.getVersion());
-        	logger.info("config updated. verison : {}", resp.getVersion());
+        	logger.info("Config updated. verison : {}", resp.getVersion());
         } else {
-        	logger.info("version is null");
+        	logger.info("Version is null");
         }
     }
 }

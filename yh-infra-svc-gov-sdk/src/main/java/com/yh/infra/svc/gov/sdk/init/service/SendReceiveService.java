@@ -48,7 +48,6 @@ public class SendReceiveService {
 		
 		// 发送数据
 		String msgBody = JsonUtil.writeValue(req);
-
 		if (logger.isDebugEnabled())
 			logger.debug("send request to PG server : {}, {}", url, msgBody);
 		

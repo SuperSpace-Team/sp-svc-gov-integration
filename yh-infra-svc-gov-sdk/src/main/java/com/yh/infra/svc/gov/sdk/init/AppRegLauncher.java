@@ -290,7 +290,7 @@ public class AppRegLauncher {
 
         try {
             InputStream is = this.getClass().getResourceAsStream(
-                    "META-INF/maven/com.yh.infra.svc.gov.sdk/yh-infra-svc-gov-sdk/pom.properties");
+                    "META-INF/maven/com.yh.infra.svc.gov/yh-infra-svc-gov-sdk/pom.properties");
             if(is != null){
                 properties.load(is);
                 sdkVersion = properties.getProperty("version");

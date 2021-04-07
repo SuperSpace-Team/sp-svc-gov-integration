@@ -12,8 +12,6 @@ import com.yh.infra.svc.gov.sdk.platform.baseservice.notice.exception.BusinessEx
  * Description: 邮件公共接口，
  */
 public interface EmailRemoteManager {
-
-
     /**
      * 邮件发送
      * @param emailCommand
