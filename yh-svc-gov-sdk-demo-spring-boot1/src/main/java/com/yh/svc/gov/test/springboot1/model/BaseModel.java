@@ -30,8 +30,6 @@ public class BaseModel extends com.yh.common.lark.common.model.BaseModel{
 
     protected int result = SUCCESS_RESULT;//0-失败  1-成功
 
-    
-    
     protected java.lang.Integer version;
     protected java.lang.Integer code;
 	protected java.lang.Boolean lifecycle;

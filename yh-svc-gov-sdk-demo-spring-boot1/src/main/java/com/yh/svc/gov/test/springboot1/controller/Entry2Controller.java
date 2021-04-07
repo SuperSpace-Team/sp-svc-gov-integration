@@ -3,6 +3,7 @@ package com.yh.svc.gov.test.springboot1.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.yh.infra.svc.gov.sdk.command.BaseResponseEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yh.svc.gov.test.springboot1.aop.TestAnnotation;
-import com.yh.svc.gov.test.springboot1.command.BaseResponseEntity;
 import com.yh.svc.gov.test.springboot1.command.OrderVo;
 import com.yh.svc.gov.test.springboot1.manager.BaseManager;
 import com.yh.svc.gov.test.springboot1.model.OrderCancel;

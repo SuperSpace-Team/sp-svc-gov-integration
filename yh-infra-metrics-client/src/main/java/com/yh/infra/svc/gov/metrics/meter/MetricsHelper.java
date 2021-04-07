@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.yh.infra.svc.gov.metrics.meter;
 
 import java.util.Map;
@@ -120,6 +117,4 @@ public class MetricsHelper {
 	public void update(String name, MetricsType type, double doubleValue, long longValue, TimeUnit timeUnit, String ...tagArray) {
 		InternalMetricsHelper.update(registry, name, type, doubleValue, longValue, timeUnit, tagArray);
 	}
-	
-	
 }

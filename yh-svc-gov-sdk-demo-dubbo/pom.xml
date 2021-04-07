@@ -25,7 +25,6 @@
 	</properties>
 
 	<dependencies>
-	
 		<dependency>
 			<groupId>com.yh.infra.svc.gov</groupId>
 			<artifactId>yh-infra-metrics-client</artifactId>

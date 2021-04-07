@@ -15,27 +15,24 @@
  */
 package com.yh.svc.gov.test.springboot1.dao;
 
+import com.yh.common.lark.orm.dao.supports.BaseDao;
 import com.yh.svc.gov.test.springboot1.model.PgAppSystem;
 import com.yh.common.lark.common.annotation.CommonQuery;
 import com.yh.common.lark.common.annotation.QueryPage;
 import com.yh.common.lark.common.dao.Page;
 import com.yh.common.lark.common.dao.Pagination;
 import com.yh.common.lark.common.dao.Sort;
-import lark.orm.dao.supports.BaseDao;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Map;
 
-
 public interface PgAppSystemDao extends BaseDao<PgAppSystem, Long> {
-
 
     @QueryPage("findListCountByQueryMap")
     Pagination<PgAppSystem> findListByQueryMapWithPage(Page page, Sort[] sorts, Map<String, Object> params);
 
     @CommonQuery
     int saveOrUpdate(PgAppSystem o);
-
 
     /**
      * 根据appId查询应用
@@ -44,5 +41,4 @@ public interface PgAppSystemDao extends BaseDao<PgAppSystem, Long> {
      * @return
      */
     PgAppSystem getByAppId(@Param("appId") String appId);
-
 }

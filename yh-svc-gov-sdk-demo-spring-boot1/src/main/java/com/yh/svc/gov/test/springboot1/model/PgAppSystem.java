@@ -25,10 +25,6 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  *
  */
 public class PgAppSystem extends BaseModel {
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1659806803369631872L;
 	//alias
 	public static final String TABLE_ALIAS = "PgAppSystem";
@@ -41,7 +37,7 @@ public class PgAppSystem extends BaseModel {
 	public static final String ALIAS_LAST_MODIFIED_TIME = "lastModifiedTime";
 	
 	//columns START
-	private java.lang.String appId;
+	private String appId;
 	//columns END
 
 	public PgAppSystem(){

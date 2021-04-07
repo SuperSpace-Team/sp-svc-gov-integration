@@ -19,5 +19,4 @@ public class OrderCancel {
 	public void setBsOrderCode(String bsOrderCode) {
 		this.bsOrderCode = bsOrderCode;
 	}
-
 }

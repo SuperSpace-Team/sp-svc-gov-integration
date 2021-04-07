@@ -9,14 +9,15 @@ public abstract class AbstractManagerImpl<T> implements BaseManager<T> {
 	private static final Logger logger = LoggerFactory.getLogger(AbstractManagerImpl.class);
 	@Override
 	public void genericTypeTest(T t) {
-		System.out.println("received the  class :" + t.getClass().getName());
+		System.out.println("Received the  class :" + t.getClass().getName());
 	}
-	
+
+	@Override
 	public void service(T t) {
-		logger.info("enter the  AbstractManagerImpl!!!!");
+		logger.info("Enter the  AbstractManagerImpl!");
 		(new Exception()).printStackTrace();
 		internalCall(t);
 	}
-    abstract public void internalCall(T t);
 
+    abstract public void internalCall(T t);
 }
