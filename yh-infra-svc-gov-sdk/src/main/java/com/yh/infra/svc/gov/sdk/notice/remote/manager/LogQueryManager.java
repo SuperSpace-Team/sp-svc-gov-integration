@@ -1,4 +1,4 @@
-package com.yh.infra.svc.gov.sdk.command.manager;
+package com.yh.infra.svc.gov.sdk.notice.remote.manager;
 
 import com.yh.infra.svc.gov.sdk.log.command.Pagination;
 
@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 public interface LogQueryManager {
-
-
     /**
      * 查询接口
      *

@@ -1,4 +1,4 @@
-package com.yh.infra.svc.gov.sdk.command.manager;
+package com.yh.infra.svc.gov.sdk.notice.remote.manager;
 
 import com.yh.infra.svc.gov.sdk.auth.uac.app.BusinessException;
 import com.yh.infra.svc.gov.sdk.platform.baseservice.notice.command.voiceNotice.VoiceNoticeCommand;
