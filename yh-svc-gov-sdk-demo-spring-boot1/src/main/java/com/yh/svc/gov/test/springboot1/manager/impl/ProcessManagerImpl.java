@@ -25,7 +25,7 @@
 //import com.yh.infra.svc.gov.sdk.platform.baseservice.message.rocketmq.service.server.RocketMQProducerServer;
 //import com.yh.infra.svc.gov.sdk.util.DateTimeHelper;
 //
-///**
+///** RMQ下发功能测试
 // * @author luchao 2018-08-06
 // */
 //@Service("processManager")

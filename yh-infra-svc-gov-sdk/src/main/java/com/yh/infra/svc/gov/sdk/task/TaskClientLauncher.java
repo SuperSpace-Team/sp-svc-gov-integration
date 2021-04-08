@@ -38,7 +38,7 @@ import org.slf4j.LoggerFactory;
  * 2、定时任务执行线程池
  * 3、定时任务日志收集方式
  *
- * xml或者@bean 只需要实现这一个Launcher
+ * xml或者@Bean 只需要实现这一个Launcher
  * 在xml中指定init-method="init"
  *
  * Lancher仅在初始化的时候执行

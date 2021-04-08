@@ -5,8 +5,6 @@ import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.spi.LoggingEvent;
 
 public class TaskAppenderForLog4j extends AppenderSkeleton {
-
-
     /**
      * Subclasses of <code>AppenderSkeleton</code> should implement this method to perform actual
      * logging. See also {@link #doAppend AppenderSkeleton.doAppend} method.

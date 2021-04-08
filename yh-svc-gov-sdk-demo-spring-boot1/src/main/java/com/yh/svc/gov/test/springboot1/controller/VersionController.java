@@ -44,7 +44,7 @@ public class VersionController{
     		return retMap;
     	}
     	String v = p.getProperty("git.commit.id");
-    	if (StringUtil.isEmpty(v))
+    	if (StringUtil.isBlank(v))
     		retMap.put(CODE_VERSION, "empty version");
     	else
     		retMap.put(CODE_VERSION, v);
