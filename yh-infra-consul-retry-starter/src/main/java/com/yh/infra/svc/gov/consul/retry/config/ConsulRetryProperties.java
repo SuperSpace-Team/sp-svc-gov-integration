@@ -9,16 +9,16 @@ public class ConsulRetryProperties {
     /**
      * 监测间隔（单位：ms）
      */
-    private long bzRetryInterval = 10000L;
+    private long retryInterval = 10000L;
 
     private boolean enable = false;
 
-    public long getBzRetryInterval() {
-        return bzRetryInterval;
+    public long getRetryInterval() {
+        return retryInterval;
     }
 
-    public void setBzRetryInterval(long bzRetryInterval) {
-        this.bzRetryInterval = bzRetryInterval;
+    public void setRetryInterval(long retryInterval) {
+        this.retryInterval = retryInterval;
     }
 
     public boolean isEnable() { return enable; }

@@ -36,7 +36,7 @@ public class RetryThread implements Runnable {
 		logger.info("consul服务监测已启动 {}, 启用状态 {} ", service.toString(),String.valueOf(properties.isEnable()));
 		while (!exit) {
 			try {
-				long initialInterval = this.properties.getBzRetryInterval() < 1000 ? 1000 : this.properties.getBzRetryInterval();
+				long initialInterval = this.properties.getRetryInterval() < 1000 ? 1000 : this.properties.getRetryInterval();
 				Thread.sleep(initialInterval);
 				if (properties.isEnable() && !this.checkStatus(service)) {
 					// 重新注册
