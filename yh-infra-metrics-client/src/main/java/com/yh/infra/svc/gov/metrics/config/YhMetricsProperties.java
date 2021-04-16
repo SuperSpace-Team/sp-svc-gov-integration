@@ -14,7 +14,7 @@ import java.util.Map;
  * @author luchao  2020-12-07
  *
  */
-public class BzMetricsProperties {
+public class YhMetricsProperties {
 	private Map<String, MeterProperty> meters = new HashMap<>();
 	
 	public Map<String, MeterProperty> getMeters() {
@@ -32,8 +32,6 @@ public class BzMetricsProperties {
 		builder.append("]");
 		return builder.toString();
 	}
-
-
 
 	public static class MeterProperty {
 		private String key;

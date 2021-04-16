@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import com.yh.infra.svc.gov.metrics.config.BzMetricsProperties;
-import com.yh.infra.svc.gov.metrics.config.BzMetricsProperties.MeterProperty;
+import com.yh.infra.svc.gov.metrics.config.YhMetricsProperties;
+import com.yh.infra.svc.gov.metrics.config.YhMetricsProperties.MeterProperty;
 import com.yh.infra.svc.gov.metrics.constant.MetricsType;
 import com.yh.infra.svc.gov.metrics.util.TagUtil;
 
@@ -35,7 +35,7 @@ public class BizMetricsBinder implements MeterBinder {
 	private MetricsProvider curtomerProvider;
 	
 	@Autowired
-	private BzMetricsProperties properties;
+	private YhMetricsProperties properties;
 	
     @Override
     public void bindTo(MeterRegistry meterRegistry) {
@@ -63,7 +63,21 @@ public class BizMetricsBinder implements MeterBinder {
     		String name = mc.getKey();
     		
         	// 3. 注册
+			if(CollectionUtils.isEmpty(dimensions)){
+				logger.info("Register metrics: {}", mc.getKey());
+				InternalMetricsHelper.register(
+						meterRegistry,
+						curtomerProvider,
+						name,
+						type,
+						mc.getConfig(),
+						null);
+				return;
+			}
+
     		for (Collection<Tag> tags : dimensions) {
+				logger.info("Register metrics: {} with tag: {}", mc.getKey(), tags);
+
         	// 根据配置构建tag list
 				InternalMetricsHelper.register(
 						meterRegistry, 
@@ -75,6 +89,4 @@ public class BizMetricsBinder implements MeterBinder {
     		}
 		}
     }
-    
-    
 }

@@ -11,6 +11,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @author luchao  2020-12-07
  *
  */
-@ConfigurationProperties("gs.metrics") 
-public class BootMetricsConfig extends BzMetricsProperties {
+@ConfigurationProperties("yh.metrics")
+public class BootMetricsConfig extends YhMetricsProperties {
 }

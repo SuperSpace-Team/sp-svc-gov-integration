@@ -18,6 +18,7 @@
         <module>yh-svc-gov-sdk-demo-spring-boot1</module>
         <module>yh-svc-gov-sdk-demo-spring-boot2</module>
         <module>yh-svc-gov-sdk-demo-tomcat</module>
+        <module>yh-infra-metrics-client-mvc</module>
     </modules>
 
     <properties>
