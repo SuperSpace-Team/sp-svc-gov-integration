@@ -33,7 +33,7 @@ public class SendReceiveService {
 
 
 	/**
-     * 发送版本查询请求并且读取返回的版本数据。
+     * 发送版本查询请求并且读取返回的版本数据
      * 
      * @param req
      * @return
@@ -42,15 +42,16 @@ public class SendReceiveService {
 		AppRegConfig config = context.getConfig();
 		String url = config.getGovPlatformUrl();
 		if (StringUtils.isEmpty(url)) {
-			logger.warn("URL of PG server is invalid.");
+			logger.warn("URL of service governance server is invalid.");
 			return null;
 		}
 		
 		// 发送数据
 		String msgBody = JsonUtil.writeValue(req);
-		if (logger.isDebugEnabled())
-			logger.debug("send request to PG server : {}, {}", url, msgBody);
-		
+		if (logger.isDebugEnabled()) {
+			logger.debug("Send request to service governance server: {}, {}", url, msgBody);
+		}
+
 		Map<String, String> retMap = uacService.sendRequestWithToken(url, msgBody, SdkCommonConstant.PG_CONNECT_TIMEOUT);
 		String tmp = retMap.get("error");
 		String status = retMap.get("status");
@@ -60,7 +61,7 @@ public class SendReceiveService {
 			return null;
 		}
 		if (logger.isDebugEnabled())
-			logger.debug("Received data from PG server : {}", result);
+			logger.debug("Received data from  server : {}", result);
 		VersionQueryResp ret = JsonUtil.readValueSafe(result, VersionQueryResp.class);
 		if (ret == null) {
 			logger.warn("JSON parse failed. {} ", result);

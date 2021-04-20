@@ -51,13 +51,13 @@ public class VersionChecker extends Thread {
 				req.setAppId(context.getConfig().getAppKey());
 				req.setHostName(context.getConfig().getHostName());
 				req.setIp(context.getConfig().getIp());
-				
 				req.setCfgVersion(getCfgVersion());
 				req.setSdkVersion(context.getConfig().getSdkVersion());
 				
 				List<RequestHandler> handlers = BeanRegistry.getInstance().getBeanList(RequestHandler.class);
 				if (!CollectionUtils.isEmpty(handlers)) {
-					for (RequestHandler handler:handlers) {
+					//依次加载依赖组件的配置项KV
+					for (RequestHandler handler : handlers) {
 						req.getReqData().put(handler.getKey(), handler.getValue());
 					}
 				}
@@ -101,19 +101,27 @@ public class VersionChecker extends Thread {
 		}
 		return true;
 	}
-	
+
+	/**
+	 * 获取配置信息的版本号
+	 * @return
+	 */
 	private Integer getCfgVersion() {
 		Integer ret = context.getCurrentVersion();
-		// 检查是否有新的listener/callback注册， 如果有， 强制刷新数据。
+		//检查是否有新的listener/callback注册,如果有,强制刷新数据。
 		if ((context.getCurrentVersion() > 0) && context.isNewCallback()) {
-        	logger.info("found new callback. reset version to -1");
+        	logger.info("Found new callback. reset version to -1.");
 			ret = SdkCommonConstant.PG_VERSION_EMPTY_VERSION;
-			// 清除标记
+
+			//清除标记
 			context.setNewCallback(false);
-		} else {
-			if (logger.isDebugEnabled())
-				logger.debug("NOT found new callback. use current version {}", context.getCurrentVersion());
+			return ret;
 		}
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("NOT found new callback. use current version {}", context.getCurrentVersion());
+		}
+
 		return ret;
 	}
 }

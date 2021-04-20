@@ -160,7 +160,7 @@ public class UacService {
 		Map<String, String> retMap = httpClient.postJson(url, encryptStr,
 				SdkCommonConstant.PG_CONNECT_TIMEOUT, null);
 		if (logger.isDebugEnabled()) 
-			logger.debug("get refresh response: {}", retMap);
+			logger.debug("Get refresh response: {}", retMap);
 		String tmp = retMap.get(SdkCommonConstant.RESP_KEY_ERROR);
 		if (tmp != null) {
 			// 系统异常
@@ -220,6 +220,7 @@ public class UacService {
 		} finally {
 			lock.unlock();
 		}
+
 		return uacTokenStr;
 	}
 
@@ -230,19 +231,20 @@ public class UacService {
 		WriteLock wlock = rwLock.writeLock();
 		ReadLock rlock = rwLock.readLock();
 		
-		if (logger.isDebugEnabled())
-			logger.debug("begin to refresh token. reLoginFlag: {}, token:{}", reLoginFlag,uacToken);
+		if (logger.isDebugEnabled()) {
+			logger.debug("Begin to refresh token. reLoginFlag: {}, token:{}", reLoginFlag, uacToken);
+		}
+
 		try {
-			//   lock不能升级，即不能从read -> write.
-			// 所以只能先把当前的read释放掉。
-			// 然后尝试 加write。
+			//lock不能升级，即不能从read -> write，所以只能先把当前的read释放掉，然后尝试 加write。
 			rlock.unlock();
 			wlock.lock();
 			AppRegConfig config = context.getConfig();
 
-			// 如果需要relogin， token清空
-			if (reLoginFlag)
+			// 如果需要relogin,token清空
+			if (reLoginFlag) {
 				uacToken = null;
+			}
 
 			if (uacToken != null) {
 				if (refreshToken(config.getUacUrl(), config.getAppKey(), config.getAppSecret())) {
@@ -279,7 +281,7 @@ public class UacService {
 	public Map<String, String> sendRequestWithToken(String url, String content, int timeout) {
 		String token = getToken();
 		if (StringUtils.isEmpty(token)) {
-			logger.warn("cannot get token. {}", context.getConfig().getAppKey());
+			logger.warn("Cannot get token. {}", context.getConfig().getAppKey());
 			Map<String, String> resultMap = new HashMap<>();
 			resultMap.put("status", SdkCommonConstant.PG_CANNOT_GET_TOKEN);
 			resultMap.put("error_code", SdkCommonConstant.HTTP_STATUS_SYSTEM_ERROR);
@@ -299,7 +301,7 @@ public class UacService {
 				//看看是不是 强制重新登录标记60001
 				String ec = String.valueOf(bodymap.get("error_code"));
 				if (SdkCommonConstant.PG_UAC_FORCE_TO_LOGIN.equals(ec)) {
-					logger.warn("received a response asking for relogin. {}, {}", url, token);
+					logger.warn("Received a response asking for relogin. {}, {}", url, token);
 			        resetToken();
 				}
 			}

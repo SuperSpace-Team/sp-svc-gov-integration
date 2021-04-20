@@ -114,19 +114,19 @@ public class DemoMetricsManager  {
 
 
 		// 记录summary 指标的值
-		helper.update("yh_infra_demo_bz_summary_test1_dev", MetricsType.SUMMARY, summaryValue, 0, null, "app", "demo-sb2", "project", "YhInfra");
+		helper.update("yh_infra_demo_yh_summary_test1_dev", MetricsType.SUMMARY, summaryValue, 0, null, "app", "demo-sb2", "project", "YhInfra");
 
 		
 		
 		//下面是mock，用于一次生成多条测试数据。
-		helper.update("yh_infra_demo_bz_summary_test1_dev", MetricsType.SUMMARY, s2, 0, null, "app", "demo-sb2", "project", "YhInfra");
-		helper.update("yh_infra_demo_bz_summary_test1_dev", MetricsType.SUMMARY, s3, 0, null, "app", "demo-sb2", "project", "YhInfra");
-		helper.update("yh_infra_demo_bz_summary_test1_dev", MetricsType.SUMMARY, s4, 0, null, "app", "demo-sb2", "project", "YhInfra");
+		helper.update("yh_infra_demo_yh_summary_test1_dev", MetricsType.SUMMARY, s2, 0, null, "app", "demo-sb2", "project", "YhInfra");
+		helper.update("yh_infra_demo_yh_summary_test1_dev", MetricsType.SUMMARY, s3, 0, null, "app", "demo-sb2", "project", "YhInfra");
+		helper.update("yh_infra_demo_yh_summary_test1_dev", MetricsType.SUMMARY, s4, 0, null, "app", "demo-sb2", "project", "YhInfra");
 
-		helper.update("yh_infra_demo_bz_summary_test2_dev", MetricsType.SUMMARY, summaryValue, 0, null);
-		helper.update("yh_infra_demo_bz_summary_test2_dev", MetricsType.SUMMARY, s2, 0, null);
-		helper.update("yh_infra_demo_bz_summary_test2_dev", MetricsType.SUMMARY, s3, 0, null);
-		helper.update("yh_infra_demo_bz_summary_test2_dev", MetricsType.SUMMARY, s4, 0, null);
+		helper.update("yh_infra_demo_yh_summary_test2_dev", MetricsType.SUMMARY, summaryValue, 0, null);
+		helper.update("yh_infra_demo_yh_summary_test2_dev", MetricsType.SUMMARY, s2, 0, null);
+		helper.update("yh_infra_demo_yh_summary_test2_dev", MetricsType.SUMMARY, s3, 0, null);
+		helper.update("yh_infra_demo_yh_summary_test2_dev", MetricsType.SUMMARY, s4, 0, null);
 		// mock 结束
 	}
 	

@@ -266,7 +266,7 @@ public class AppRegLauncher {
         }
 
         if(StringUtils.isEmpty(appRegConfig.getGovPlatformUrl())){
-            appRegConfig.setGovPlatformUrl(unionGatewayUrl + ServiceUrlConstants.PG_VERSION_QUERY);
+            appRegConfig.setGovPlatformUrl(unionGatewayUrl + ServiceUrlConstants.SVC_GOV_VERSION_QUERY);
         }
 
         if(StringUtils.isEmpty(appRegConfig.getUacUrl())){
@@ -274,7 +274,7 @@ public class AppRegLauncher {
         }
 
         if(StringUtils.isEmpty(appRegConfig.getSecretUrl())){
-            appRegConfig.setUacUrl(unionGatewayUrl + ServiceUrlConstants.PG_SECRET_QUERY);
+            appRegConfig.setSecretUrl(unionGatewayUrl + ServiceUrlConstants.SVC_GOV_SECRET_QUERY);
         }
 
         appRegConfig.setSdkVersion(getSdkVersion());

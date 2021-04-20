@@ -7,6 +7,15 @@ package com.yh.infra.svc.gov.sdk.init.callback;
  *
  */
 public interface RequestHandler {
+	/**
+	 * 依赖组件的配置Key
+	 * @return
+	 */
 	String getKey();
+
+	/**
+	 * 依赖组件的配置Value
+	 * @return
+	 */
 	String getValue();
 }

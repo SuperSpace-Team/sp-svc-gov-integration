@@ -33,7 +33,7 @@ public class AppRegConfig {
     /**
      * 治理平台BFF服务URL
      */
-    private String govPlatformUrl = SdkCommonConstant.DEFAULT_SERVICE_GOVERNANCE_PLATFORM_URL;
+    private String govPlatformUrl;
 
     /**
      * 统一API网关URL

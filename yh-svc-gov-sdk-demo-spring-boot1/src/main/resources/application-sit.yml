@@ -3,7 +3,7 @@ sdk:
   app-id: saas-sit
   app-secret: 12345678
   api-gateway-url: http://sit-api-base.cloud.bz/api
-gs:
+yh:
   metrics:
     meters:
       test-counter:

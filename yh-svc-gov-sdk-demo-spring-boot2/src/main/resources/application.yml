@@ -20,17 +20,17 @@ management:
       log4j2: false
       uptime: false
       processor: false
-gs:
+yh:
   metrics:
     meters:
       test-counter2:
-        key: yh_infra_demo_bz_counter_test2_dev
+        key: yh_infra_demo_yh_counter_test2_dev
         type: counter
       test-gauge2:
-        key: yh_infra_demo_bz_gauge_test2_dev
+        key: yh_infra_demo_yh_gauge_test2_dev
         type: gauge
       test-gauge3:
-        key: yh_infra_demo_bz_gauge_test3_dev
+        key: yh_infra_demo_yh_gauge_test3_dev
         type: gauge
         dimensions:
           - "shop=nike1"

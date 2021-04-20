@@ -9,7 +9,7 @@ svc-gov-sdk:
     shardingEnabled: false
     shardingColumn: db_tag
   secret: 12345678
-gs:
+yh:
   metrics:
     meters:
       test-counter1:

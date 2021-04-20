@@ -30,10 +30,10 @@ public class ServiceUrlConstants {
 	/** UAC**/
     public static final String UAC_BASE = ""; 
 	/** 版本检查 **/
-    public static final String PG_VERSION_QUERY = "/pg/version/query";
+    public static final String SVC_GOV_VERSION_QUERY = "/svc-gov/version/query";
 	/** 应用密钥查询 **/
-    public static final String PG_SECRET_QUERY = "/pg/secret/query";
+    public static final String SVC_GOV_SECRET_QUERY = "/svc-gov/secret/query";
 
 	/** retry**/
-    public static final String RETRY_BASE = "/gs-retry/task/log/"; 
+    public static final String RETRY_BASE = "/svc-gov-retry/task/log/";
 }
