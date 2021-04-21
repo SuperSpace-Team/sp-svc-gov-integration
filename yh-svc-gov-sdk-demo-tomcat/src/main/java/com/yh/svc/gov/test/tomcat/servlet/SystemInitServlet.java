@@ -14,7 +14,7 @@ import java.net.URL;
 
 /**
  * 系统初始化时的servlet
- * @author Justin Hu
+ * @author Alex Lu
  *
  */
 public class SystemInitServlet extends HttpServlet{

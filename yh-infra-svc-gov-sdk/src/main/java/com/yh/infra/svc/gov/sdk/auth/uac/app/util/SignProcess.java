@@ -5,7 +5,7 @@ import com.yh.infra.svc.gov.sdk.auth.uac.app.UacSdkContext;
 
 /**
  * 签名处理
- * @author Justin Hu
+ * @author Alex Lu
  *
  */
 public class SignProcess {

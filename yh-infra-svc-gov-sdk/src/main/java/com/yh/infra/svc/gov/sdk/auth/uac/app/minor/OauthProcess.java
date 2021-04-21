@@ -16,7 +16,7 @@ import java.util.Map;
 
 /**
  * 处理登录回调
- * @author Justin Hu
+ * @author Alex Lu
  *
  */
 public class OauthProcess {

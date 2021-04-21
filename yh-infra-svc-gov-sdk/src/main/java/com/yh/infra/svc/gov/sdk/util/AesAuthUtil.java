@@ -17,7 +17,7 @@ import java.security.spec.KeySpec;
 /**
  * 此方法用于与js端的加密进行联动操作，如果只使用服务端的 aes加密,请使用AESEncryptor
  * 
- * @author Justin Hu
+ * @author Alex Lu
  *
  */
 public class AesAuthUtil {

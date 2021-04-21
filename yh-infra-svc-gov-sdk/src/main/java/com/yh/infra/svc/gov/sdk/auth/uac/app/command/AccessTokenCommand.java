@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * UAC返回的accessToken对象
- * @author Justin Hu
+ * @author Alex Lu
  *
  */
 public class AccessTokenCommand implements Serializable {

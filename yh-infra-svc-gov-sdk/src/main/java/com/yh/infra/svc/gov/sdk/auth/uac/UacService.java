@@ -106,16 +106,17 @@ public class UacService {
 		String url = startUrl + "/appmember/member/appLogin";
 		String paramsStr = String.format("{\"appkey\" : \"%s\", \"secret\" : \"%s\", \"code\" : \"%s\"}", appId, secret,
 				code);
-		if (logger.isDebugEnabled())
+		if (logger.isDebugEnabled()) {
 			logger.debug("parameter string is : {}", paramsStr);
-		String encryptStr = AesAuthUtil.encrypt(paramsStr);
+		}
 
+		String encryptStr = AesAuthUtil.encrypt(paramsStr);
 		Map<String, String> retMap = httpClient.postJson(url, encryptStr,
 				SdkCommonConstant.PG_CONNECT_TIMEOUT, null);
 		String tmp = retMap.get(SdkCommonConstant.RESP_KEY_ERROR);
 		if (tmp != null) {
 			// 系统异常
-			logger.warn("cannot get the token. {}", retMap);
+			logger.warn("Cannot get the token. {}", retMap);
 			return null;
 		}
 		tmp = retMap.get(SdkCommonConstant.RESP_KEY_STATUS);
@@ -123,20 +124,22 @@ public class UacService {
 			AccountAuthReturnObj authObj = JsonUtil.readValueSafe(
 					retMap.get(SdkCommonConstant.RESP_KEY_RESULT), AccountAuthReturnObj.class);
 			if (authObj == null) {
-				logger.warn("parse AccountAuthReturnObj of appLogin fail. {} ", retMap);
+				logger.warn("Parse AccountAuthReturnObj of appLogin fail. {} ", retMap);
 				return null;
 			}
+
 			if (authObj.isResultFlag()) {
 				AccessTokenCommand token = JsonUtil.readValue(authObj.getData(), AccessTokenCommand.class);
 				if (token == null) {
-					logger.warn("parse AccessTokenCommand fail. {} ", authObj.getData());
+					logger.warn("Parse AccessTokenCommand fail. {} ", authObj.getData());
 					return null;
 				}
-				logger.info("successfully logged in. get token {}.", token.toString());
+				logger.info("Successfully logged in. Get token {}.", token.toString());
 				return token;
 			}
 		}
-		logger.warn("result : {}", retMap);
+
+		logger.warn("Result : {}", retMap);
 		return null;
 	}
 
@@ -159,12 +162,14 @@ public class UacService {
 
 		Map<String, String> retMap = httpClient.postJson(url, encryptStr,
 				SdkCommonConstant.PG_CONNECT_TIMEOUT, null);
-		if (logger.isDebugEnabled()) 
+		if (logger.isDebugEnabled()) {
 			logger.debug("Get refresh response: {}", retMap);
+		}
+
 		String tmp = retMap.get(SdkCommonConstant.RESP_KEY_ERROR);
 		if (tmp != null) {
 			// 系统异常
-			logger.warn("system error. {} ", retMap);
+			logger.warn("System error. {} ", retMap);
 			return false;
 		}
 
@@ -172,7 +177,7 @@ public class UacService {
 		if (SdkCommonConstant.HTTP_STATUS_OK.equals(tmp)) {
 			AccountAuthReturnObj authObj = JsonUtil.readValueSafe(retMap.get(SdkCommonConstant.RESP_KEY_RESULT), AccountAuthReturnObj.class);
 			if (authObj == null) {
-				logger.warn("parse AccountAuthReturnObj of refreshAppToken fail. {} ", retMap);
+				logger.warn("Parse AccountAuthReturnObj of refreshAppToken fail. {} ", retMap);
 				return false;
 			}
 			if (authObj.isResultFlag()) {
@@ -261,8 +266,10 @@ public class UacService {
 			
 			//没有token，或者refresh失败，需要login
 			String code = getRandomCode(config.getUacUrl(), config.getAppKey());
-			if (StringUtils.isEmpty(code))
+			if (StringUtils.isEmpty(code)) {
 				return;
+			}
+
 			uacToken = appLogin(config.getUacUrl(), config.getAppKey(), config.getAppSecret(), code);
 		} catch (Exception e) {
 			logger.warn("system error when refresh token.", e);
@@ -271,9 +278,10 @@ public class UacService {
 			reLoginFlag = false;
 			
 			// 更新 token 字符串。
-			if (uacToken != null)
+			if (uacToken != null) {
 				uacTokenStr = uacToken.getAccessToken();
-			
+			}
+
 			wlock.unlock();
 			// rlock.lock是需要的， 因为lock/unlock是成对出现的， 外面还要执行一个unlock。所以这必须有个lock
 			rlock.lock();

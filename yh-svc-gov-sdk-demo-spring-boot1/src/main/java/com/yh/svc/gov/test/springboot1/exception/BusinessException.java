@@ -1,7 +1,7 @@
 package com.yh.svc.gov.test.springboot1.exception;
 /**
  * 
- * @author Justin Hu
+ * @author Alex Lu
  *
  */
 public class BusinessException extends RuntimeException {

@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * json转换的工具类
  * 
- * @author Justin Hu
+ * @author Alex Lu
  *
  */
 public class JsonUtil {

@@ -2,7 +2,7 @@
 
 /**
  * SDK的系统常量
- * @author Justin Hu
+ * @author Alex Lu
  *
  */
 public class UacSdkConstants {

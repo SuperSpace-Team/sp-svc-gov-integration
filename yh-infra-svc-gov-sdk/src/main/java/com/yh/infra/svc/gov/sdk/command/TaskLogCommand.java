@@ -6,7 +6,7 @@ import java.util.List;
 /**
  *  定时任务 非实时日志存在
  *  一个任务的process一般在10条以内
- * @author Justin Hu
+ * @author Alex Lu
  *
  */
 public class TaskLogCommand {

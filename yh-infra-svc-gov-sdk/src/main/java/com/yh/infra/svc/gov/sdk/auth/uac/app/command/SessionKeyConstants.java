@@ -2,7 +2,7 @@ package com.yh.infra.svc.gov.sdk.auth.uac.app.command;
 
 /**
  * SESSION key相关的常量
- * @author Justin Hu
+ * @author Alex Lu
  *
  */
 public class SessionKeyConstants {

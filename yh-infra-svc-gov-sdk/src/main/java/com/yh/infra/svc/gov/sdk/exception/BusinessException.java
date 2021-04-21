@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * 
- * @author Justin Hu
+ * @author Alex Lu
  *
  */
 public class BusinessException extends RuntimeException {

@@ -2,7 +2,7 @@ package com.yh.infra.svc.gov.sdk.auth.uac.app.command;
 
 /**
  * request用到的一些属性key常量
- * @author Justin Hu
+ * @author Alex Lu
  *
  */
 public class RequestAttrKeyConstants {

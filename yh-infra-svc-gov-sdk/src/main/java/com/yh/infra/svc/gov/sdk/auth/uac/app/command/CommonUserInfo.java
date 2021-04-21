@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * 公共用户信息
- * @author Justin Hu
+ * @author Alex Lu
  *
  */
 public class CommonUserInfo implements Serializable

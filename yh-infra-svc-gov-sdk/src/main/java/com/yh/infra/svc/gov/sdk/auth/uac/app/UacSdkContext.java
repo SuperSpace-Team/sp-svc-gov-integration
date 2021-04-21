@@ -2,7 +2,7 @@ package com.yh.infra.svc.gov.sdk.auth.uac.app;
 
 /**
  * 系统参量的初始配置
- * @author Justin Hu
+ * @author Alex Lu
  *
  */
 public class UacSdkContext {

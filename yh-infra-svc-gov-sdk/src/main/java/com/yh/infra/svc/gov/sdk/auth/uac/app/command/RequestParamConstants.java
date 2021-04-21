@@ -1,7 +1,7 @@
 package com.yh.infra.svc.gov.sdk.auth.uac.app.command;
 /**
  * 
- * @author Justin Hu
+ * @author Alex Lu
  *
  */
 public class RequestParamConstants {
