@@ -167,6 +167,7 @@ public class UacService {
 			logger.warn("system error. {} ", retMap);
 			return false;
 		}
+
 		tmp = retMap.get(SdkCommonConstant.RESP_KEY_STATUS);
 		if (SdkCommonConstant.HTTP_STATUS_OK.equals(tmp)) {
 			AccountAuthReturnObj authObj = JsonUtil.readValueSafe(retMap.get(SdkCommonConstant.RESP_KEY_RESULT), AccountAuthReturnObj.class);
@@ -248,13 +249,14 @@ public class UacService {
 
 			if (uacToken != null) {
 				if (refreshToken(config.getUacUrl(), config.getAppKey(), config.getAppSecret())) {
-					//	有token，且refresh 成功。 直接退出
+					//有token,且refresh 成功,直接退出
 					return;
 				}
+
 				// refresh 失败， token清空。
 				uacToken = null;
 			}
-			// 字符串清空。
+			//字符串清空
 			uacTokenStr = null;
 			
 			//没有token，或者refresh失败，需要login

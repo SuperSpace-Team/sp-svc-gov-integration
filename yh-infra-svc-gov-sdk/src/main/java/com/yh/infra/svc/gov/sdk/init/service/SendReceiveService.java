@@ -40,6 +40,8 @@ public class SendReceiveService {
      */
 	public VersionQueryResp send(VersionQueryReq req) {
 		AppRegConfig config = context.getConfig();
+
+		//调用版本检查(/version/query)接口验证
 		String url = config.getGovPlatformUrl();
 		if (StringUtils.isEmpty(url)) {
 			logger.warn("URL of service governance server is invalid.");
@@ -56,12 +58,16 @@ public class SendReceiveService {
 		String tmp = retMap.get("error");
 		String status = retMap.get("status");
 		String result = retMap.get("result");
-		if ((tmp != null) || (! SdkCommonConstant.HTTP_STATUS_OK.equals(status))) {
-			logger.warn("Get error when post JSON request. app:{}, error:{}, status:{}, result:{}", req.getAppId(), tmp, status, result);
+		if ((tmp != null) || (!SdkCommonConstant.HTTP_STATUS_OK.equals(status))) {
+			logger.warn("Get error when post JSON request. app:{}, error:{}, status:{}, result:{}",
+					req.getAppId(), tmp, status, result);
 			return null;
 		}
-		if (logger.isDebugEnabled())
+
+		if (logger.isDebugEnabled()) {
 			logger.debug("Received data from  server : {}", result);
+		}
+
 		VersionQueryResp ret = JsonUtil.readValueSafe(result, VersionQueryResp.class);
 		if (ret == null) {
 			logger.warn("JSON parse failed. {} ", result);
