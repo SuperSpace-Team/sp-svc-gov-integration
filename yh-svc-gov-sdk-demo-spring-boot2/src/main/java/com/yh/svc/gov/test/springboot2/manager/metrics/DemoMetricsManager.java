@@ -27,7 +27,7 @@ public class DemoMetricsManager  {
 	private MetricsHelper helper;
 	
 	@Timed(value = "yh.infra.demo.createorder.timer.test1", extraTags = {"app", "demo-sb2", "project", "YhInfra"})
-	@Counted(value = "yh.infra.demo.createorder.counter.test1", extraTags = {"app", "demo-sb2", "project", "YhInfra"})
+//	@Counted(value = "yh.infra.demo.createorder.counter.test1", extraTags = {"app", "demo-sb2", "project", "YhInfra"})
 	public void createOrder(int sleepMs) {
 		logger.debug("create order ... {}", sleepMs);
 		

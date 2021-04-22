@@ -162,6 +162,8 @@ public class AppRegLauncher {
         ConfigService configService = new ConfigService(appRegContext);
         UacService uacService = new UacService(appRegContext);
         SendReceiveService sendReceiveService = new SendReceiveService(appRegContext, uacService);
+
+        //启动线程执行版本检查、应用租户的(appToken)合法校验和版本更新
         VersionChecker versionChecker = new VersionChecker(appRegContext, sendReceiveService, configService);
 
         //注册全局上下文

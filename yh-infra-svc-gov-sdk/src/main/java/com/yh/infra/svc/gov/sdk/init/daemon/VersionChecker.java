@@ -38,11 +38,12 @@ public class VersionChecker extends Thread {
 		this.exit = true;
 	}
 
+	@Override
 	public void run() {
 		while (!exit) {
 			try {
 				if (!initialized()) {
-					// sleep 1s后，重新检查
+					//Sleep 1s后，重新检查
 					ThreadUtil.sleep(1000);
 					continue;
 				}
@@ -64,31 +65,34 @@ public class VersionChecker extends Thread {
 				
 				VersionQueryResp resp = sendReceiveService.send(req);
 				if (resp != null) {
-					logger.info("Received data from PG server. update version. {}, {}", resp.getCode(), resp.getVersion());
+					logger.info("Received data from service governance server.Update version. {}, {}",
+							resp.getCode(), resp.getVersion());
 					configService.updateVersion(resp);
 				}
 			} catch (Exception e) {
-				logger.warn("Cannot update version.", e);
+				logger.warn("Cannot update svc gov SDK version.", e);
 			}
+
 			for (int i = 0; i < context.getConfig().getVersionPullInterval(); i++) {
 				ThreadUtil.sleep(1000);
-				if (exit)
+				if (exit) {
 					break;
-				
+				}
 
 				if (logger.isDebugEnabled() && context.isNewCallback()) {
-					logger.debug("find NEW listener registered! {}", context.getCurrentVersion());
+					logger.debug("Find NEW listener registered in service governance SDK! Current version:{}",
+							context.getCurrentVersion());
 				}
-				// 如果有新的callback登记， 停止sleep。立刻抓取新的 config。
+				// 如果有新的callback登记，停止sleep。立刻抓取新的 config。
 				if ((context.getCurrentVersion() > 0) && context.isNewCallback()) {
-					if (logger.isDebugEnabled())
-						logger.debug("find NEW listener registered! trigger another query from server side!");
+					if (logger.isDebugEnabled()) {
+						logger.debug("Find NEW listener registered! Trigger another query from server side!");
+					}
+
 					break;
 				}
-				
 			}
 		}
-
 	}
 	
 	private boolean initialized() {
@@ -110,7 +114,7 @@ public class VersionChecker extends Thread {
 		Integer ret = context.getCurrentVersion();
 		//检查是否有新的listener/callback注册,如果有,强制刷新数据。
 		if ((context.getCurrentVersion() > 0) && context.isNewCallback()) {
-        	logger.info("Found new callback. reset version to -1.");
+        	logger.info("Found new callback, reset version to -1.");
 			ret = SdkCommonConstant.PG_VERSION_EMPTY_VERSION;
 
 			//清除标记

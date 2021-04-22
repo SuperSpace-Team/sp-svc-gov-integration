@@ -24,6 +24,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<svc-gov-sdk-common.version>1.0.0-SNAPSHOT</svc-gov-sdk-common.version>
+		<version.consul-retry-starter>1.0.0-RELEASE</version.consul-retry-starter>
 	</properties>
 
 	<dependencies>
@@ -32,6 +33,13 @@
 			<groupId>com.yh.infra.svc.gov</groupId>
 			<artifactId>yh-infra-svc-gov-sdk-common</artifactId>
 			<version>${svc-gov-sdk-common.version}</version>
+		</dependency>
+
+		<!-- Consul重试补偿注册包 -->
+		<dependency>
+			<groupId>com.yh.infra.svc.gov</groupId>
+			<artifactId>yh-infra-consul-retry-starter</artifactId>
+            <version>${version.consul-retry-starter}</version>
 		</dependency>
 
 		<dependency>

@@ -44,7 +44,7 @@ public class ConfigService {
             return ;
         }
 
-        // 回调方法， 通知其他的组件
+        //回调方法，通知其他的组件
         List<CallbackService> cbList = BeanRegistry.getInstance().getBeanList(CallbackService.class);
         Map<String, Object> cbDataMap = new HashMap<String, Object>();
         String respStr = JsonUtil.writeValue(resp);
@@ -59,14 +59,16 @@ public class ConfigService {
                 datamap.put(SdkCommonConstant.CB_MAP_GLOBAL_CONFIG, context.getConfigJson());
 
                 if (!svr.validate(datamap)) {
-                    logger.warn("Callback service {} failed. Do not update version. {}", svr.getCallbackName(), resp.getVersion());
+                    logger.warn("Callback service {} failed. Do not update version. {}",
+                            svr.getCallbackName(), resp.getVersion());
                     return;
                 }
-                logger.info("Callback service {} passed for version {}. check next one.", svr.getCallbackName(), resp.getVersion());
+                logger.info("Callback service {} passed for version {}, continue to check next one...",
+                        svr.getCallbackName(), resp.getVersion());
                 cbDataMap.put(svr.getClass().getName(), datamap);
             }
         } catch (Throwable t) {
-            logger.warn("error occurs when callback.validate", t);
+            logger.warn("Error occurs when callback validations.", t);
             return;
         }
         
@@ -76,17 +78,19 @@ public class ConfigService {
                 // 任一callback 更新版本失败， 不影响其他的更新。 所以try在内层。
                 try {
                     svr.process(dataMap);
-                    logger.info("Callback service {} accepted version {}. process next one.", svr.getCallbackName(), resp.getVersion());
+                    logger.info("Svc gov callback service {} accepted version {}, continue to process next one...",
+                            svr.getCallbackName(), resp.getVersion());
                 } catch (Throwable t) {
-                    logger.warn("error occurs when for callback service " + svr.getCallbackName(), t);
+                    logger.warn("Error occurs when process for svc gov callback service " + svr.getCallbackName(), t);
                 }
             } else {
-            	// 这个应该不可能发生
-            	logger.warn("No data found for Callback service {}, version {}. ", svr.getCallbackName(), resp.getVersion());
+            	//这个应该不可能发生
+            	logger.warn("No data found for svc gov callback service {}, version {}. ",
+                        svr.getCallbackName(), resp.getVersion());
             }
         }
 
-        // 更新版本
+        //更新版本
         if (resp.getVersion() != null) {
         	context.setCurrentVersion(resp.getVersion());
         	logger.info("Config updated. verison : {}", resp.getVersion());
