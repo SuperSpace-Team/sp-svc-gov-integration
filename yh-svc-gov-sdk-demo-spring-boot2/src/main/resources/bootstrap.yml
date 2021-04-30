@@ -42,8 +42,8 @@ spring:
         service-name: "test-app-${spring.application.name}-${spring.profiles.active}"
 #        tags: app=${spring.application.name},env=${spring.profiles.active},project=YhInfra,product=YhInfra
       enabled: true
-      host: consul-sit-common.cloud.bz
-      port: 80
+      host: 10.251.77.93
+      port: 8500
     discovery: 
       client: 
         composite-indicator: 

@@ -3,11 +3,11 @@ svc-gov-sdk:
   alm:
     enabled: false
   appKey: pg-app-demo2
-  gatewayUrl: http://sit-api-base.cloud.bz/api
-  retry:
-    enabled: false
-    shardingEnabled: false
-    shardingColumn: db_tag
+  unionGatewayUrl: http://sit-api-base.cloud.bz/api
+#  retry:
+#    enabled: false
+#    shardingEnabled: false
+#    shardingColumn: db_tag
   secret: 12345678
 yh:
   metrics:
