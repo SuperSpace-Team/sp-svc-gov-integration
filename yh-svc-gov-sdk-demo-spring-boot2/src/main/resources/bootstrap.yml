@@ -44,6 +44,9 @@ spring:
       enabled: true
       host: 10.251.77.93
       port: 8500
+      retry:
+        retryInterval: 6000
+        enable: true
     discovery: 
       client: 
         composite-indicator: 

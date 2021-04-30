@@ -64,7 +64,7 @@
 //	public String trace(@RequestParam(value = "code") String code) {
 //		logger.info("received code {}", code);
 //		CloseableHttpClient httpclient = HttpClients.createDefault();
-//		HttpGet httpget = new HttpGet("http://sit-api-base.cloud.bz/api/pg/test/echo?code=" + code);
+//		HttpGet httpget = new HttpGet("http://gxfw-yh02-dev.yh-union-gateway.devgw.yonghui.cn/api/pg/test/echo?code=" + code);
 //		try(CloseableHttpResponse response = httpclient.execute(httpget)) {
 //			if (response.getStatusLine().getStatusCode() == 200) {
 //				String content = EntityUtils.toString(response.getEntity(), "UTF-8");

@@ -3,7 +3,7 @@ svc-gov-sdk:
   alm:
     enabled: false
   appKey: pg-app-demo2
-  unionGatewayUrl: http://sit-api-base.cloud.bz/api
+  unionGatewayUrl: http://gxfw-yh02-dev.yh-union-gateway.devgw.yonghui.cn/api
 #  retry:
 #    enabled: false
 #    shardingEnabled: false
@@ -71,17 +71,41 @@ server:
   port: 9001
 
 spring: 
-  datasource: 
-    dbcp2: 
+  datasource:
+    dbcp2:
       connection-properties: characterEncoding=utf8
       initial-size: 5
       max-total: 50
       max-wait-millis: 10000
       validation-query: "SELECT 1"
     type: org.apache.commons.dbcp2.BasicDataSource
-    url: "jdbc:mysql://w-kh-public-sit-mysql.service.testdb:3306/db_gs_retry_service_sit?useUnicode=true&characterEncoding=utf-8&useSSL=false&autoReconnect=true"
-    username: u_gs_retry_service_sit
-    password: 5FjN8cYBhg
-    
+    url: "jdbc:mysql://localhost:3306/db_retry_service_dev?useUnicode=true&characterEncoding=utf-8&useSSL=false&autoReconnect=true"
+    username: root
+    password: 602231903
+  cloud:
+    consul:
+      discovery:
+        catalog-services-watch:
+          enabled: false
+        catalogServicesWatchDelay: 30000
+        deregister: true
+        enabled: true
+        health-check-critical-timeout: 30m
+        health-check-interval: 15s
+        instance-id: "m-${spring.cloud.client.hostname}-${spring.application.name}-${spring.cloud.consul.host}-${spring.cloud.consul.port}"
+        prefer-ip-address: true
+        register: false
+        service-name: "test-app-${spring.application.name}-${spring.profiles.active}"
+      #        tags: app=${spring.application.name},env=${spring.profiles.active},project=YhInfra,product=YhInfra
+      enabled: true
+      host: 10.251.77.93
+      port: 8500
+      retry:
+        retryInterval: 6000
+        enable: true
+    discovery:
+      client:
+        composite-indicator:
+          enabled: false
     
     

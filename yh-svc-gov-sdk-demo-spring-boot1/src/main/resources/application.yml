@@ -56,11 +56,7 @@ zk:
     timeout: 30000
     
 ---
-gsdk: 
-  appId: test-file-dev
-  secret: sj3lUyWuo0WpWcTZ
-  gateway: http://sit-api-base.yonghui.cn/api
-#sdk:
+#svc-gov-sdk:
 #  app-id: saas-sit
 #  app-secret: 12345678
 #  api-gateway-url: http://sit-api-base.yonghui.cn/api
@@ -71,10 +67,10 @@ svc-gov-sdk:
   appKey: pg-app-demo3
   secret: 12345678
   gateway: http://sit-api-base.yonghui.cn/api
-  retry:
-    dbType: mysql
-    sharding-enabled: false
-    sharding-column: db_tag
+#  retry:
+#    dbType: mysql
+#    sharding-enabled: false
+#    sharding-column: db_tag
 #sdk-demo:
 #  sdk-enabled: true
 #  app-id: pg-app-demo1
