@@ -1,5 +1,6 @@
 package com.yh.infra.svc.gov.sdk.init;
 
+import com.yh.infra.svc.gov.sdk.alm.init.AlmComponentInit;
 import com.yh.infra.svc.gov.sdk.auth.uac.UacService;
 import com.yh.infra.svc.gov.sdk.config.AppRegConfig;
 import com.yh.infra.svc.gov.sdk.constant.SdkCommonConstant;
@@ -180,7 +181,7 @@ public class AppRegLauncher {
         uacService.getToken();
 
         //全链路监控注册
-//       BeanRegistry.getInstance().add(ComponentInit.class, new AlmComponentInit());
+        BeanRegistry.getInstance().add(ComponentInit.class, new AlmComponentInit());
 
         //LOG4J管理注册
 //        BeanRegistry.getInstance().add(ComponentInit.class, new Log4jComponentInit());

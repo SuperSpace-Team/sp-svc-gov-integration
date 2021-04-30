@@ -3,7 +3,7 @@ svc-gov-sdk:
   alm:
     enabled: false
   appKey: pg-app-demo2
-  gatewayUrl: http://sit-api-base.cloud.bz/api
+  unionGatewayUrl: http://sit-api-base.cloud.bz/api
   retry:
     dbType: mysql
     enabled: false

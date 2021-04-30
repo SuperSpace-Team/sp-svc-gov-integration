@@ -14,13 +14,13 @@ import org.springframework.stereotype.Component;
 @Component
 @Data
 public class AppAuthConfig {
-    @Value("${yh.svcGovSdk.appKey}")
+    @Value("${svcGovSdk.appKey}")
     private String appKey;
 
-    @Value("${yh.svcGovSdk.appSecret}")
+    @Value("${svcGovSdk.appSecret}")
     private String appSecret;
 
-    @Value("${yh.svcGovSdk.unionGatewayUrl}")
+    @Value("${svcGovSdk.unionGatewayUrl}")
     private String unionGatewayUrl;
 
     public String getUnionGatewayUrl() {
