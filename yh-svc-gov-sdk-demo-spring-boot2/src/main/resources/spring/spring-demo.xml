@@ -10,7 +10,7 @@
 
 	<!-- 配置 client -->
 <!-- 	
-	<bean id="pgClientLauncher" class="com.yh.infra.svc.gov.sdk.pg.PgClientLauncher" init-method="init"  >
+	<bean id="pgClientLauncher" class="com.yh.infra.svc.gov.sdk.initinit.AppRegLauncher" init-method="init"  >
 		<property name="appId" value="${sdk-demo-sb2.app-id}" />
 		<property name="secret" value="${sdk-demo-sb2.app-secret}"/>
 		<property name="apiGateWayUrl" value="${sdk-demo-sb2.api-gateway.url}" />

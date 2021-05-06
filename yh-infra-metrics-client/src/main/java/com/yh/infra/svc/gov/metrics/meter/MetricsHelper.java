@@ -22,7 +22,7 @@ import io.micrometer.core.instrument.Tag;
  *     b)定位到错误的metrics。  <br/>
  * 2) tagArray数组必须是偶数， 因为它的含义是“key1, value1, key2, value2, ....”。系统会提取成为  key1=value1, key2=value2,... <br/>
 
- * @author QianChao 2020-12-04
+ * @author luchao 2020-12-04
  *
  */
 @Component(value = "metricsHelper")

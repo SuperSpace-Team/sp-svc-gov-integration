@@ -120,6 +120,10 @@ public class AppRegLauncher {
         this.monitorEnabled = monitorEnabled;
     }
 
+    public void setHttpClientProxy(HttpClientProxy httpClientProxy) {
+        this.httpClientProxy = httpClientProxy;
+    }
+
     public void init(){
         BeanRegistry br = BeanRegistry.getInstance();
         Boolean hasRegistered = br.getBean(SdkCommonConstant.SDK_INITIALIZED_FLAG);

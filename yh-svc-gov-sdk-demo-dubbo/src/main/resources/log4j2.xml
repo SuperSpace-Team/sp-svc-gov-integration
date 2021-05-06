@@ -70,7 +70,7 @@
 
  		<logger name="com.yh.infra.svc.gov.agent.alm.daemon.FusingManager" level="info"/>
  		<logger name="com.yh.infra.svc.gov.agent.alm.context.BeanRegistry" level="info"/>
- 		<logger name="com.yh.infra.svc.gov.sdk.pg.context.BeanRegistry" level="info"/>
+ 		<logger name="com.yh.infra.svc.gov.sdk.init.context.BeanRegistry" level="info"/>
  		<logger name="com.yh.infra.svc.gov.sdk" level="INFO"/>
  		
 		<logger name="RocketmqClient" level="WARN" additivity="false" />
