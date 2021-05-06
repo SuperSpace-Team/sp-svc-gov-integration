@@ -3,6 +3,8 @@
  */
 package com.yh.infra.svc.gov.sdk.init;
 
+import com.yh.infra.svc.gov.sdk.alm.config.AlmConfig;
+import com.yh.infra.svc.gov.sdk.config.AlmProperties;
 import com.yh.infra.svc.gov.sdk.constant.SdkCommonConstant;
 import com.yh.infra.svc.gov.sdk.init.context.BeanRegistry;
 import org.slf4j.Logger;
@@ -19,15 +21,15 @@ public class SvcGovSdkInitializer {
 	private static final Logger logger = LoggerFactory.getLogger(SvcGovSdkInitializer.class);
 
 
-	public static AppRegLauncher initSvcGovSdk(//AlmProperties almProperties,
-											boolean enableVersionChecker,
-											String appKey,
-											String secret,
-											String unionGatewayUrl,
-											int versionPullInterval) {
+	public static AppRegLauncher initSvcGovSdk(AlmProperties almProperties,
+											   boolean enableVersionChecker,
+											   String appKey,
+											   String secret,
+											   String unionGatewayUrl,
+											   int versionPullInterval) {
 
 		logger.info("begin to prepare PgClientLauncher. {}, {}", appKey, unionGatewayUrl);
-//		logger.info("ALM config: {}", almProperties);
+		logger.info("ALM config: {}", almProperties);
 
 		//若已经初始化过,则返回null。
 		if (BeanRegistry.getInstance().getBean(SdkCommonConstant.SDK_INITIALIZED_FLAG) != null) {
@@ -35,9 +37,9 @@ public class SvcGovSdkInitializer {
 			return null;
 		}
 
-//		AlmConfig almconfig = new AlmConfig();
-//		BeanUtils.copyProperties(almProperties, almconfig);
-//		BeanRegistry.getInstance().register(almconfig);
+		AlmConfig almconfig = new AlmConfig();
+		BeanUtils.copyProperties(almProperties, almconfig);
+		BeanRegistry.getInstance().register(almconfig);
 		
 		AppRegConfig config = new AppRegConfig();
 		config.setEnableVersionChecker(enableVersionChecker);
@@ -52,7 +54,7 @@ public class SvcGovSdkInitializer {
 		clientLauncher.setAppSecret(secret);
 		clientLauncher.setUnionGatewayUrl(unionGatewayUrl);
 		clientLauncher.setEnabled(true);
-//		clientLauncher.setMonitorEnabled(almProperties.isEnabled());
+		clientLauncher.setMonitorEnabled(almProperties.isEnabled());
 
 		return clientLauncher;
 	}

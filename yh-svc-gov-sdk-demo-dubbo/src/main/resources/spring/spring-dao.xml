@@ -15,9 +15,9 @@
 	<!--dataSource -->
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" >  
     <property name="driverClassName" value="com.mysql.jdbc.Driver" />  
-    <property name="url" value="jdbc:mysql://w-kh-public-sit-mysql.service.testdb:3306/db_gs_retry_service_sit" />  
-    <property name="username" value="u_gs_retry_service_sit" />  
-    <property name="password" value="5FjN8cYBhg" />  
+    <property name="url" value="jdbc:mysql://10.251.64.63:3306/db_retry_service_dev" />
+    <property name="username" value="bff_user_dev" />
+    <property name="password" value="bff_user_dev@2021" />
 	</bean>  
 	
 	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">

@@ -26,18 +26,6 @@
 		<shade.httpclient.source>org.apache.http</shade.httpclient.source>
 		<shade.httpclient.target>${custom.package.name}.${shade.httpclient.source}</shade.httpclient.target>
 
-		<sonar.exclusions>
-			src/main/java/com/yh/infra/svc/gov/sdk/command/**/*.*,
-			src/main/java/com/yh/infra/svc/gov/sdk/constant/**/*.*,
-			src/main/java/com/yh/infra/svc/gov/sdk/exception/**/*.*,
-			src/main/java/com/yh/infra/svc/gov/sdk/pg/command/**/*.*,
-			src/main/java/com/yh/infra/svc/gov/sdk/pg/constants/**/*.*,
-			src/main/java/com/yh/infra/svc/gov/sdk/task/command/**/*.*,
-			src/main/java/com/yh/infra/svc/gov/sdk/task/runcontrol/TriggerTaskManager.java,
-			src/main/java/com/yh/infra/svc/gov/sdk/task/runcontrol/thread/*.*,
-			src/test/java/**/*.*
-		</sonar.exclusions>
-
 		<!-- 这些都是 最高的、用1.6编译的版本 -->
 		<version.mockserver>3.12</version.mockserver>
 	</properties>

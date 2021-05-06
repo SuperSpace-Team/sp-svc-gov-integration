@@ -106,6 +106,6 @@ spring:
     discovery:
       client:
         composite-indicator:
-          enabled: false
+          enabled: true
     
     

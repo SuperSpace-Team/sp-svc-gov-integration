@@ -65,11 +65,8 @@ public class ProductProvider {
     		}
     	}
     	
-    	return resources[0].getURL(); 
-		
+    	return resources[0].getURL();
 	}
-
-
 	
     public static void main(String[] args) throws Exception {
         
@@ -77,8 +74,6 @@ public class ProductProvider {
         System.out.println("---------------- profile is : " + profile + " ----------------");
     	
     	Thread.sleep(2000);
-    	
         com.alibaba.dubbo.container.Main.main(args);
     }
-
 }

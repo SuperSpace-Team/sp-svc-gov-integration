@@ -103,9 +103,9 @@ spring:
       max-wait-millis: 10000
       validation-query: "SELECT 1"
     type: org.apache.commons.dbcp2.BasicDataSource
-    url: "jdbc:mysql://w-kh-public-sit-mysql.service.testdb:3306/db_gs_retry_service_sit?useUnicode=true&characterEncoding=utf-8&useSSL=false&autoReconnect=true"
-    username: u_gs_retry_service_sit
-    password: 5FjN8cYBhg
+    url: "jdbc:mysql://10.251.64.63:3306/db_retry_service_dev?useUnicode=true&characterEncoding=utf-8&useSSL=false&autoReconnect=true"
+    username: bff_user_dev
+    password: bff_user_dev@2021
 
 
 hystrix:

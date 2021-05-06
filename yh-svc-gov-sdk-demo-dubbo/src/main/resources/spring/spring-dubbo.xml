@@ -24,7 +24,7 @@
     <dubbo:monitor address="${dubbo.monitor.address}"/>
  
 	
-	<dubbo:service interface="com.yh.svc.gov.test.springboot1.manager.ApiService" ref="apiService" />
-	<dubbo:service interface="com.yh.svc.gov.test.springboot1.manager.MetricsService" ref="metricsService" />
+	<dubbo:service interface="com.yh.svc.gov.test.dubbo.manager.ApiService" ref="apiService" />
+	<dubbo:service interface="com.yh.svc.gov.test.dubbo.manager.MetricsService" ref="metricsService" />
 	 
 </beans>

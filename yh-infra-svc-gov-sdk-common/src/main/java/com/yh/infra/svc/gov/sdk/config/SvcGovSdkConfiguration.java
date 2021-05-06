@@ -19,66 +19,15 @@ public class SvcGovSdkConfiguration {
         return new SvcGovSdkSpringContextUtil();
     }
 
-//    @Bean(name = "almProperties")
-//    public AlmProperties almProperties() {
-//        if (logger.isDebugEnabled())
-//            logger.debug("begin to init AlmProperties.");
-//        return new AlmProperties();
-//    }
-
-//    @Bean(name = "pkManagerApi")
-//    public PkManagerRemoteApiAdapter pkManagerApi(@Value("${svc-gov-sdk.gatewayUrl}") String apiGatewayUrl) {
-//        if (logger.isDebugEnabled())
-//            logger.debug("begin to init pkManagerApi.");
-//        PkManagerRemoteApiAdapter mgr = new PkManagerRemoteApiAdapter();
-//        mgr.setPkManagerUrl(apiGatewayUrl + "/sac");
-//        return mgr;
-//    }
-//
-//    @Bean(name = "codeManagerApi")
-//    public CodeManagerRemoteApiAdapter codeManagerApi(@Value("${svc-gov-sdk.gatewayUrl}") String apiGatewayUrl) {
-//        if (logger.isDebugEnabled())
-//            logger.debug("begin to init codeManagerApi.");
-//        CodeManagerRemoteApiAdapter mgr = new CodeManagerRemoteApiAdapter();
-//        mgr.setCodeManagerUrl(apiGatewayUrl + "/sac");
-//        return mgr;
-//    }
-
-//    @Bean(name = "rmqApiManager")
-//    public RmqApiManager rmqApiManager() {
-//        if (logger.isDebugEnabled())
-//            logger.debug("begin to init rmqApiManager.");
-//        RmqApiManager mgr = new RmqApiManager();
-//        return mgr;
-//    }
+    @Bean(name = "almProperties")
+    public AlmProperties almProperties() {
+        if (logger.isDebugEnabled())
+            logger.debug("begin to init AlmProperties.");
+        return new AlmProperties();
+    }
 
 //    @Bean
-//    public GsLogService gsLogService() {
-//        return new GsLogServiceImpl();
-//    }
-//
-//    @Bean
-//    public FileS2ServiceImpl fileS2Service() {
-//        return new FileS2ServiceImpl();
-//    }
-//
-//    @Bean
-//    public FolderS2ServiceImpl folderS2Service() {
-//        return new FolderS2ServiceImpl();
-//    }
-//
-//    @Bean
-//    public CipherService cipherService() {
-//        CipherService cipherService = new CipherServiceImpl();
-//        return cipherService;
-//    }
-
-//    @Bean(name = "uaacProperties")
-//    public UaacProperties uaacProperties() {
-//        if (logger.isDebugEnabled())
-//            logger.debug("begin to init UaacProperties.");
-//        UaacProperties properties = new UaacProperties();
-//        BeanRegistry.getInstance().register(properties);
-//        return properties;
+//    public GovLogService govLogService() {
+//        return new GovLogServiceImpl();
 //    }
 }

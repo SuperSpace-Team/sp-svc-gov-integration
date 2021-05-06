@@ -161,7 +161,7 @@
 		<snapshotRepository>
 			<id>nexus_snapshots</id>
 			<name>Nexus Snapshot Repository</name>
-			<url>http://mvn.yonghui.cn/nexus/content/repositories/snapshots/</url>
+			<url>http://mvn.yonghui.cn/nexus/content/repositories/operation-dev/</url>
 			<uniqueVersion>false</uniqueVersion>
 		</snapshotRepository>
 	</distributionManagement>

@@ -1,10 +1,12 @@
 package com.yh.infra.sdk.config;
 
 //import com.yh.infra.svc.gov.sdk.config.DisabledConfiguration;
+import com.yh.infra.svc.gov.sdk.config.AlmProperties;
 import com.yh.infra.svc.gov.sdk.config.SvcGovSdkConfiguration;
 import com.yh.infra.svc.gov.sdk.init.AppRegLauncher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +22,7 @@ public class SvcGovSdkAutoConfiguration {
 
 	@Bean(name = "initSvcGovSdkByStarter")
 	@DependsOn(value = {"svcGovSdkSpringContextUtil"})	//"retryInit",
-	public AppRegLauncher initSvcGovSdkByStarter(//@Autowired AlmProperties almProperties,
+	public AppRegLauncher initSvcGovSdkByStarter(@Autowired AlmProperties almProperties,
 												 @Value("${svc-gov-sdk.versionChecker:true}") boolean enableVersionChecker,
 												 @Value("${svc-gov-sdk.appKey}") String appKey,
 												 @Value("${svc-gov-sdk.secret}") String secret,
@@ -32,7 +34,7 @@ public class SvcGovSdkAutoConfiguration {
 		}
 
 		AppRegLauncher client = SvcGovSdkInitializer.initSvcGovSdk(
-				//almProperties,
+				almProperties,
 				enableVersionChecker, appKey, secret, apiGatewayUrl, versionPullInterval);
 		if (client != null) {
 			client.init();
