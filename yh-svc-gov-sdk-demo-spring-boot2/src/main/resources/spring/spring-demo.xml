@@ -9,16 +9,15 @@
 	default-autowire="byName">
 
 	<!-- 配置 client -->
-<!-- 	
-	<bean id="pgClientLauncher" class="com.yh.infra.svc.gov.sdk.initinit.AppRegLauncher" init-method="init"  >
-		<property name="appId" value="${sdk-demo-sb2.app-id}" />
-		<property name="secret" value="${sdk-demo-sb2.app-secret}"/>
-		<property name="apiGateWayUrl" value="${sdk-demo-sb2.api-gateway.url}" />
-		<property name="enabled" value="${sdk-demo-sb2.sdk-enabled}" />
-		<property name="config" ref="pgConfig" />
-	</bean>
-	<bean id="pgConfig" class="com.yh.infra.svc.gov.sdk.config.AppRegConfig" >
-		<property name="versionPullInterval" value="10" />
-	</bean>
- -->	
+
+<!--	<bean id="appRegLauncher" class="com.yh.infra.svc.gov.sdk.init.AppRegLauncher" init-method="init"  >-->
+<!--		<property name="appKey" value="${sdk-demo-sb2.app-id}" />-->
+<!--		<property name="appSecret" value="${sdk-demo-sb2.app-secret}"/>-->
+<!--		<property name="unionGatewayUrl" value="${sdk-demo-sb2.api-gateway.url}" />-->
+<!--		<property name="enabled" value="${sdk-demo-sb2.sdk-enabled}" />-->
+<!--		<property name="appRegConfig" ref="appRegConfig" />-->
+<!--	</bean>-->
+<!--	<bean id="appRegConfig" class="com.yh.infra.svc.gov.sdk.config.AppRegConfig" >-->
+<!--		<property name="versionPullInterval" value="10" />-->
+<!--	</bean>-->
 </beans>

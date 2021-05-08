@@ -270,7 +270,7 @@ public class UacService {
 				return;
 			}
 
-			uacToken = appLogin(config.getUacUrl(), config.getAppKey(), config.getAppSecret(), code);
+			uacToken = appLogin(config.getUnionGatewayUrl(), config.getAppKey(), config.getAppSecret(), code);
 		} catch (Exception e) {
 			logger.warn("system error when refresh token.", e);
 		} finally {

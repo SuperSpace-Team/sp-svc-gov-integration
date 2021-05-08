@@ -17,19 +17,19 @@ public final class SdkCommonConstant {
     /**
      * 默认系统环境变量
      */
-    public static final String SDK_APP_ENV_VAR = "env";
+    public static final String SDK_APP_ENV_VAR = "ITWORK_ENV_CODE";
 
     /**
      * 默认统一API网关URL
      */
-    public static final String DEFAULT_UNION_GATEWAY_URL = "http://gxfw-yh02-"
-            + System.getProperty(SDK_APP_ENV_VAR) + ".yh-union-gateway.devgw.yonghui.cn";
+    public static final String DEFAULT_UNION_GATEWAY_URL = "http://"
+            + System.getenv(SDK_APP_ENV_VAR) + ".yh-union-gateway.devgw.yonghui.cn";
 
     /**
      * 默认治理平台BFF服务URL
      */
-    public static final String DEFAULT_SERVICE_GOVERNANCE_PLATFORM_URL = "https://svc-gov-platform-"
-            + System.getProperty(SDK_APP_ENV_VAR) + ".yonghui.cn";
+    public static final String DEFAULT_SERVICE_GOVERNANCE_PLATFORM_URL = "https://yh-svc-gov-baseservice-"
+            + System.getenv(SDK_APP_ENV_VAR) + ".yonghui.cn";
 
     /**
      * 通用常量
