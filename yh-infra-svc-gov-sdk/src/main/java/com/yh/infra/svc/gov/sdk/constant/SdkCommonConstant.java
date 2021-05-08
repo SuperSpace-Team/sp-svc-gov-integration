@@ -28,8 +28,8 @@ public final class SdkCommonConstant {
     /**
      * 默认治理平台BFF服务URL
      */
-    public static final String DEFAULT_SERVICE_GOVERNANCE_PLATFORM_URL = "https://yh-svc-gov-baseservice-"
-            + System.getenv(SDK_APP_ENV_VAR) + ".yonghui.cn";
+    public static final String DEFAULT_SERVICE_GOVERNANCE_PLATFORM_URL =
+            DEFAULT_UNION_GATEWAY_URL + "/svc-gov";
 
     /**
      * 通用常量

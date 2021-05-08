@@ -15,8 +15,7 @@ public class ServiceUrlConstants {
 	 * UAC
 	 */
 	public static final String UAC_URL="uac/";
-	
-	
+
 	/**
 	 * TASK
 	 */
@@ -34,6 +33,6 @@ public class ServiceUrlConstants {
 	/** 应用密钥查询 **/
     public static final String SVC_GOV_SECRET_QUERY = "/svc-gov/secret/query";
 
-	/** retry**/
-    public static final String RETRY_BASE = "/svc-gov-retry/task/log/";
+//	/** retry**/
+//    public static final String RETRY_BASE = "/svc-gov-retry/task/log/";
 }
