@@ -28,8 +28,8 @@ import static org.mockito.Mockito.*;
 public class VersionCheckerTest {
 
     private VersionChecker versionChecker;
-    private AppRegContext AppRegContext;
-    private AppRegConfig AppRegConfig;
+    private AppRegContext appRegContext;
+    private AppRegConfig appRegConfig;
 
     @Mock
     SendReceiveService sendReceiveService ;
@@ -55,12 +55,12 @@ public class VersionCheckerTest {
         oriLogger = null;
         BeanRegistry.getInstance().register(SdkCommonConstant.SDK_INITIALIZED_FLAG, true);
         
-        AppRegConfig = new AppRegConfig();
+        appRegConfig = new AppRegConfig();
         // test 拉取版本间隔1s
-        AppRegConfig.setVersionPullInterval(1);
+        appRegConfig.setVersionPullInterval(1);
         
-        AppRegContext = new AppRegContext(AppRegConfig);
-        versionChecker = new VersionChecker(AppRegContext,sendReceiveService,configService);
+        appRegContext = new AppRegContext(appRegConfig);
+        versionChecker = new VersionChecker(appRegContext,sendReceiveService,configService);
     }
 
     @After
@@ -92,8 +92,8 @@ public class VersionCheckerTest {
     @Test
     public void test_Run_new_listener() {
     	oriLogger = TestReflectionUtils.setStaticValue(VersionChecker.class, "logger", mockLogger);
-    	AppRegContext.setCurrentVersion(23);
-    	AppRegContext.setNewCallback(true);
+    	appRegContext.setCurrentVersion(23);
+    	appRegContext.setNewCallback(true);
     	versionChecker.start();
 //        ThreadUtil.sleep(2000);
         WaitUtil.wait(2000);
