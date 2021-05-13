@@ -33,7 +33,7 @@ import static org.mockito.Mockito.*;
  * 
  * 测试特殊情况使用
  * 
- * @author 钱超  2019-02-15
+ * @author luchao  2019-02-15
  *
  */
 public class FusingManager_1Test {

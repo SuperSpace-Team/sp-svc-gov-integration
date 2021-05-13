@@ -38,7 +38,7 @@ public class AppRegLauncherTest {
 		
 		client.setAppKey("UT-APP1");
 		client.setAppSecret("12345678");
-		client.setUnionGatewayUrl("http://gxfw-yh02-dev.yh-union-gateway.devgw.yonghui.cn");
+		client.setUnionGatewayUrl("http://yh-infra-union-gateway.devgw.yonghui.cn");
 		client.setHttpClientProxy(httpClient);
 		client.setEnabled(true);
 		
@@ -56,7 +56,7 @@ public class AppRegLauncherTest {
 		respStr = JsonUtil.writeValue(aaro);
 		respMap.put("result", respStr);
 		respMap.put("status", "200");
-		when(httpClient.postJson(eq("http://gxfw-yh02-dev.yh-union-gateway.devgw.yonghui.cn/svc-gov/member/encrypt/code"),
+		when(httpClient.postJson(eq("http://yh-infra-union-gateway-dev.devgw.yonghui.cn/svc-gov/app/encrypt/code"),
 				anyString(), anyInt(), any(Header[].class))).thenReturn(respMap);
 
 		AccessTokenCommand token = new AccessTokenCommand();
@@ -72,7 +72,7 @@ public class AppRegLauncherTest {
 		respStr = JsonUtil.writeValue(aaro);
 		respMap.put("result", respStr);
 		respMap.put("status", "200");
-		when(httpClient.postJson(eq("http://gxfw-yh02-dev.yh-union-gateway.devgw.yonghui.cn/svc-gov/app/login"),
+		when(httpClient.postJson(eq("http://yh-infra-union-gateway.devgw.yonghui.cn/svc-gov/app/login"),
 				anyString(), anyInt(), any(Header[].class))).thenReturn(respMap);
 	}
 
@@ -100,5 +100,4 @@ public class AppRegLauncherTest {
 			fail();
 		}
 	}
-
 }

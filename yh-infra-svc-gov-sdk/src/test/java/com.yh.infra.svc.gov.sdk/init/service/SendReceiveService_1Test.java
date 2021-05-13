@@ -34,7 +34,7 @@ import static org.mockito.Mockito.*;
  * 特殊情况测试
  * 
  * 
- * @author 钱超  2019-02-24
+ * @author luchao  2019-02-24
  *
  */
 public class SendReceiveService_1Test {

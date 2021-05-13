@@ -6,7 +6,7 @@ package com.yh.infra.svc.gov.sdk.util;
 import java.lang.reflect.Method;
 
 /**
- * @author 钱超  2019-03-15
+ * @author luchao  2019-03-15
  *
  */
 public class MethodWrapper {

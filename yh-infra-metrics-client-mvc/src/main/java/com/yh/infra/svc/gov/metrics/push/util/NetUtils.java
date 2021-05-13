@@ -20,7 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author 钱超 2018-12-20
+ * @author luchao 2018-12-20
  *
  */
 public class NetUtils {

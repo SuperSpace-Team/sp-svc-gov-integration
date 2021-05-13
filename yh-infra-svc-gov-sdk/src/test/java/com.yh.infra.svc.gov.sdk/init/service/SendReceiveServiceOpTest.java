@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
  * 集成测试用。 直连实际的网关。 正常需要ignore
  * 
  * 
- * @author 钱超  2019-02-24
+ * @author luchao  2019-02-24
  *
  */
 

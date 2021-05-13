@@ -17,7 +17,7 @@ import java.util.Map;
 
 
 /**
- * 运维使用。
+ * UT测试使用http客户端
  */
 @Ignore
 public class HttpClientOpsTest {
