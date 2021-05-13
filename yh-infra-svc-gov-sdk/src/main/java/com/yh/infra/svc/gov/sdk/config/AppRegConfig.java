@@ -38,7 +38,7 @@ public class AppRegConfig {
     /**
      * 统一API网关URL
      */
-    private String unionGatewayUrl = SdkCommonConstant.DEFAULT_UNION_GATEWAY_URL;
+    private String unionGatewayUrl;
 
     /**
      * 治理平台SDK版本号
