@@ -52,7 +52,7 @@ public class UacService {
 	/**
 	 * 取得随机数
 	 * 
-	 * 
+	 * startURL 从哪里获取
 	 * @param startUrl
 	 * @param appId
 	 * @return
@@ -84,7 +84,7 @@ public class UacService {
 				logger.warn("parse AccountAuthReturnObj of random code fail. {} ",
 						retMap.get(SdkCommonConstant.RESP_KEY_RESULT));
 				return null;
-			}
+		}
 			return aaro.getData();
 		}
 		logger.warn("result : {}", retMap);
@@ -103,7 +103,7 @@ public class UacService {
 		BeanRegistry sc = BeanRegistry.getInstance();
 		HttpClientProxy httpClient = sc.getBean(HttpClientProxy.class);
 
-		String url = startUrl + "/appmember/member/appLogin";
+		String url = startUrl + "/app/appLogin";
 		String paramsStr = String.format("{\"appkey\" : \"%s\", \"secret\" : \"%s\", \"code\" : \"%s\"}", appId, secret,
 				code);
 		if (logger.isDebugEnabled()) {
@@ -247,7 +247,7 @@ public class UacService {
 			wlock.lock();
 			AppRegConfig config = context.getConfig();
 
-			// 如果需要relogin,token清空
+			// 如果需要更新token,token清空
 			if (reLoginFlag) {
 				uacToken = null;
 			}
