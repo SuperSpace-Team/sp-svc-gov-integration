@@ -27,6 +27,7 @@ import static org.mockito.Mockito.when;
 
 public class AppRegLauncherTest {
 	AppRegLauncher client = new AppRegLauncher();
+
 	@Mock
     HttpClientProxy httpClient;
 	
@@ -37,7 +38,7 @@ public class AppRegLauncherTest {
 		
 		client.setAppKey("UT-APP1");
 		client.setAppSecret("12345678");
-		client.setUnionGatewayUrl("http://pg");
+		client.setUnionGatewayUrl("http://gxfw-yh02-dev.yh-union-gateway.devgw.yonghui.cn");
 		client.setHttpClientProxy(httpClient);
 		client.setEnabled(true);
 		
@@ -45,12 +46,9 @@ public class AppRegLauncherTest {
 		sc.register(SdkCommonConstant.SDK_INITIALIZED_FLAG, false);
 		
 		sc.register(HttpClientProxy.class.getName(), httpClient);
-		
+
 		Map<String, String> respMap = new HashMap<String, String>();
 		String respStr;
-		
-		AccessTokenCommand token = new AccessTokenCommand();
-		
 
 		AccountAuthReturnObj aaro = new AccountAuthReturnObj();
 		aaro.setResultFlag(true);
@@ -58,20 +56,24 @@ public class AppRegLauncherTest {
 		respStr = JsonUtil.writeValue(aaro);
 		respMap.put("result", respStr);
 		respMap.put("status", "200");
-		when(httpClient.postJson(eq("http://uac/member/encrypt/code"), anyString(), anyInt(), any(Header[].class))).thenReturn(respMap);
-		
+		when(httpClient.postJson(eq("http://gxfw-yh02-dev.yh-union-gateway.devgw.yonghui.cn/svc-gov/member/encrypt/code"),
+				anyString(), anyInt(), any(Header[].class))).thenReturn(respMap);
+
+		AccessTokenCommand token = new AccessTokenCommand();
 		respMap = new HashMap<String, String>();
 		token = new AccessTokenCommand();
 		token.setAccessToken("TOKEN123");
 		token.setExpireTime(312312312l);
 		respStr = JsonUtil.writeValue(token);
+
 		aaro = new AccountAuthReturnObj();
 		aaro.setResultFlag(true);
 		aaro.setData(respStr);
 		respStr = JsonUtil.writeValue(aaro);
 		respMap.put("result", respStr);
 		respMap.put("status", "200");
-		when(httpClient.postJson(eq("http://uac/member/appLogin"), anyString(), anyInt(), any(Header[].class))).thenReturn(respMap);
+		when(httpClient.postJson(eq("http://gxfw-yh02-dev.yh-union-gateway.devgw.yonghui.cn/svc-gov/app/login"),
+				anyString(), anyInt(), any(Header[].class))).thenReturn(respMap);
 	}
 
 	@After

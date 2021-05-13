@@ -56,7 +56,7 @@ public class AppRegConfig {
     private Integer versionPullInterval = SdkCommonConstant.VERSION_CHECK_PULL_INTERVAL_TIME;
 
     /**
-     * UAC接入URL
+     * 应用中心接入URL
      */
     private String uacUrl;
 

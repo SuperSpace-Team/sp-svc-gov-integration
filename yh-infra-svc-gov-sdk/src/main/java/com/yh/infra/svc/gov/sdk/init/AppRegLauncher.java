@@ -267,7 +267,7 @@ public class AppRegLauncher {
         }
 
         if(StringUtils.isEmpty(appRegConfig.getUnionGatewayUrl())){
-            appRegConfig.setUnionGatewayUrl(appSecret);
+            appRegConfig.setUnionGatewayUrl(unionGatewayUrl);
         }else {
             unionGatewayUrl = appRegConfig.getUnionGatewayUrl();
         }
@@ -297,7 +297,7 @@ public class AppRegLauncher {
 
         try {
             InputStream is = this.getClass().getResourceAsStream(
-                    "META-INF/maven/com.yh.infra.svc.gov/yh-infra-svc-gov-sdk/pom.properties");
+                    "/META-INF/maven/com.yh.infra.svc.gov/yh-infra-svc-gov-sdk/pom.properties");
             if(is != null){
                 properties.load(is);
                 sdkVersion = properties.getProperty("version");
