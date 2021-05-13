@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 public class GitPropertyUtil
 {
 	private static final Logger logger = Logger.getLogger(GitPropertyUtil.class.getName());
-	public static final String GIT_FILE = "/META-INF/com.yh.infra.svc.gov.gsdk/g-agent/agent-git.properties";
+	public static final String GIT_FILE = "/META-INF/com.yh.infra.svc.gov/yh-infra-svc-gov-agent/agent-git.properties";
 	
 	private GitPropertyUtil() {
 	}

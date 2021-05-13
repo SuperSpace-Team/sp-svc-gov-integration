@@ -115,7 +115,7 @@
         <configuration>
           <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
           <generateGitPropertiesFile>true</generateGitPropertiesFile>
-          <generateGitPropertiesFilename>${project.build.outputDirectory}/META-INF/${project.groupId}/agent/agent-git.properties</generateGitPropertiesFilename>
+          <generateGitPropertiesFilename>${project.build.outputDirectory}/META-INF/${project.groupId}/yh-infra-svc-gov-agent/agent-git.properties</generateGitPropertiesFilename>
         </configuration>
       </plugin>
     </plugins>

@@ -55,10 +55,6 @@ sdk-demo:
     host: localhost-1
     ip: 10.0.0.1
   chain:
-    mq:
-      topic:
-        receive: MQ_GSDK_DEMO_${sdk-demo.app-id}
-        forward: MQ_GSDK_DEMO_${sdk-demo.chain.next.app-id}
     next:
       app-id: pg-app-demo2
       msg-type: 

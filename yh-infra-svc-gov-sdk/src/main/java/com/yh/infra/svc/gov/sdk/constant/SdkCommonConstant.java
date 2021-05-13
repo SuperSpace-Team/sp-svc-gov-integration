@@ -264,7 +264,7 @@ public final class SdkCommonConstant {
     public static final int BLACK_LIST_QUEUE_SIZE = 100; //黑名单 queue的 容量。 100个。
 
     public static final String ALM_TYPE_AGENT = "agent";
-    public static final String ALM_TYPE_GSDK = "svc-gov-sdk";
+    public static final String ALM_TYPE_SVC_GOV_SDK = "svc-gov-sdk";
     /**
      * 用于监控/转换日志
      **/

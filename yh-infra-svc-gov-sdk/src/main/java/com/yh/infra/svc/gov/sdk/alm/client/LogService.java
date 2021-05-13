@@ -57,9 +57,9 @@ public class LogService {
 	}
 	
 	private static boolean checkStatus() {
-		// 必须是GSDK类型的 监控
+		// 必须是治理SDK类型的 监控
 		String almType = BeanRegistry.getInstance().getBean(SdkCommonConstant.ALM_EMBEDDED_TYPE);
-		if (! SdkCommonConstant.ALM_TYPE_GSDK.equals(almType)) {
+		if (! SdkCommonConstant.ALM_TYPE_SVC_GOV_SDK.equals(almType)) {
 			logger.error("Function disabled. Need to update agent version.");
 			return false;
 		}

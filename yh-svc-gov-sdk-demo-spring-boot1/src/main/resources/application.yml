@@ -79,14 +79,10 @@ svc-gov-sdk:
 #    host: localhost-1
 #    ip: 10.0.0.1
 #  chain:
-#    mq:
-#      topic:
-#        receive: MQ_GSDK_DEMO_${sdk-demo.app-id}
-#        forward: MQ_GSDK_DEMO_${sdk-demo.chain.next.app-id}
 #    next:
 #      app-id: pg-app-demo2
 #      msg-type:
-#      service: app-ecs-gsdk-demo-${spring.profiles.active}-${sdk-demo.chain.next.app-id}
+#      service: app-yh-svc-gov-sdk-demo-${spring.profiles.active}-${sdk-demo.chain.next.app-id}
 #    node:
 #      name: ${sdk-demo.app-id}-node1
 #  api-gateway:

@@ -17,21 +17,21 @@ public class SvcGovSdkConfig {
 	@Autowired
 	private AlmProperties almProperties;
 
-	@Bean("initGsdkByStarter")
+	@Bean("initSvcGovSdkByStarter")
 	@DependsOn(value = { "svcGovSdkSpringContextUtil"})	//"retryInit",
-	public AppRegLauncher initGsdkByStarter(
+	public AppRegLauncher initSvcGovSdkByStarter(
 			@Value("${svc-gov-sdk.versionChecker:true}") boolean enableVersionChecker,
 			@Value("${svc-gov-sdk.appKey}") String appKey,
 			@Value("${svc-gov-sdk.secret}") String secret,
 			@Value("${svc-gov-sdk.unionGatewayUrl}") String apiGatewayUrl,
-			@Value("${svc-gov-sdk.verPollingInterval:30}") int verPollingInterval) {
+			@Value("${svc-gov-sdk.versionPullInterval:30}") int versionPullInterval) {
 
 		if (logger.isDebugEnabled())
-			logger.debug("begin to init initGsdkByStarter.");
+			logger.debug("begin to init initSvcGovSdkByStarter.");
 
 		AppRegLauncher client = SvcGovSdkInitializer.initSvcGovSdk(
 				almProperties,
-				enableVersionChecker, appKey, secret, apiGatewayUrl, verPollingInterval);
+				enableVersionChecker, appKey, secret, apiGatewayUrl, versionPullInterval);
 		if (client != null) {
 			client.init();
 		}

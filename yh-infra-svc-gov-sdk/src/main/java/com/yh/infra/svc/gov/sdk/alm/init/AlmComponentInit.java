@@ -75,17 +75,17 @@ public class AlmComponentInit implements ComponentInit {
 			BeanRegistry.getInstance().register(SdkCommonConstant.ALM_EMBEDDED_TYPE, "agent");
 			ret = initAgentAlm(pgContext);
 		} else {
-			BeanRegistry.getInstance().register(SdkCommonConstant.ALM_EMBEDDED_TYPE, "g-sdk");
+			BeanRegistry.getInstance().register(SdkCommonConstant.ALM_EMBEDDED_TYPE, "svc-gov-sdk");
 			ret = initLocalAlm(pgContext);
 		}
 		if (! ret) {
-			logger.error("ALM HAS NOT been initilized. ALM is disabled!!!!");
+			logger.error("ALM HAS NOT been initialized. ALM is disabled!");
 			BeanRegistry.getInstance().register(SdkCommonConstant.SDK_ENABLE_FLAG_MONITOR, false);
 		} else {
 			AlmCallbackProxyImpl acp = new AlmCallbackProxyImpl();
 			// 注册agent的 callback的代理类
 			BeanRegistry.getInstance().add(CallbackService.class, acp);
-			logger.info("ALM componenet initialized successfully !");
+			logger.info("ALM component initialized successfully !");
 		}
 
 		// 永远返回true，不影响其他组件的初始化。
@@ -93,17 +93,17 @@ public class AlmComponentInit implements ComponentInit {
 	}
 
 	/**
-	 * gsdk集成监控的版本。
+	 * 治理sdk集成监控的版本。
 	 * 
 	 * @param pgContext
 	 * @return
 	 */
 	private boolean initLocalAlm(AppRegContext pgContext) {
-		logger.info("begin to initialize ALM embeded in G-SDK.");
+		logger.info("Begin to initialize ALM embeded in service governance SDK.");
 		try {
 			ClassLoader agentCl = getAgentClassLoader();
 			if (agentCl == null) {
-				logger.warn("cannot find agent class loader.");
+				logger.warn("Cannot find agent class loader.");
 				return false;
 			}
 
@@ -117,7 +117,7 @@ public class AlmComponentInit implements ComponentInit {
 				logger.warn("cannot call AgentBeanRegistry.getBean to get AgentInstallProcessor instance.");
 				return false;
 			}
-			// 将AgentInstallProcessor  注册到gsdk的 beanregistry中， 方便使用。
+			// 将AgentInstallProcessor  注册到治理SDK的 beanregistry中， 方便使用。
 			if (bre.getData() == null) {
 				// 如果没有AgentInstallProcessor
 				logger.warn("cannot find the AgentInstallProcessor in agent class loader.");

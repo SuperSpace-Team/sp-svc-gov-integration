@@ -25,7 +25,7 @@ public class LogServiceTest {
 		AppRegConfig config = new AppRegConfig();
 		MonitorGlobalContext context = new MonitorGlobalContext(new AlmConfig(), config);
 		BeanRegistry.getInstance().register(context);
-		BeanRegistry.getInstance().register(SdkCommonConstant.ALM_EMBEDDED_TYPE, SdkCommonConstant.ALM_TYPE_GSDK);
+		BeanRegistry.getInstance().register(SdkCommonConstant.ALM_EMBEDDED_TYPE, SdkCommonConstant.ALM_TYPE_SVC_GOV_SDK);
 		BeanRegistry.getInstance().register(SdkCommonConstant.ALM_INITIALIZED_FLAG, true);
 
         context.updateRulesData(TestVoUtil.voMonitorRulesData(createAc()));

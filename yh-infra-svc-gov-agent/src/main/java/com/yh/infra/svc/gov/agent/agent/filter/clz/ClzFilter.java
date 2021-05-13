@@ -28,7 +28,7 @@ public class ClzFilter {
     			.and(not(
     	        		nameStartsWith("com.yh.infra.svc.gov.agent")
     					.or(nameStartsWith("com.yh.infra.svc.gov.dependencies"))
-    					.or(nameStartsWith("com.yh.infra.svc.gov.gsdk"))
+    					.or(nameStartsWith("com.yh.infra.svc.gov.sdk"))
 //    					.or(nameMatches("com.yh.eca.sac.remote.manager.CodeManagerRemoteApi"))
 //    					.or(nameMatches("com.yh.eca.sac.remote.manager.PkManagerRemoteApi"))
     					.or(nameStartsWith("com.yh.infra.ecs.log.remote.manager"))

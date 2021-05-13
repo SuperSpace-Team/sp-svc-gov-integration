@@ -46,7 +46,7 @@ public class AlmCallbackProxyImpl implements CallbackService {
 			return agentCallback.validate(cbDataMap);
 		}
 		if (logger.isDebugEnabled())
-			logger.debug("use G-SDK embedded ALM.");
+			logger.debug("use service governance SDK embedded ALM.");
 		return localCallback.validate(cbDataMap);
 	}
 
