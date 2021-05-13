@@ -1,7 +1,5 @@
 package com.yh.infra.svc.gov.sdk.auth.uac.app.init;
 
-import com.yh.infra.svc.gov.sdk.constant.SdkCommonConstant;
-import com.yh.infra.svc.gov.sdk.util.StringUtils;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -20,14 +18,4 @@ public class AppAuthConfig {
     @Value("${svcGovSdk.appSecret}")
     private String appSecret;
 
-    @Value("${svcGovSdk.unionGatewayUrl}")
-    private String unionGatewayUrl;
-
-    public String getUnionGatewayUrl() {
-        if(StringUtils.isBlank(unionGatewayUrl)){
-            return SdkCommonConstant.DEFAULT_UNION_GATEWAY_URL;
-        }
-
-        return unionGatewayUrl;
-    }
 }

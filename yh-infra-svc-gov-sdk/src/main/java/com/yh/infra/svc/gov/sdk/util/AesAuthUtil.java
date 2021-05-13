@@ -93,6 +93,7 @@ public class AesAuthUtil {
 			KeySpec spec = new PBEKeySpec(passphrase.toCharArray(), hex(salt), iterationCount, keySize);
 			SecretKey key = new SecretKeySpec(factory.generateSecret(spec).getEncoded(), "AES");
 			return key;
+
 		} catch (Exception e) {
 			throw fail(e);
 		}

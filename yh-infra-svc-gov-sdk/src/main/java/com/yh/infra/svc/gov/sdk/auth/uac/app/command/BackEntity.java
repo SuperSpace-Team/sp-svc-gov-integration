@@ -1,59 +1,55 @@
-/**
- * 
- */
 package com.yh.infra.svc.gov.sdk.auth.uac.app.command;
 
 import java.io.Serializable;
 
 /**
- * @author LSH10022
- *  
+ * @Description
+ * @Author Ice丶cola
+ * @date 2021.05.13
  */
-public class BackEntity implements Serializable{
+public class BackEntity implements Serializable {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    private boolean resultFlag;
 
-	private boolean resultFlag;
-	
-	private String errorMsg;
-	
-	private int errorCode;
-	
-	private String data;
+    private String errorMsg;
 
-	public boolean isResultFlag() {
-		return resultFlag;
-	}
+    private int errorCode;
 
-	public void setResultFlag(boolean resultFlag) {
-		this.resultFlag = resultFlag;
-	}
+    private String data;
 
-	public String getErrorMsg() {
-		return errorMsg;
-	}
+    public boolean isResultFlag() {
+        return resultFlag;
+    }
 
-	public void setErrorMsg(String errorMsg) {
-		this.errorMsg = errorMsg;
-	}
+    public void setResultFlag(boolean resultFlag) {
+        this.resultFlag = resultFlag;
+    }
 
-	public int getErrorCode() {
-		return errorCode;
-	}
+    public String getErrorMsg() {
+        return errorMsg;
+    }
 
-	public void setErrorCode(int errorCode) {
-		this.errorCode = errorCode;
-	}
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+    }
 
-	public String getData() {
-		return data;
-	}
+    public int getErrorCode() {
+        return errorCode;
+    }
 
-	public void setData(String data) {
-		this.data = data;
-	}
-	
+    public void setErrorCode(int errorCode) {
+        this.errorCode = errorCode;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
 }

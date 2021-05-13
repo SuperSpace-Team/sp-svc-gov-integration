@@ -14,7 +14,8 @@ public final class AppContext {
     private Map<Long, List<PrivilegeQueryCommand>> orgToPrivilege ;
     
     private Map<Long, List<PrivilegeQueryCommand>> localOrgToPrivilege ;
-    
+
+
     private Map<String, OperationUnitType> ouTypesMap =
             new LinkedHashMap<String, OperationUnitType>(5);
     

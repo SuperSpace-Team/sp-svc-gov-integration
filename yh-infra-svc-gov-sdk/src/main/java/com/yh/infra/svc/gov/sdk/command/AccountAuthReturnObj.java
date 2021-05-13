@@ -23,7 +23,7 @@ public class AccountAuthReturnObj {
 	private int errorCode;
 	
 	public AccountAuthReturnObj(){}
-	
+
 	public boolean isResultFlag() {
 		return resultFlag;
 	}

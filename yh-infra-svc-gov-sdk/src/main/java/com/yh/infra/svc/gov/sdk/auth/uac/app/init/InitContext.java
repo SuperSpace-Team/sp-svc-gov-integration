@@ -29,7 +29,10 @@ public class InitContext implements ApplicationListener<ContextRefreshedEvent> {
 
     private void initOperationUnitTypes(ApplicationContext applicationContext){
         OperationUnitTypeManager operationUnitTypeManager = applicationContext.getBean("operationUnitTypeManager", OperationUnitTypeManager.class);
+        //获取所有基础组织
         for (OperationUnitType out : operationUnitTypeManager.getAllOperationUnitTypes()){
+
+            //将基础组织存储起来
             AppContext.getInstance().getOuTypesMap().put(out.getCode(), out);
         }
     }
@@ -46,6 +49,9 @@ public class InitContext implements ApplicationListener<ContextRefreshedEvent> {
         log.info("start to load controlled privilege urls");
         // 获取所有受管控的URL
         List<String> urlList = privilegeManager.findAllPrivilegeUrlList();
+
+
+        //将受管控的URL存储到AppContext
         AppContext.getInstance().setControlledUrlSet(AppContext.initControlledUrlSet(urlList));
 
         //初始化组织对应的全部权限
