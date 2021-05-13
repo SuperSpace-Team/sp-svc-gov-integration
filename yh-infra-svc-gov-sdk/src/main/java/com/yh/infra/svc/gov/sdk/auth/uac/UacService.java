@@ -28,6 +28,8 @@ import java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock;
  *
  */
 public class UacService {
+
+
 	private static final Logger logger = LoggerFactory.getLogger(UacService.class);
 
 	private ReentrantReadWriteLock rwLock = new ReentrantReadWriteLock(true);
@@ -61,7 +63,7 @@ public class UacService {
 		BeanRegistry sc = BeanRegistry.getInstance();
 		HttpClientProxy httpClient = sc.getBean(HttpClientProxy.class);
 
-		String url = startUrl + "/appmember/member/encrypt/code";
+		String url = startUrl + "/app/encrypt/code";
 		String paramsStr = "{\"appkey\" : \"" + appId + "\"}";
 		String encryptStr = AesAuthUtil.encrypt(paramsStr);
 
@@ -156,7 +158,7 @@ public class UacService {
 		BeanRegistry sc = BeanRegistry.getInstance();
 		HttpClientProxy httpClient = sc.getBean(HttpClientProxy.class);
 
-		String url = startUrl + "/appmember/member/refreshNewToken";
+		String url = startUrl + "/app/refreshNewToken";
 		String paramsStr = String.format("{\"appkey\" : \"%s\", \"secret\" : \"%s\"}", appId, secret);
 		String encryptStr = AesAuthUtil.encrypt(paramsStr);
 
