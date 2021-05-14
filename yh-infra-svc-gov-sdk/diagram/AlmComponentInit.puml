@@ -1,0 +1,52 @@
+@startuml
+autonumber
+
+AlmComponentInit -> BeanRegistry:register alm类别:agent/g-sdk
+
+alt alm类别为agent时
+    AlmComponentInit -> AlmComponentInit:initAgentAlm
+    AlmComponentInit -> AgentBeanRegistry:register SDK_CLASS_LOADER
+    AlmComponentInit -> AgentBeanRegistry:getBean ALM_CLASS_LOADER
+    AgentBeanRegistry --> AlmComponentInit:返回alm 的 ClassLoader
+    AlmComponentInit -> BeanRegistry:register ALM_CLASS_LOADER
+    AlmComponentInit -> BeanRegistryProxy:getBean AlmInitializer !!!未找到此类
+    BeanRegistryProxy --> AlmComponentInit:返回 AlmInitializer
+    AlmComponentInit ->X AlmInitializer:init
+    AlmComponentInit -> AlmComponentInit:waitForInit 等待初始化完成，\n最多等待10s
+else alm类别为g-sdk时
+    AlmComponentInit -> AlmComponentInit:initLocalAlm
+    AlmComponentInit -> AgentBeanRegistry:getBean AgentInstallProcessor
+    AlmComponentInit -> BeanRegistry:register AgentInstallProcessor
+    AlmComponentInit -> AgentBeanRegistry:register MethodInterceptor
+    AlmComponentInit -> BeanRegistry:register AlmConfig 为空时才创建并注册
+    AlmComponentInit -> BeanRegistry:register MonitorGlobalContext
+    AlmComponentInit -> BeanRegistry:register FusingProxyService
+    AlmComponentInit -> BeanRegistry:register MonitorService
+    AlmComponentInit -> BeanRegistry:register SendLogService
+    AlmComponentInit -> BeanRegistry:register FusingManager
+    AlmComponentInit -> BeanRegistry:register LocalAlmCallbackServiceImpl
+    AlmComponentInit -> FusingManager:run 熔断相关逻辑
+    AlmComponentInit -> MonitorLogSender:run 批量从日志队列拉取并发送
+    MonitorLogSender -> SendLogService:writeLog 按照业务维度分组
+
+    SendLogService -> SendLogService:List<LogWriter> writerList
+    ArchLogWriter --> SendLogService:writerList
+    LocalFileLogWriter --> SendLogService:writerList
+
+    SendLogService -> MonitorGlobalContext:getLogTarget
+    MonitorGlobalContext -> MonitorRulesData:getAppCfg
+    MonitorRulesData -> AppConfig:getMonitor
+    AppConfig -> MonitorConfig:getLogTargets
+    MonitorConfig --> SendLogService:返回List<LogTarget>
+
+    group 遍历LogWriter
+        SendLogService -> LogWriter:match
+        LogWriter --> SendLogService:根据业务维度筛选LogTarget
+        SendLogService -> LogWriter:writeLog
+    end
+
+end
+
+AlmComponentInit -> BeanRegistry:register AlmCallbackProxyImpl
+
+@enduml
