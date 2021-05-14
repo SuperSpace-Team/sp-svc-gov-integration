@@ -229,9 +229,8 @@ public final class SdkCommonConstant {
     public static final String ALM_INITIALIZED_FLAG = "ALM_INITIALIZED_FLAG";
     public static final String ALM_CALLBACK_CLASSPATH_NAME = "com.yh.infra.svc.gov.agent.alm.callback.impl.AlmCallbackServiceImpl";
     public static final String AGENT_REGISTRY_CLASSPATH_NAME = "com.yh.infra.svc.gov.agent.agent.AgentBeanRegistry";
-    public static final String ALM_REGISTRY_CLASSPATH_NAME = "com.yh.infra.svc.gov.agent.alm.context.BeanRegistryProxy";
-    public static final String ALM_INITIALIZER_CLASSPATH_NAME = "com.yh.infra.svc.gov.agent.alm.init.AlmInitializer";
-    public static final String AGENT_ALM_MONITOR_SERVICE_NAME = "com.yh.infra.svc.gov.agent.alm.service.MonitorService";
+    public static final String ALM_REGISTRY_CLASSPATH_NAME = "com.yh.infra.svc.gov.sdk.init.context.BeanRegistryProxy";
+    public static final String AGENT_ALM_MONITOR_SERVICE_NAME = "com.yh.infra.svc.gov.sdk.alm.service.MonitorService";
     public static final String AGENT_INSTALL_PROCESSOR_CLASSPATH_NAME = "com.yh.infra.svc.gov.agent.agent.AgentInstallProcessor";
     public static final String VALIDATE = "validate";
     public static final String PROCESS = "process";

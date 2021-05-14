@@ -39,7 +39,6 @@ public class FusingManager extends Thread {
 
 	@Override
 	public void run() {
-
 		while (!exit) {
 			try {
 				Boolean init = (Boolean) BeanRegistry.getInstance().getBean(SdkCommonConstant.ALM_INITIALIZED_FLAG);
