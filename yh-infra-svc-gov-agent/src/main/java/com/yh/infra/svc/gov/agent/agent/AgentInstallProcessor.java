@@ -63,7 +63,7 @@ public class AgentInstallProcessor {
 			ResettableClassFileTransformer resettable = javassist.installOn(this.instrumentation);
 			transformers.add(resettable);
 		}
-		logger.info("finished load. " + version);  //NOSONAR
+		logger.info("Finished load. " + version);  //NOSONAR
 	}
 
 	public synchronized void reload(Map<String, List<String>> entryMap, int version) {

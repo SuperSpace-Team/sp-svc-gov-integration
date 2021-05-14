@@ -34,33 +34,15 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * @author qinzhiyuan
- * @email 80961464@yonghui.cn
- * @date 2021/4/25 8:30 下午
+ * @author luchao
+ * @email lucaho1@yonghui.cn
+ * @date 2021/5/14 3:30 下午
  */
 public class AlmComponentInit implements ComponentInit {
 	private static final Logger logger = LoggerFactory.getLogger(AlmComponentInit.class);
 
 	private ExecutorService monitorPool = null;
 	private List<MonitorLogSender> senderList = new ArrayList<>();
-
-	/**
-	 * 判断是否agent中集成了alm
-	 * 
-	 * @return
-	 */
-	private boolean ifAlmExistInAgent() {
-		// 找旧版的， agent中的 
-		ClassLoader cl = getAgentClassLoader();
-		Class clz = null;
-		if (cl != null)
-			clz = ClazzUtil.loadClass(SdkCommonConstant.AGENT_ALM_MONITOR_SERVICE_NAME, cl);
-		if (clz == null)
-			logger.info("failed to find the agent embeded MonitorService. ");
-		else
-			logger.info("find the agent embeded MonitorService successfully! ");
-		return (clz != null);
-	}
 
 	@Override
 	public boolean init(AppRegContext pgContext) {
@@ -70,30 +52,26 @@ public class AlmComponentInit implements ComponentInit {
 			return true;
 		}
 
-		boolean ret = false;
-		if (ifAlmExistInAgent()) {
-			BeanRegistry.getInstance().register(SdkCommonConstant.ALM_EMBEDDED_TYPE, "agent");
-			ret = initAgentAlm(pgContext);
-		} else {
-			BeanRegistry.getInstance().register(SdkCommonConstant.ALM_EMBEDDED_TYPE, "svc-gov-sdk");
-			ret = initLocalAlm(pgContext);
-		}
-		if (! ret) {
+		BeanRegistry.getInstance().register(SdkCommonConstant.ALM_EMBEDDED_TYPE, "svc-gov-sdk");
+		boolean ret = initLocalAlm(pgContext);
+
+		if (!ret) {
 			logger.error("ALM HAS NOT been initialized. ALM is disabled!");
 			BeanRegistry.getInstance().register(SdkCommonConstant.SDK_ENABLE_FLAG_MONITOR, false);
 		} else {
 			AlmCallbackProxyImpl acp = new AlmCallbackProxyImpl();
-			// 注册agent的 callback的代理类
+
+			// 注册agent的callback的代理类
 			BeanRegistry.getInstance().add(CallbackService.class, acp);
-			logger.info("ALM component initialized successfully !");
+			logger.info("ALM component initialized successfully!");
 		}
 
-		// 永远返回true，不影响其他组件的初始化。
+		//永远返回true,不影响其他组件的初始化。
 		return true;
 	}
 
 	/**
-	 * 治理sdk集成监控的版本。
+	 * 治理sdk集成监控的版本
 	 * 
 	 * @param pgContext
 	 * @return
@@ -109,18 +87,20 @@ public class AlmComponentInit implements ComponentInit {
 
 			Method method = ClazzUtil.getMethod(agentCl, SdkCommonConstant.AGENT_REGISTRY_CLASSPATH_NAME, SdkCommonConstant.GET_BEAN, String.class);
 			if (method == null) {
-				logger.warn("cannot get AgentBeanRegistry.getBean method.");
+				logger.warn("Cannot get AgentBeanRegistry.getBean method.");
 				return false;
 			}
+
 			BaseResponseEntity bre = new BaseResponseEntity();
 			if (!ClazzUtil.invoke(bre, method, AgentInstallProcessor.class.getName())) {
-				logger.warn("cannot call AgentBeanRegistry.getBean to get AgentInstallProcessor instance.");
+				logger.warn("Cannot call AgentBeanRegistry.getBean to get AgentInstallProcessor instance.");
 				return false;
 			}
-			// 将AgentInstallProcessor  注册到治理SDK的 beanregistry中， 方便使用。
+
+			// 将AgentInstallProcessor  注册到治理SDK的BeanRegistry中，方便使用。
 			if (bre.getData() == null) {
-				// 如果没有AgentInstallProcessor
-				logger.warn("cannot find the AgentInstallProcessor in agent class loader.");
+				//如果没有AgentInstallProcessor
+				logger.warn("Cannot find the AgentInstallProcessor in agent class loader.");
 				return false;
 			}
 			BeanRegistry.getInstance().register(bre.getData());
@@ -151,120 +131,24 @@ public class AlmComponentInit implements ComponentInit {
 		return agentCl;
 	}
 
-	/**
-	 * agent集成监控的版本。
-	 * 
-	 * @param pgContext
-	 * @return
-	 */
-	private boolean initAgentAlm(AppRegContext pgContext) {
-		logger.info("begin to initialize ALM embeded in agent.");
-		try {
-			ClassLoader agentCl = getAgentClassLoader();
-			if (agentCl == null)
-				return false;
-
-			// 在agent的beanregistry中注册sdk 自己的class loader。
-			Method method = ClazzUtil.getMethod(agentCl, SdkCommonConstant.AGENT_REGISTRY_CLASSPATH_NAME, SdkCommonConstant.REGISTER, String.class, Object.class);
-			
-			BaseResponseEntity bre = new BaseResponseEntity();
-			if (!ClazzUtil.invoke(bre, method, SdkCommonConstant.SDK_CLASS_LOADER, this.getClass().getClassLoader())) {
-				logger.warn("cannot call AgentBeanRegistry.register.");
-				return false;
-			}
-
-			// 取得alm的class loader
-			method = ClazzUtil.getMethod(agentCl, SdkCommonConstant.AGENT_REGISTRY_CLASSPATH_NAME, SdkCommonConstant.GET_BEAN, String.class);
-			if (method == null) {
-				logger.warn("cannot get AgentBeanRegistry.getBean method.");
-				return false;
-			}
-			bre.reset();
-			if (!ClazzUtil.invoke(bre, method, SdkCommonConstant.ALM_CLASS_LOADER)) {
-				logger.warn("cannot call AgentBeanRegistry.getBean to get als's classloader.");
-				return false;
-			}
-			ClassLoader almCl = (ClassLoader) bre.getData();
-			if (almCl == null) {
-				logger.warn("cannot get ALM ClassLoader.");
-				return false;
-			}
-			// alm的classloader注册到本地。
-			BeanRegistry.getInstance().register(SdkCommonConstant.ALM_CLASS_LOADER, almCl);
-			
-			// 取得alm的初始化类
-			bre.reset();
-			method = ClazzUtil.getMethod(almCl, SdkCommonConstant.ALM_REGISTRY_CLASSPATH_NAME, SdkCommonConstant.GET_BEAN, String.class);
-			if (method == null) {
-				logger.warn("cannot get ALM's BeanRegistry.getBean method.");
-				return false;
-			}
-			if (!ClazzUtil.invoke(bre, method, SdkCommonConstant.ALM_INITIALIZER_CLASSPATH_NAME)) {
-				logger.warn("cannot call ALM's BeanRegistry.getBean.");
-				return false;
-			}
-			Object almInit = bre.getData();
-			if (almInit == null) {
-				logger.warn("cannot get ALM initializer.");
-				return false;
-			}
-
-			// 执行alm的初始化
-			bre.reset();
-			method = ClazzUtil.getMethod(almCl, SdkCommonConstant.ALM_INITIALIZER_CLASSPATH_NAME, SdkCommonConstant.INIT, String.class);
-			if (method == null) {
-				logger.warn("cannot get alm init method.");
-				return false;
-			}
-			bre.reset();
-			if (!ClazzUtil.invoke(bre, almInit, method, pgContext.getConfigJson())) {
-				logger.warn("cannot init alm.");
-				return false;
-			}
-			
-			if (! waitForInit()) {
-				logger.error("agent ALM cannot initialized. ");
-				return false;
-			}
-			
-			return true;
-		} catch (Exception e) {
-			logger.error("failed to init alm. ", e);
-		}
-		return false;
-	}
-
 	@Override
 	public void clean(AppRegContext pgContext) {
 		BeanRegistry.getInstance().register(SdkCommonConstant.ALM_INITIALIZED_FLAG, false);
-		if (ifAlmExistInAgent()) {
-			// 不需要做。 alm的初始化是自己clean的。
-		} else {
-			localClean();
-		}
+		localClean();
 	}
 
-	private boolean waitForInit() {
-		Boolean initFlag = null;
-		int waitSec = 10;  //最多等10s。等agent初始化完毕。
-		do {
-			ThreadUtil.sleep(1000);
-			initFlag = BeanRegistry.getInstance().getBean(SdkCommonConstant.ALM_INITIALIZED_FLAG);
-			waitSec --;
-		} while (initFlag == null || !initFlag || (waitSec > 0)); 
-		return (initFlag != null && initFlag);
-	}
-	
-	
+	/**
+	 * SDK初始化ALM
+	 * @param config
+	 */
 	private synchronized void localInit(AppRegConfig config) {
-		logger.info("local alm begin to initilize");
-
+		logger.info("Local alm begin to initialize..");
 		BeanRegistry br = BeanRegistry.getInstance();
 
-		// 如果已经初始化成功。 不做处理
+		//如果已经初始化成功,不做处理
 		Boolean init = (Boolean) br.getBean(SdkCommonConstant.ALM_INITIALIZED_FLAG);
 		if ((init != null) && init) {
-			logger.warn("ALM already initilized. there must be some error here!!!");
+			logger.warn("ALM already initialized. There must be some error here!!!");
 			return;
 		}
 
@@ -274,21 +158,24 @@ public class AlmComponentInit implements ComponentInit {
 			br.register(almconfig);
 		}
 
-		// 数据校验。
-		if (almconfig.getLogCacheCapacity() < SdkCommonConstant.PG_LOG_CACHE_SIZE_MINIMUM)
+		//数据校验
+		if (almconfig.getLogCacheCapacity() < SdkCommonConstant.PG_LOG_CACHE_SIZE_MINIMUM) {
 			almconfig.setLogCacheCapacity(SdkCommonConstant.PG_LOG_CACHE_SIZE_MINIMUM);
-		if (almconfig.getLogBatchSize() > almconfig.getLogCacheCapacity())
+		}
+
+		if (almconfig.getLogBatchSize() > almconfig.getLogCacheCapacity()) {
 			almconfig.setLogBatchSize(almconfig.getLogCacheCapacity());
-		if (almconfig.getFuseCheckWindow() < SdkCommonConstant.PG_FUSE_CHECK_TIME_WINDOW_MINIMUM)
+		}
+
+		if (almconfig.getFuseCheckWindow() < SdkCommonConstant.PG_FUSE_CHECK_TIME_WINDOW_MINIMUM) {
 			almconfig.setFuseCheckWindow(SdkCommonConstant.PG_FUSE_CHECK_TIME_WINDOW_MINIMUM);
+		}
 
-
-		// 线程数，给MonitorLogSender
+		//初始化发送ALM日志的线程池给MonitorLogSender
 		monitorPool = Executors.newFixedThreadPool(almconfig.getLogSenderThread() + 1);
 
-		// 初始化可用的网络 连接器
+		//初始化可用的网络 连接器
 		HttpClientProxy httpClient = new HttpClientProxyImpl();
-
 		MonitorGlobalContext mgCtx = new MonitorGlobalContext(almconfig,config);
 		FusingProxyService fusingService = new FusingProxyService(mgCtx, httpClient);
 		MonitorService monitorService = new MonitorService(mgCtx, fusingService);
@@ -303,10 +190,9 @@ public class AlmComponentInit implements ComponentInit {
 		br.register(mgCtx);
 		br.register(alm);
 
+		//启动熔断
 		fusingManager.start();
-
 		launchSender(almconfig, mgCtx, sendLogService);
-
 	}
 
 	/**
@@ -335,5 +221,4 @@ public class AlmComponentInit implements ComponentInit {
 			monitorPool.execute(sender);
 		}
 	}
-
 }
