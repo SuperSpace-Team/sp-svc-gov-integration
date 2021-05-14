@@ -18,4 +18,7 @@ public class AppAuthConfig {
     @Value("${svcGovSdk.appSecret}")
     private String appSecret;
 
+    @Value("svcGovSdk.uniGateway")
+    private String uniGateway;
+
 }

@@ -1,10 +1,12 @@
 package com.yh.infra.svc.gov.sdk.auth.uac.app;
 
-import com.yh.infra.svc.gov.sdk.auth.uac.app.command.OperationUnitType;
 import com.yh.infra.svc.gov.sdk.auth.uac.app.command.PrivilegeAndUrlCommand;
 import com.yh.infra.svc.gov.sdk.auth.uac.app.command.PrivilegeQueryCommand;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public final class AppContext {
     private static AppContext appContext = new AppContext();
@@ -15,10 +17,6 @@ public final class AppContext {
     
     private Map<Long, List<PrivilegeQueryCommand>> localOrgToPrivilege ;
 
-
-    private Map<String, OperationUnitType> ouTypesMap =
-            new LinkedHashMap<String, OperationUnitType>(5);
-    
     private Map<String, List<PrivilegeAndUrlCommand>> privilegeAndUrl ;
     
     private AppContext() {}
@@ -59,22 +57,6 @@ public final class AppContext {
 		this.orgToPrivilege = orgToPrivilege;
 	}
 
-	public Collection<OperationUnitType> getOperationUnitTypes() {
-		return ouTypesMap.values();
-	}
-
-	public Map<Long, List<PrivilegeQueryCommand>> getLocalOrgToPrivilege() {
-		return localOrgToPrivilege;
-	}
-
-	public void setLocalOrgToPrivilege(
-			Map<Long, List<PrivilegeQueryCommand>> localOrgToPrivilege) {
-		this.localOrgToPrivilege = localOrgToPrivilege;
-	}
-
-    public Map<String, OperationUnitType> getOuTypesMap() {
-        return ouTypesMap;
-    }
     public Map<String, List<PrivilegeAndUrlCommand>> getPrivilegeAndUrl() {
 		return privilegeAndUrl;
 	}
