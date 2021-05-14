@@ -1,0 +1,98 @@
+@startuml
+autonumber
+
+group @Advice.OnMethodEnter
+    MethodAdvice -> AgentBeanRegistry:getBean MethodInterceptor
+    AgentBeanRegistry --> MethodAdvice:返回 MethodInterceptorImpl
+    MethodAdvice ->> MethodInterceptorImpl:enter
+    MethodInterceptorImpl -> ThreadContext:getStackTrace
+    ThreadContext --> MethodInterceptorImpl:返回Deque<InvokeContext> icStack
+
+    MethodInterceptorImpl -> BeanRegistry:getBean MonitorGlobalContext
+    BeanRegistry --> MethodInterceptorImpl:返回 MonitorGlobalContext
+
+    MethodInterceptorImpl -> InvokeContext:new currentIc 配置版本、方法上下文等信息
+    MethodInterceptorImpl -> icStack:peekFirst 返回但不出栈
+    icStack --> MethodInterceptorImpl:返回第一个InvokeContext parent
+    alt parent为空
+        MethodInterceptorImpl -> InvokeContext:setTransId 新transId
+        MethodInterceptorImpl -> InvokeContext:setSeq 1
+        MethodInterceptorImpl -> InvokeContext:setLastSeq 1
+    else parent 版本与当前版本不一致
+        MethodInterceptorImpl -> icStack:clear
+        MethodInterceptorImpl -> InvokeContext:setTransId 新transId
+        MethodInterceptorImpl -> InvokeContext:setSeq 1
+        MethodInterceptorImpl -> InvokeContext:setLastSeq 1
+    else
+        MethodInterceptorImpl -> InvokeContext:setTransId parent.getTransId()
+        MethodInterceptorImpl -> InvokeContext:setSeq parent.getLastSeq() + 1
+        MethodInterceptorImpl -> InvokeContext:setLastSeq ic.getSql()
+    end
+    MethodInterceptorImpl -> icStack:push currentIc
+
+    MethodInterceptorImpl -> BeanRegistry:getBean MonitorService
+    BeanRegistry --> MethodInterceptorImpl:返回MonitorService
+    MethodInterceptorImpl -> MonitorService:preFetchData
+    MonitorService -> EvaluationContext:setVariable 存放TargetClass、方法入参
+    MonitorService -> InvokeContext:getInputData().put 存放方法入参
+
+    MonitorService -> MonitorGlobalContext:getRules(InvokeContext) 查找方法(入口)对应的解析规则
+    MonitorGlobalContext --> MonitorService:返回Map<Integer, BizEntryRule> rulesMap\nkey为bizcode，value为业务链路中的node和tnode\n根据监控入口的key，找到哪些业务维度，包含这个方法的node
+    group 遍历rulesMap，逐个处理所有业务维度的监控节点
+        group for (Node node : rule.getNodeList()) 遍历普通节点
+            MonitorService -> MonitorGlobalContext:getExpression
+            MonitorGlobalContext --> MonitorService:返回NodeExpressionCommand
+            MonitorService -> MonitorService:match 方法是否与node匹配
+            MonitorService -> MonitorService:generatePreMonitorLog生成方法调用前的inlog
+            MonitorService -> InvokeContext:getNodeInLogMap().put(node.getCode(), loglist)\nkey为node code，value为EL生成的log字符串
+            MonitorService -> InvokeContext:getBizNodeMap().put(bizCode, node)\n
+        end
+        group for (TransformNode node : rule.getTransformNodeList()) 遍历转换节点
+            MonitorService -> MonitorGlobalContext:getExpression
+            MonitorGlobalContext --> MonitorService:返回NodeExpressionCommand
+            MonitorService -> MonitorService:match 方法是否与node匹配
+            MonitorService -> InvokeContext:getBizTransMap().put\n记录匹配到的转换节点
+        end
+        MonitorService -> MonitorLogMessage:new 创建全链路监控日志
+        MonitorService -> InvokeContext:getBizLogCmdList().add(MonitorLogMessage)\n将全链路监控日志存到调用上下文
+    end
+    MethodInterceptorImpl -> InvokeContext:setDeal true 有节点匹配到，则标记需要处理本次拦截
+end
+
+group @Advice.OnMethodExit
+    MethodAdvice -> AgentBeanRegistry:getBean MethodInterceptor
+    AgentBeanRegistry --> MethodAdvice:返回 MethodInterceptorImpl
+    MethodAdvice ->> MethodInterceptorImpl:exit
+    MethodInterceptorImpl -> ThreadContext:getStackTrace
+    ThreadContext --> MethodInterceptorImpl:返回Deque<InvokeContext> icStack
+
+    MethodInterceptorImpl -> icStack:pop 弹出栈第一个元素
+    icStack --> MethodInterceptorImpl:弹出第一个InvokeContext currentIc
+
+    group icStack.isNotEmpty
+        MethodInterceptorImpl -> icStack:peekFirst 返回但不出栈
+        icStack --> MethodInterceptorImpl:返回第一个InvokeContext parent
+        MethodInterceptorImpl -> ThreadContext:setLastSeq currentIc.getLastSeq()\n将当前上下文lastSeq存到父级
+    end
+
+    MethodInterceptorImpl -> ThreadContext:set 参数、返回值、异常
+    MethodInterceptorImpl -> BeanRegistry:getBean MonitorService
+    BeanRegistry --> MethodInterceptorImpl:返回MonitorService
+    MethodInterceptorImpl -> MonitorService:postHandle
+    MonitorService -> EvaluationContext:setVariable
+    MonitorService -> InvokeContext:getBizLogCmdList
+    InvokeContext --> MonitorService:返回List<MonitorLogMessage>
+    loop 遍历MonitorLogMessage
+        MonitorService -> InvokeContext:getBizNodeMap()
+        InvokeContext --> MonitorService:返回Map<Integer, Node> bizNodeMap
+
+
+        MonitorService -> MonitorGlobalContext:getExpression 获取监控节点的EL表达式
+        MonitorService -> MonitorService:getBizKeyList
+
+        MonitorService -> InvokeContext:getNodeInLogMap
+        InvokeContext --> MonitorService:返回Map<Integer, List<String>> nodeInLogMap\nkey为bizcode，value为EL生成的log字符串
+    end
+
+end
+@enduml

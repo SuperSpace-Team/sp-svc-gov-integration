@@ -1,0 +1,67 @@
+@startuml
+autonumber
+
+AppRegLauncher -> BeanRegistry:register SDK启用标志
+AppRegLauncher -> BeanRegistry:register 全链路监控启用标志
+AppRegLauncher -> AppRegConfig:初始化成员变量
+
+AppRegLauncher -> AppRegContext:new(AppRegConfig) 初始currentVersion=-100
+AppRegLauncher -> BeanRegistry:register AppRegContext
+AppRegLauncher -> BeanRegistry:register SDK_GLOBAL_CONFIG_JSON
+
+AppRegLauncher -> HttpClientProxyImpl:new
+AppRegLauncher -> BeanRegistry:register HttpClientProxyImpl
+
+AppRegLauncher -> UacService:new(AppRegContext)
+AppRegLauncher -> BeanRegistry:register UacService
+
+AppRegLauncher -> SendReceiveService:new(AppRegContext, UacService)
+AppRegLauncher -> BeanRegistry:register SendReceiveService
+
+AppRegLauncher -> ConfigService:new(AppRegContext)
+AppRegLauncher -> BeanRegistry:register ConfigService
+
+AppRegLauncher -> VersionChecker:new(AppRegContext, SendReceiveService, ConfigService)
+AppRegLauncher -> BeanRegistry:register VersionChecker
+
+AppRegLauncher -> UacService:getToken
+
+AppRegLauncher -> AlmComponentInit:new 全链路监控组件
+AppRegLauncher -> BeanRegistry:add ComponentInit AlmComponentInit
+AppRegLauncher -> BeanRegistry:getBeanList ComponentInit
+BeanRegistry --> AppRegLauncher:返回ComponentInit列表
+group 遍历ComponentInit
+    AppRegLauncher -> ComponentInit:init
+    ComponentInit ->> AlmComponentInit:init\n见AlmComponentInit.puml
+end
+
+group 启动线程，循环获取配置信息
+    AppRegLauncher -> VersionChecker:run
+    VersionChecker -> VersionChecker:getCfgVersion\n有新的listener/callback注册时，\n版本返回-1，强制获取新配置
+    VersionChecker -> SendReceiveService:send
+    SendReceiveService -> UacService:sendRequestWithToken
+    UacService --> VersionChecker:返回版本信息
+
+    VersionChecker -> ConfigService:updateVersion
+    ConfigService -> BeanRegistry:getBeanList CallbackService
+    BeanRegistry --> ConfigService:返回CallbackService列表
+    group 遍历CallbackService列表
+        ConfigService -> CallbackService
+        CallbackService ->> AlmCallbackProxyImpl
+
+        AlmCallbackProxyImpl -> BeanRegistry:getBean ALM_EMBEDDED_TYPE
+        BeanRegistry --> AlmCallbackProxyImpl:返回alm类别
+        alt alm类别为agent
+            AlmCallbackProxyImpl -> AgentAlmCallbackServiceImpl:validate
+            AlmCallbackProxyImpl -> AgentAlmCallbackServiceImpl:process
+        else
+            AlmCallbackProxyImpl -> LocalAlmCallbackServiceImpl:validate
+            AlmCallbackProxyImpl -> LocalAlmCallbackServiceImpl:process
+        end
+    end
+    ConfigService -> AppRegContext:setCurrentVersion 更新当前版本号
+end
+
+AppRegLauncher -> BeanRegistry:register SDK_INITIALIZED_FLAG true
+
+@enduml

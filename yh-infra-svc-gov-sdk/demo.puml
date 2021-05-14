@@ -1,9 +1,0 @@
-@startuml
-starter -> AppRegLauncher:init
-AppRegLauncher -> AlmComponentInit:init
-AlmComponentInit -> AlmComponentInit:initAgentAlm
-AlmComponentInit -> AlmComponentInit:initLocalAlm
-AlmComponentInit -> AlmCallbackProxyImpl
-
-
-@enduml
