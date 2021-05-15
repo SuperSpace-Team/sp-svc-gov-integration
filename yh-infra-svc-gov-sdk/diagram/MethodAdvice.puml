@@ -44,8 +44,8 @@ group @Advice.OnMethodEnter
             MonitorGlobalContext --> MonitorService:返回NodeExpressionCommand
             MonitorService -> MonitorService:match 方法是否与node匹配
             MonitorService -> MonitorService:generatePreMonitorLog生成方法调用前的inlog
-            MonitorService -> InvokeContext:getNodeInLogMap().put(node.getCode(), loglist)\nkey为node code，value为EL生成的log字符串
-            MonitorService -> InvokeContext:getBizNodeMap().put(bizCode, node)\n
+            MonitorService -> InvokeContext:getNodeInLogMap().put(node.getCode(), loglist)\nkey为node code，value为通过inExp提取的数据
+            MonitorService -> InvokeContext:getBizNodeMap().put(bizCode, node)\nkey为bizcode，value为node
         end
         group for (TransformNode node : rule.getTransformNodeList()) 遍历转换节点
             MonitorService -> MonitorGlobalContext:getExpression
@@ -84,15 +84,49 @@ group @Advice.OnMethodExit
     InvokeContext --> MonitorService:返回List<MonitorLogMessage>
     loop 遍历MonitorLogMessage
         MonitorService -> InvokeContext:getBizNodeMap()
-        InvokeContext --> MonitorService:返回Map<Integer, Node> bizNodeMap
+        InvokeContext --> MonitorService:返回Map<Integer, Node> bizNodeMap\nkey为bizcode，value为Node
 
+        MonitorService -> InvokeContext:getBizNodeMap().get()\n根据bizcode查询普通Node
+        group generateNodeLog 生成一个node的日志vo
+            MonitorService -> InvokeContext:getNodeInLogMap
+            InvokeContext --> MonitorService:返回Map<Integer, List<String>> nodeInLogMap\nkey为node code，value为通过inExp提取的数据
+            MonitorService -> InvokeContext:getNodeInLogMap.get()\n根据node code查询通过inExp提取的数据
+            group generatePostMonitorLog 通过EL表达式获取关键字数据、方法返回数据
+                MonitorService -> MonitorGlobalContext:getExpression 查询Node对应的各种EL表达式
+                MonitorGlobalContext --> MonitorService:返回NodeExpressionCommand
+                MonitorService -> MonitorService:getBizKeyList\n通过keyExp(业务关键字)提取数据
+                MonitorService -> MonitorService:key为PG_LOG_MAP_KEY_BIZKEY\nvalue为业务关键字数据
+                MonitorService -> MonitorGlobalContext:ifSimpleMode 是否精简模式，精简模式不读取返回值和异常日志
+                alt 产生了异常
+                    MonitorService -> NodeExpressionCommand:getErrorExp 通过errorExp获取数据
+                else
+                    MonitorService -> NodeExpressionCommand:getOutExp 通过outExp获取数据
+                end
+                MonitorService -> MonitorService:key为PG_LOG_MAP_KEY_RESULT\nvalue为异常信息或返回信息
+            end
+            MonitorService -> MonitorService:以业务关键字为准，合并key，in，out，exception，\n构建监控日志command列表
+            MonitorService -> MonitorLogMessage:setMonitorLogList 存储上一步的合并后的列表
+        end
 
-        MonitorService -> MonitorGlobalContext:getExpression 获取监控节点的EL表达式
-        MonitorService -> MonitorService:getBizKeyList
+        MonitorService -> InvokeContext:getBizTransMap().get()\n根据bizcode查询转换Node
+        MonitorService -> MonitorGlobalContext:getExpression 查询Node对应的各种EL表达式
+        MonitorGlobalContext --> MonitorService:返回NodeExpressionCommand
+        MonitorService -> ExpressionHelper:generateTransformLog 生成转换日志的列表
+        ExpressionHelper -> ExpressionHelper:通过srcExp获取数据
+        ExpressionHelper -> ExpressionHelper:通过targetExp获取数据
+        ExpressionHelper -> ExpressionHelper:generateTransformCommand\nsrcKey、targetKey按序号对应
+        ExpressionHelper --> MonitorService:返回List<TransformLogUnitCommand> srcKey、targetKey的对应关系
+        MonitorService -> MonitorLogMessage:setTransformLogList 存储上一步的列表
+        MonitorService -> MonitorLogMessage:setElaspedTime 当前时间戳 - MonitorLogMessage.getTimeStamp()
 
-        MonitorService -> InvokeContext:getNodeInLogMap
-        InvokeContext --> MonitorService:返回Map<Integer, List<String>> nodeInLogMap\nkey为bizcode，value为EL生成的log字符串
+        group fillSkywalkingInfo 将skywalking信息填入消息
+            MonitorService -> MonitorLogMessage:setSwSegment
+            MonitorService -> MonitorLogMessage:setSwTrace
+            MonitorService -> MonitorLogMessage:setSwSpan
+        end
+
+        MonitorService -> FusingProxyService:addLog
+        FusingProxyService -> MonitorGlobalContext:addLog 存入almLogQueue
     end
-
 end
 @enduml
