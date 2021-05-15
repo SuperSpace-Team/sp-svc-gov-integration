@@ -72,7 +72,7 @@ public class UacService {
 		String tmp = retMap.get(SdkCommonConstant.RESP_KEY_ERROR);
 		if (tmp != null) {
 			// 系统异常
-			logger.warn("get ramdom code fail. {}", retMap);
+			logger.warn("Get ramdom code fail. {}", retMap);
 			return null;
 		}
 		tmp = retMap.get(SdkCommonConstant.RESP_KEY_STATUS);

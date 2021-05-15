@@ -63,7 +63,7 @@ public class AppRegLauncher {
 
     AppRegConfig appRegConfig = new AppRegConfig();
     private HttpClientProxy httpClientProxy = null;
-    private ExecutorService adminThreadPool = Executors.newFixedThreadPool(4);
+    private ExecutorService adminPool = Executors.newFixedThreadPool(4);
 
 
     public AppRegLauncher(){ }

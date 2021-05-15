@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 /**
- * SDK版本检查器
+ * 治理SDK版本信息定时检查器
  * @author luchao 2018-12-19
  *
  */
@@ -70,7 +70,7 @@ public class VersionChecker extends Thread {
 					configService.updateVersion(resp);
 				}
 			} catch (Exception e) {
-				logger.warn("Cannot update svc gov SDK version.", e);
+				logger.warn("Cannot update service governance SDK version!", e);
 			}
 
 			for (int i = 0; i < context.getConfig().getVersionPullInterval(); i++) {
@@ -83,7 +83,8 @@ public class VersionChecker extends Thread {
 					logger.debug("Find NEW listener registered in service governance SDK! Current version:{}",
 							context.getCurrentVersion());
 				}
-				// 如果有新的callback登记，停止sleep。立刻抓取新的 config。
+
+				//如果有新的callback登记，停止sleep。立刻抓取新的config。
 				if ((context.getCurrentVersion() > 0) && context.isNewCallback()) {
 					if (logger.isDebugEnabled()) {
 						logger.debug("Find NEW listener registered! Trigger another query from server side!");
@@ -94,15 +95,20 @@ public class VersionChecker extends Thread {
 			}
 		}
 	}
-	
+
+	/**
+	 * 判断是否初始化成功
+	 * @return
+	 */
 	private boolean initialized() {
 		Boolean init = BeanRegistry.getInstance().<Boolean>getBean(SdkCommonConstant.SDK_INITIALIZED_FLAG);
 		// 尚未初始化成功，不做任何操作
-		if (init == null) {
-			logger.info("SDK has not initialized, will sleep 1s.");
+		if (init == null || !init) {
+			logger.info("Service governance SDK has not been initialized, will sleep for 1s.");
 			ThreadUtil.sleep(1000);
 			return false;
 		}
+
 		return true;
 	}
 

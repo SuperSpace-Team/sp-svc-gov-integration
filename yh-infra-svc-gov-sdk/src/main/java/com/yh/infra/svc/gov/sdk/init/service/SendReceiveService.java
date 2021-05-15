@@ -23,14 +23,12 @@ public class SendReceiveService {
     private static final Logger logger = LoggerFactory.getLogger(SendReceiveService.class);
 
     private AppRegContext context;
-    
     private UacService uacService;
     
 	public SendReceiveService(AppRegContext context, UacService uacService) {
 		this.context = context;
 		this.uacService = uacService;
 	}
-
 
 	/**
      * 发送版本查询请求并且读取返回的版本数据
@@ -39,6 +37,10 @@ public class SendReceiveService {
      * @return
      */
 	public VersionQueryResp send(VersionQueryReq req) {
+		if(req == null || req.getCfgVersion() == null || req.getCfgVersion() == 0) {
+			return null;
+		}
+
 		AppRegConfig config = context.getConfig();
 
 		//调用版本检查(/version/query)接口验证
