@@ -56,7 +56,7 @@ public class AppRegLauncherTest {
 		respStr = JsonUtil.writeValue(aaro);
 		respMap.put("result", respStr);
 		respMap.put("status", "200");
-		when(httpClient.postJson(eq("http://yh-infra-union-gateway-dev.devgw.yonghui.cn/svc-gov/app/encrypt/code"),
+		when(httpClient.postJson(eq("http://yh-infra-union-gateway-dev.devgw.yonghui.cn/svc-gov/app/getAppAuthCode"),
 				anyString(), anyInt(), any(Header[].class))).thenReturn(respMap);
 
 		AccessTokenCommand token = new AccessTokenCommand();

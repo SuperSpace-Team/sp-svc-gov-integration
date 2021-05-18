@@ -50,7 +50,7 @@ public class SendReceiveService2Test {
 		cfg = new AppRegConfig();
 		cfg.setAppKey("TEST-APP");
 		cfg.setAppSecret("12345678");
-		cfg.setUacUrl("http://localhost:1278/uac");
+		cfg.setAppAuthUrl("http://localhost:1278/uac");
 		cfg.setGovPlatformUrl("http://localhost:1278/pg/version/query");
 		cfg.setEnableVersionChecker(false);
 		
@@ -83,7 +83,7 @@ public class SendReceiveService2Test {
 		msc.when(
 			request()
 				.withMethod("POST")
-				.withPath("/uac/appmember/member/encrypt/code")
+				.withPath("/app/getAppAuthCode")
 		)
 		.respond(
 			response()
@@ -93,7 +93,7 @@ public class SendReceiveService2Test {
 		msc.when(
 				request()
 					.withMethod("POST")
-					.withPath("/uac/appmember/member/appLogin")
+					.withPath("/app/login")
 			)
 			.respond(
 				response()
@@ -103,7 +103,7 @@ public class SendReceiveService2Test {
 		msc.when(
 				request()
 					.withMethod("POST")
-					.withPath("/pg/version/query")
+					.withPath("/svc-gov/version/query")
 			)
 			.respond(
 				response()

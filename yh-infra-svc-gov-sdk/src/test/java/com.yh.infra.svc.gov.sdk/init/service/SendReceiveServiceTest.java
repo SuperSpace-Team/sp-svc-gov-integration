@@ -44,7 +44,7 @@ public class SendReceiveServiceTest {
 		cfg = new AppRegConfig();
 		cfg.setAppKey("TEST-APP");
 		cfg.setAppSecret("12345678");
-		cfg.setUacUrl("http://uac");
+		cfg.setAppAuthUrl("http://uac");
 		cfg.setSecretUrl("http://uac/secret");
 		cfg.setGovPlatformUrl("pgserver");
 		
@@ -81,7 +81,7 @@ public class SendReceiveServiceTest {
 		respStr = JsonUtil.writeValue(aaro);
 		respMap.put("result", respStr);
 		respMap.put("status", SdkCommonConstant.HTTP_STATUS_OK);
-		when(httpClient.postJson(eq("http://uac/appmember/member/appLogin"), anyString(), anyInt(), any(Header[].class))).thenReturn(respMap);
+		when(httpClient.postJson(eq("http://app/login"), anyString(), anyInt(), any(Header[].class))).thenReturn(respMap);
 		
 		
 		respMap = new HashMap<String, String>();

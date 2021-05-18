@@ -53,7 +53,7 @@ public class UacServiceTest {
 		cfg = new AppRegConfig();
 		cfg.setAppKey("TEST-APP");
 		cfg.setAppSecret("12345678");
-		cfg.setUacUrl("http://localhost:9081");
+		cfg.setAppAuthUrl("http://localhost:9081");
 		
 		ctx = new AppRegContext(cfg);
 		ctx.setCurrentVersion(11);
@@ -102,7 +102,7 @@ public class UacServiceTest {
 		respJson = JsonUtil.writeValueSafe(tokenCmd);
 		aaro.setData(respJson);
 		respJson = JsonUtil.writeValueSafe(aaro);
-		prepareMockServer("/appmember/member/appLogin", respJson);
+		prepareMockServer("/app/login", respJson);
 		
 		// uac service
         BeanRegistry br = BeanRegistry.getInstance();
@@ -110,7 +110,7 @@ public class UacServiceTest {
         uacService.resetToken();
 
         // 执行
-        String token = uacService.getToken();
+        String token = uacService.getAppToken();
         
         assertEquals("token-12345", token);
 	}
@@ -132,7 +132,7 @@ public class UacServiceTest {
         uacService.resetToken();
 
         // 执行
-        String token = uacService.getToken();
+        String token = uacService.getAppToken();
         assertNull(token);
         verify(mockLogger, times(1)).warn(eq("result : {}"),any(Map.class));
 	}
@@ -177,7 +177,7 @@ public class UacServiceTest {
 		TestReflectionUtils.setValue(uacService, "uacTokenStr", "old-token-12345");
 		
         // 执行
-        String token = uacService.getToken();
+        String token = uacService.getAppToken();
         verify(mockLogger, times(1)).debug(startsWith("begin to refresh token. reLoginFlag:"),any(), any());
         assertEquals("new-token-12345", token);
         
@@ -213,7 +213,6 @@ public class UacServiceTest {
 		
         // 执行
 		Map<String, String>  retmap = uacService.sendRequestWithToken("http://localhost:9081/oms/create", "abc" , 10000);
-        
 		verify(mockLogger, times(1)).warn(eq("received a response asking for relogin. {}, {}"),any(), any());
 	}
 	

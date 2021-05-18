@@ -56,7 +56,7 @@ public class SendReceiveService_1Test {
 		cfg = new AppRegConfig();
 		cfg.setAppKey("TEST-APP");
 		cfg.setAppSecret("12345678");
-		cfg.setUacUrl("http://uac");
+		cfg.setAppAuthUrl("http://uac");
 		cfg.setSecretUrl("http://uac/secret");
 		cfg.setGovPlatformUrl("http://pgserver");
 		
@@ -136,7 +136,7 @@ public class SendReceiveService_1Test {
 		VersionQueryReq req = TestVoUtil.voVersionQueryReq("TEST-APP", "localhost", 12);
 		VersionQueryResp resp = service.send(req);
 		assertNull(resp);
-		assertNull(uac.getToken());
+		assertNull(uac.getAppToken());
 		verify(httpClient,times(0)).postJson(eq("http://pgserver"), anyString(), anyInt(), any(Header[].class));
 	}
 	

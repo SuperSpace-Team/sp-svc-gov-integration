@@ -167,7 +167,7 @@ public class TaskApiManager {
      */
     private Header[] getHeaders() {
         UacService uacService = getUacService();
-        String token = uacService.getToken();
+        String token = uacService.getAppToken();
 
         if (StringUtils.isEmpty(token)) {
             throw new BusinessException(-1, "Tenant authentication failed");

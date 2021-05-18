@@ -47,7 +47,7 @@ public class AppRegLauncher {
     /**
      * 统一API网关URL
      */
-    private String unionGatewayUrl = SdkCommonConstant.DEFAULT_UNION_GATEWAY_URL;
+    private String unionGatewayUrl;
 
     /**
      * 是否启用治理SDK
@@ -181,8 +181,8 @@ public class AppRegLauncher {
         //守护线程也注册,由于是单线程,没有影响,后续可以取到使用
         br.register(versionChecker);
 
-        //UAC登录
-        uacService.getToken();
+        //应用登录获取服务治理平台授权Token
+        uacService.getAppToken();
 
         //全链路监控注册
         BeanRegistry.getInstance().add(ComponentInit.class, new AlmComponentInit());
@@ -200,7 +200,7 @@ public class AppRegLauncher {
 
         //启动守护线程
         if(appRegConfig.getEnableVersionChecker()){
-            adminThreadPool.execute(versionChecker);
+            adminPool.execute(versionChecker);
             //停1s,等线程启动(不启动也没关系)
             ThreadUtil.sleep(1000);
         }else {
@@ -276,8 +276,8 @@ public class AppRegLauncher {
             appRegConfig.setGovPlatformUrl(unionGatewayUrl + ServiceUrlConstants.SVC_GOV_VERSION_QUERY);
         }
 
-        if(StringUtils.isEmpty(appRegConfig.getUacUrl())){
-            appRegConfig.setUacUrl(unionGatewayUrl + ServiceUrlConstants.UAC_BASE);
+        if(StringUtils.isEmpty(appRegConfig.getAppAuthUrl())){
+            appRegConfig.setAppAuthUrl(unionGatewayUrl + ServiceUrlConstants.APP_AUTH_BASE_URL);
         }
 
         if(StringUtils.isEmpty(appRegConfig.getSecretUrl())){

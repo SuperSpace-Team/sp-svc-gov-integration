@@ -58,7 +58,7 @@ public class AppRegConfig {
     /**
      * 应用中心接入URL
      */
-    private String uacUrl;
+    private String appAuthUrl;
 
     /**
      * 密钥管理接入URL

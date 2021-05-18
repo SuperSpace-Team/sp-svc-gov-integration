@@ -37,7 +37,7 @@ public class UacServiceOpTest {
 		cfg = new AppRegConfig();
 		cfg.setAppKey("pg-app-demo1");
 		cfg.setAppSecret("12345678");
-		cfg.setUacUrl("http://uat-api-base.yonghui.cn/api");
+		cfg.setAppAuthUrl("http://uat-api-base.yonghui.cn/api");
 		
 		ctx = new AppRegContext(cfg);
 		
@@ -59,7 +59,7 @@ public class UacServiceOpTest {
         UacService uacService = br.getBean(UacService.class);
 
         // 执行
-        String token = uacService.getToken();
+        String token = uacService.getAppToken();
         AccessTokenCommand tokenCmd0 = (AccessTokenCommand)TestReflectionUtils.getValue(uacService, "uacToken");
 
         System.out.println("get token after login: " + tokenCmd0);
@@ -79,7 +79,7 @@ public class UacServiceOpTest {
 		tokenCmd0.setAccessToken(token);
 		TestReflectionUtils.setValue(uacService, "uacToken", tokenCmd0);
 
-        token = uacService.getToken();
+        token = uacService.getAppToken();
         
         AccessTokenCommand tokenCmd1 = (AccessTokenCommand)TestReflectionUtils.getValue(uacService, "uacToken");
         

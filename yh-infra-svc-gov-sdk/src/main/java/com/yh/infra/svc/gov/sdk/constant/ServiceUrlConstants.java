@@ -26,8 +26,8 @@ public class ServiceUrlConstants {
 	 */
 	public static final String FILE_URL="file/";
 	
-	/** UAC**/
-    public static final String UAC_BASE = ""; 
+	/** 应用鉴权接口地址-治理平台基础服务(不直接在ITWork应用中心鉴权) **/
+    public static final String APP_AUTH_BASE_URL = "/svc-gov/app";
 	/** 版本检查 **/
     public static final String SVC_GOV_VERSION_QUERY = "/svc-gov/version/query";
 	/** 应用密钥查询 **/

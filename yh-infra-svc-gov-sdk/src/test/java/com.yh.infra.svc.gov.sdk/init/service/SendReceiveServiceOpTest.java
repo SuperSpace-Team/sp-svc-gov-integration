@@ -37,7 +37,7 @@ public class SendReceiveServiceOpTest {
 		cfg = new AppRegConfig();
 		cfg.setAppKey("PAY_SERVICE1");
 		cfg.setAppSecret("12345678");
-		cfg.setUacUrl("http://10.101.6.66:1205/api");
+		cfg.setAppAuthUrl("http://10.101.6.66:1205/api");
 		cfg.setSecretUrl("http://10.101.6.66:1205/api");
 		cfg.setGovPlatformUrl("http://10.101.6.66:1205/api/pg/version/query");
 		
