@@ -28,18 +28,19 @@ public class BeanRegistry {
         if (StringUtils.isBlank(clazz.getName())) {
             return false;
         }
-
+        
+        Vector serviceList = null;
         Object existBean = regBeansMap.get(clazz.getName());
         if (existBean == null) {
-            regBeansMap.put(clazz.getName(), new Vector());
-            return true;
+        	serviceList=new Vector();
+        	serviceList.add(obj);
+        	regBeansMap.put(clazz.getName(),serviceList);
+      }
+       if (!(existBean instanceof List)) {
+           return false;
         }
 
-        if (!(obj instanceof List)) {
-            return false;
-        }
-
-        List svcList = (List) obj;
+        List svcList = (List) existBean;
         for (Object item : svcList) {
             if (item == obj) {
                 return false;
@@ -47,10 +48,9 @@ public class BeanRegistry {
 
             svcList.add(item);
         }
-
         return true;
     }
-
+    
     public <T> List<T> getBeanList(Class<T> clazz){
         if(clazz == null || StringUtils.isBlank(clazz.getName())){
             return null;
