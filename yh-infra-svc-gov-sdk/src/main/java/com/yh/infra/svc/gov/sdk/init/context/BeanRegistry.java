@@ -24,6 +24,13 @@ public class BeanRegistry {
         return instance;
     }
 
+    /**
+     * 
+     * @param <T>
+     * @param clazz
+     * @param obj
+     * @return
+     */
     public <T> Boolean add(Class<T> clazz, Object obj) {
         if (StringUtils.isBlank(clazz.getName())) {
             return false;
