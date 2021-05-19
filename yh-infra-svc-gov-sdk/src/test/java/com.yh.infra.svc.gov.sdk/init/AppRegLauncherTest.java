@@ -53,10 +53,10 @@ public class AppRegLauncherTest {
 		aaro.setIsSuccess(true);
 		aaro.setData("svc-gov-app-token-426161524495749120");
 		respStr = JsonUtil.writeValue(aaro);
-		respMap.put("result", respStr);
+		respMap.put("result", "{\"resultFlag\":true,\"data\":\"TOKEN123\",\"errorMsg\":null,\"errorCode\":0} ");
 		respMap.put("status", "200");
-		when(httpClient.postJson(eq("http://localhost:8100/svc-gov/app/getAppAuthCode"),
-				anyString(), anyInt(), any(Header[].class))).thenReturn(respMap);
+//		when(httpClient.postJson(eq("http://localhost:8100/svc-gov/app/getAppAuthCode"),
+//				anyString(), anyInt(), any(Header[].class))).thenReturn(respMap);
 
 		AccessTokenCommand token = new AccessTokenCommand();
 		token.setAccessToken("svc-gov-app-token-426161524495749120");
