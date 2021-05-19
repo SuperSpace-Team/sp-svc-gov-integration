@@ -38,7 +38,7 @@ public class AppRegLauncherTest {
 		client = new AppRegLauncher();
 		client.setAppKey("demo--yh-test-svc");
 		client.setAppSecret("rPuKYUvnb6xYGSqXOzhwd7IDU1WaeKQc");
-		client.setUnionGatewayUrl("http://yh-infra-union-gateway-dev.yonghui.cn");
+		client.setUnionGatewayUrl("http://localhost:8100");
 		client.setHttpClientProxy(httpClient);
 		client.setEnabled(true);
 		
@@ -55,7 +55,7 @@ public class AppRegLauncherTest {
 		respStr = JsonUtil.writeValue(aaro);
 		respMap.put("result", respStr);
 		respMap.put("status", "200");
-		when(httpClient.postJson(eq("http://yh-infra-union-gateway-dev.yonghui.cn/svc-gov/app/getAppAuthCode"),
+		when(httpClient.postJson(eq("http://localhost:8100/svc-gov/app/getAppAuthCode"),
 				anyString(), anyInt(), any(Header[].class))).thenReturn(respMap);
 
 		AccessTokenCommand token = new AccessTokenCommand();
@@ -71,7 +71,7 @@ public class AppRegLauncherTest {
 		respMap = new HashMap();
 		respMap.put("result", respStr);
 		respMap.put("status", "200");
-		when(httpClient.postJson(eq("http://yh-infra-union-gateway-dev.yonghui.cn/svc-gov/app/login"),
+		when(httpClient.postJson(eq("http://localhost:8100/svc-gov/app/login"),
 				anyString(), anyInt(), any(Header[].class))).thenReturn(respMap);
 	}
 
