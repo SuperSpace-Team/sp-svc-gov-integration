@@ -1,5 +1,7 @@
 package com.yh.infra.svc.gov.sdk.init;
 
+import com.yh.infra.svc.gov.agent.agent.AgentBeanRegistry;
+import com.yh.infra.svc.gov.agent.agent.AgentInstallProcessor;
 import com.yh.infra.svc.gov.sdk.command.AccessTokenCommand;
 import com.yh.infra.svc.gov.sdk.command.AccountAuthReturnObj;
 import com.yh.infra.svc.gov.sdk.command.BaseResponseEntity;
@@ -7,6 +9,7 @@ import com.yh.infra.svc.gov.sdk.constant.SdkCommonConstant;
 import com.yh.infra.svc.gov.sdk.init.context.BeanRegistry;
 import com.yh.infra.svc.gov.sdk.init.daemon.VersionChecker;
 import com.yh.infra.svc.gov.sdk.net.HttpClientProxy;
+import com.yh.infra.svc.gov.sdk.net.impl.HttpClientProxyImpl;
 import com.yh.infra.svc.gov.sdk.util.JsonUtil;
 import com.yh.infra.svc.gov.sdk.util.TestReflectionUtils;
 import com.yh.infra.svc.gov.sdk.util.ThreadUtil;
@@ -16,7 +19,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import java.lang.instrument.Instrumentation;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -29,8 +34,7 @@ import static org.mockito.Mockito.when;
 public class AppRegLauncherTest {
 	AppRegLauncher client = new AppRegLauncher();
 
-	@Mock
-    HttpClientProxy httpClient;
+    HttpClientProxy httpClient = new HttpClientProxyImpl();
 	
 	@Before
 	public void setUp() throws Exception {
@@ -71,8 +75,9 @@ public class AppRegLauncherTest {
 		respMap = new HashMap();
 		respMap.put("result", respStr);
 		respMap.put("status", "200");
-		when(httpClient.postJson(eq("http://localhost:8100/svc-gov/app/login"),
-				anyString(), anyInt(), any(Header[].class))).thenReturn(respMap);
+//		when(httpClient.postJson(eq("http://localhost:8100/svc-gov/app/login"),
+//				anyString(), anyInt(), any(Header[].class))).thenReturn(respMap);
+		AgentBeanRegistry.register(new AgentInstallProcessor(null, "1.0.0-SNAPSHOT"));
 	}
 
 	@After
@@ -87,7 +92,6 @@ public class AppRegLauncherTest {
 		ThreadUtil.sleep(3000);
 		BeanRegistry sc = BeanRegistry.getInstance();
 		VersionChecker versionChecker = sc.getBean(VersionChecker.class);
-		
 		versionChecker.setExit();
 		
 		ExecutorService adminPool = (ExecutorService)TestReflectionUtils.getValue(client, "adminPool");

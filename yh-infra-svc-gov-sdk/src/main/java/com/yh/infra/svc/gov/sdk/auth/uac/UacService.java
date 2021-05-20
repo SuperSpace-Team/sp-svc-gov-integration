@@ -147,7 +147,7 @@ public class UacService {
 		}
 
 		if (responseVO.getIsSuccess() && responseVO.getData() != null) {
-			AccessTokenCommand appTokenCmd = (AccessTokenCommand)responseVO.getData();
+			AccessTokenCommand appTokenCmd = JsonUtil.objectToBean(responseVO.getData(), AccessTokenCommand.class);
 			if (appTokenCmd == null) {
 				logger.warn("Parse app token info failed. {} ",
 						JsonUtil.writeValue(responseVO.getData()));
@@ -302,7 +302,7 @@ public class UacService {
 				return;
 			}
 
-			appTokenRespInfo = appLogin(config.getUnionGatewayUrl(), config.getAppKey(), config.getAppSecret(), code);
+			appTokenRespInfo = appLogin(config.getAppAuthUrl(), config.getAppKey(), config.getAppSecret(), code);
 		} catch (Exception e) {
 			logger.warn("System error when refresh token.", e);
 		} finally {
