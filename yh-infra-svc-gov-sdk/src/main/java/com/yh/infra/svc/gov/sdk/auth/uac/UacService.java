@@ -19,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock.ReadLock;
@@ -204,14 +205,18 @@ public class UacService {
 			if (responseVO.getIsSuccess() && responseVO.getData() != null) {
 				logger.info("Successfully refreshed app token.New app token {}.", responseVO.getData());
 
-				AccessTokenCommand appTokenCmd = (AccessTokenCommand)responseVO.getData();
-				appTokenRespInfo.setAccessToken(appTokenCmd.getAccessToken());
-				appTokenRespInfo.setExpireTime(appTokenCmd.getExpireTime());
-				return true;
+				LinkedHashMap appTokenResultMap = (LinkedHashMap)responseVO.getData();
+				AccessTokenCommand appTokenCmd = JsonUtil.parseJson(JsonUtil.writeValue(appTokenResultMap), AccessTokenCommand.class);
+
+				if(appTokenCmd != null && StringUtils.isNotBlank(appTokenCmd.getAccessToken())) {
+					appTokenRespInfo.setAccessToken(appTokenCmd.getAccessToken());
+					appTokenRespInfo.setExpireTime(appTokenCmd.getExpireTime());
+					return true;
+				}
 			}
 		}
 
-		logger.warn("refresh app token failed. result : {}", retMap);
+		logger.warn("Refresh app token failed. result : {}", retMap);
 		return false;
 	}
 
