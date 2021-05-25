@@ -205,9 +205,7 @@ public class UacService {
 			if (responseVO.getIsSuccess() && responseVO.getData() != null) {
 				logger.info("Successfully refreshed app token.New app token {}.", responseVO.getData());
 
-				LinkedHashMap appTokenResultMap = (LinkedHashMap)responseVO.getData();
-				AccessTokenCommand appTokenCmd = JsonUtil.parseJson(JsonUtil.writeValue(appTokenResultMap), AccessTokenCommand.class);
-
+				AccessTokenCommand appTokenCmd = JsonUtil.objectToBean(responseVO.getData(), AccessTokenCommand.class);
 				if(appTokenCmd != null && StringUtils.isNotBlank(appTokenCmd.getAccessToken())) {
 					appTokenRespInfo.setAccessToken(appTokenCmd.getAccessToken());
 					appTokenRespInfo.setExpireTime(appTokenCmd.getExpireTime());
