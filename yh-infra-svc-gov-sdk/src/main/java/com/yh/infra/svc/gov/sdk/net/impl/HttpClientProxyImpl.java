@@ -35,8 +35,8 @@ public class HttpClientProxyImpl implements HttpClientProxy {
 		HttpClientResponse ret = HttpJsonClient.postJsonData(url, content, timeout, headers);
 		
 		if (logger.isDebugEnabled()) {
-			logger.debug("request: {}", content);
-			logger.debug("response: {}", ret);
+			logger.debug("Service governance API request:{}, Body:{}, Headers:{}", url, content, headers);
+			logger.debug("Service governance API response:{}, Result: {}", url, ret);
 		}
 		
 		return convertMap(ret);

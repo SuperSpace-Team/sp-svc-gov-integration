@@ -103,7 +103,7 @@ public class VersionChecker extends Thread {
 	private boolean initialized() {
 		Boolean init = BeanRegistry.getInstance().<Boolean>getBean(SdkCommonConstant.SDK_INITIALIZED_FLAG);
 		// 尚未初始化成功，不做任何操作
-		if (init == null || !init) {
+		if (init == null) {
 			logger.info("Service governance SDK has not been initialized, will sleep for 1s.");
 			ThreadUtil.sleep(1000);
 			return false;
