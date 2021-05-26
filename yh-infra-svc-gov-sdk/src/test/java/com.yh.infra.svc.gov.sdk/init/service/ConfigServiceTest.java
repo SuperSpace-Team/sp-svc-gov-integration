@@ -57,8 +57,8 @@ public class ConfigServiceTest {
 
     @After
     public void tearDown() throws Exception {
-    	Map<String, Object> beanRegistry = new ConcurrentHashMap<String, Object>();
-    	TestReflectionUtils.setValue(BeanRegistry.getInstance(), "beanRegistry", beanRegistry);
+//    	Map<String, Object> beanRegistry = new ConcurrentHashMap<String, Object>();
+//    	TestReflectionUtils.setValue(BeanRegistry.getInstance(), "beanRegistry", beanRegistry);
     	if (oriLogger != null)
             TestReflectionUtils.setStaticValue(ConfigService.class, "logger", oriLogger);
     }
@@ -93,7 +93,7 @@ public class ConfigServiceTest {
         when(cbService.validate(anyMap())).thenThrow(e);
         
         service.updateVersion(vqr);
-        verify(mockLogger, times(1)).warn(eq("error occurs when callback.validate"), any(Throwable.class));
+        verify(mockLogger, times(1)).warn(eq("Error occurs when callback validations."), any(Throwable.class));
     }
 
     
@@ -114,7 +114,7 @@ public class ConfigServiceTest {
         assertEquals(SdkCommonConstant.PG_VERSION_INITIAL_VERSION, context.getCurrentVersion());
         service.updateVersion(vqr);
         assertEquals(11, context.getCurrentVersion());
-        verify(mockLogger, times(1)).warn(startsWith("error occurs when for callback service"), any(Throwable.class));
+        verify(mockLogger, times(1)).warn(startsWith("Error occurs when process for svc gov callback service"), any(Throwable.class));
     }
 
 
@@ -124,6 +124,4 @@ public class ConfigServiceTest {
         queryResp.setVersion(11);
         return queryResp;
     }
-
-
 }

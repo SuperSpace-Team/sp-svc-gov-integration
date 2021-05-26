@@ -1,5 +1,6 @@
 package com.yh.infra.svc.gov.sdk.init.service;
 
+import com.yh.infra.svc.gov.sdk.auth.uac.UacService;
 import com.yh.infra.svc.gov.sdk.command.AccessTokenCommand;
 import com.yh.infra.svc.gov.sdk.config.AppRegConfig;
 import com.yh.infra.svc.gov.sdk.init.command.VersionQueryReq;
@@ -31,25 +32,25 @@ public class SendReceiveServiceOpTest {
 	AppRegConfig cfg;
 	AppRegContext ctx;
 	HttpClientProxyImpl httpClient = new HttpClientProxyImpl();
+	UacService uacService;
 	
 	@Before
 	public void setUp() throws Exception {
 		cfg = new AppRegConfig();
-		cfg.setAppKey("PAY_SERVICE1");
-		cfg.setAppSecret("12345678");
-		cfg.setAppAuthUrl("http://10.101.6.66:1205/api");
-		cfg.setSecretUrl("http://10.101.6.66:1205/api");
-		cfg.setGovPlatformUrl("http://10.101.6.66:1205/api/pg/version/query");
+		cfg.setAppKey("demo--yh-test-svc");
+		cfg.setAppSecret("rPuKYUvnb6xYGSqXOzhwd7IDU1WaeKQc");
+		cfg.setAppAuthUrl("http://localhost:8100/svc-gov/app");
+		cfg.setGovPlatformUrl("http://localhost:8100/svc-gov/version/query");
 		
 		ctx = new AppRegContext(cfg);
 		ctx.setCurrentVersion(22);
-		
-		
+
 		BeanRegistry sc = BeanRegistry.getInstance();
 		sc.register(ctx);
 		sc.register(HttpClientProxy.class.getName(), httpClient);
-		
-		service = new SendReceiveService(ctx, null);
+
+		uacService = new UacService(ctx);
+		service = new SendReceiveService(ctx, uacService);
 	}
 
 	@After
@@ -58,16 +59,12 @@ public class SendReceiveServiceOpTest {
 
 	@Test
 	public void test_Send_VersionQueryReq_need_relogin() {
-		
 		AccessTokenCommand token = new AccessTokenCommand();
 		token.setExpireTime(System.currentTimeMillis() + 500000);
-		token.setAccessToken("A-12b25fe3");
+		token.setAccessToken("svc-gov-app-token-428630176021221376");
 		
-		
-		VersionQueryReq req = TestVoUtil.voVersionQueryReq("PAY_SERVICE", "10.45.71.18", -1);
+		VersionQueryReq req = TestVoUtil.voVersionQueryReq("demo--yh-test-svc", "10.67.84.149", -1);
 		VersionQueryResp resp = service.send(req);
 		assertEquals(1, resp.getCode().intValue());
 	}
-
-	
 }

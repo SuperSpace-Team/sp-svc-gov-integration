@@ -2,8 +2,9 @@
 package com.yh.infra.svc.gov.sdk.init.service;
 
 import com.yh.infra.svc.gov.sdk.auth.uac.UacService;
-import com.yh.infra.svc.gov.sdk.command.AccessTokenCommand;
+import com.yh.infra.svc.gov.sdk.auth.uac.app.command.AccessTokenCommand;
 import com.yh.infra.svc.gov.sdk.command.AccountAuthReturnObj;
+import com.yh.infra.svc.gov.sdk.command.BaseResponseEntity;
 import com.yh.infra.svc.gov.sdk.config.AppRegConfig;
 import com.yh.infra.svc.gov.sdk.constant.SdkCommonConstant;
 import com.yh.infra.svc.gov.sdk.init.command.VersionQueryReq;
@@ -47,18 +48,17 @@ public class SendReceiveService_1Test {
 	@Spy
 	HttpClientProxyImpl httpClient = new HttpClientProxyImpl();
 	
-	UacService uac;
+	UacService uacService;
 	
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		
 		cfg = new AppRegConfig();
-		cfg.setAppKey("TEST-APP");
-		cfg.setAppSecret("12345678");
-		cfg.setAppAuthUrl("http://uac");
-		cfg.setSecretUrl("http://uac/secret");
-		cfg.setGovPlatformUrl("http://pgserver");
+		cfg.setAppKey("demo--yh-test-svc");
+		cfg.setAppSecret("rPuKYUvnb6xYGSqXOzhwd7IDU1WaeKQc");
+		cfg.setAppAuthUrl("http://localhost:8100/svc-gov/app");
+		cfg.setGovPlatformUrl("http://localhost:8100/svc-gov/version/query");
 		
 		ctx = new AppRegContext(cfg);
 		ctx.setCurrentVersion(11);
@@ -67,9 +67,9 @@ public class SendReceiveService_1Test {
 		BeanRegistry sc = BeanRegistry.getInstance();
 		sc.register(ctx);
 		sc.register(HttpClientProxy.class.getName(), httpClient);
-		uac = new UacService(ctx);
+		uacService = new UacService(ctx);
 		
-		service = new SendReceiveService(ctx, uac);
+		service = new SendReceiveService(ctx, uacService);
 	}
 
 	@After
@@ -78,35 +78,36 @@ public class SendReceiveService_1Test {
 
 	@Test
 	public void test_Send_VersionQueryReq_need_refresh() {
-		AccessTokenCommand token = new AccessTokenCommand();
-		token.setExpireTime(100L);
-		token.setAccessToken("OLD-TOKEN");
+		AccessTokenCommand tokenTargetInfo = new AccessTokenCommand();
+		tokenTargetInfo.setExpireTime(100L);
+		tokenTargetInfo.setAccessToken("svc-gov-app-token-428630176021221376");
 		
-		TestReflectionUtils.setValue(uac, "uacToken", token);
-		TestReflectionUtils.setValue(uac, "uacTokenStr", "OLD-TOKEN");
+		TestReflectionUtils.setValue(uacService, "appTokenRespInfo", tokenTargetInfo);
+		TestReflectionUtils.setValue(uacService, "appTokenStr", "svc-gov-app-token-428630176021221376");
 		
-		AccountAuthReturnObj aaro = new AccountAuthReturnObj();
-		aaro.setResultFlag(true);
-		aaro.setData("true");
-		String tmp = JsonUtil.writeValue(aaro);
+		BaseResponseEntity res = new BaseResponseEntity();
+		res.setIsSuccess(true);
+		res.setData("true");
+
+		String tmp = JsonUtil.writeValue(res);
 		Map<String, String> respMap = new HashMap<String, String>();
 		respMap.put("result", tmp);
 		respMap.put("status", SdkCommonConstant.HTTP_STATUS_OK);
-		doReturn(respMap).when(httpClient).postJson(eq("http://uac/appmember/member/refreshNewToken"), anyString(), anyInt(), any(Header[].class));
+		doReturn(respMap).when(httpClient).postJson(eq("http://localhost:8100/svc-gov/app/refreshNewToken"), anyString(), anyInt(), any(Header[].class));
 		
 		respMap = new HashMap<String, String>();
 		String retstr = JsonUtil.writeValue(TestVoUtil.voVersionQueryResp(1, 12, ""));
 		respMap.put("result", retstr);
 		respMap.put("status", SdkCommonConstant.HTTP_STATUS_OK);
-		doReturn(respMap).when(httpClient).postJson(eq("http://pgserver"), anyString(), anyInt(), any(Header[].class));
+		doReturn(respMap).when(httpClient).postJson(eq("http://localhost:8100/svc-gov"), anyString(), anyInt(), any(Header[].class));
 		
-		VersionQueryReq req = TestVoUtil.voVersionQueryReq("TEST-APP", "localhost", 12);
+		VersionQueryReq req = TestVoUtil.voVersionQueryReq("demo--yh-test-svc", "localhost", 12);
 		VersionQueryResp resp = service.send(req);
 		assertEquals(1, resp.getCode().intValue());
 		
-		tmp = (String)TestReflectionUtils.getValue(uac, "uacTokenStr");
-		assertEquals("OLD-TOKEN", tmp);
-		verify(httpClient,times(1)).postJson(eq("http://uac/appmember/member/refreshNewToken"), anyString(), anyInt(), any(Header[].class));
+		tmp = (String)TestReflectionUtils.getValue(uacService, "appTokenStr");
+		assertEquals("svc-gov-app-token-428630176021221376", tmp);
+		verify(httpClient,times(1)).postJson(eq("http://localhost:8100/svc-gov/app/refreshNewToken"), anyString(), anyInt(), any(Header[].class));
 	}
 
 	
@@ -121,23 +122,23 @@ public class SendReceiveService_1Test {
 		Map<String, String> respMap = new HashMap<String, String>();
 		respMap.put("result", tmp);
 		respMap.put("status", "200");
-		doReturn(respMap).when(httpClient).postJson(eq("http://uac/appmember/member/refreshAppToken"), anyString(), anyInt(), any(Header[].class));
+		doReturn(respMap).when(httpClient).postJson(eq("http://localhost:8100/svc-gov/app/refreshNewToken"), anyString(), anyInt(), any(Header[].class));
 
 		
-		// 设置getrandomcode的返回值， false。
+		// 设置getAppAuthCode的返回值， false。
 		aaro = new AccountAuthReturnObj();
 		aaro.setResultFlag(false);
 		tmp = JsonUtil.writeValue(aaro);
 		respMap = new HashMap<String, String>();
 		respMap.put("result", tmp);
 		respMap.put("status", "200");
-		doReturn(respMap).when(httpClient).postJson(eq("http://uac/appmember/member/encrypt/code"), anyString(), anyInt(), any(Header[].class));
+		doReturn(respMap).when(httpClient).postJson(eq("http://localhost:8100/svc-gov/app/getAppAuthCode"), anyString(), anyInt(), any(Header[].class));
 		
-		VersionQueryReq req = TestVoUtil.voVersionQueryReq("TEST-APP", "localhost", 12);
+		VersionQueryReq req = TestVoUtil.voVersionQueryReq("demo--yh-test-svc", "localhost", 12);
 		VersionQueryResp resp = service.send(req);
 		assertNull(resp);
-		assertNull(uac.getAppToken());
-		verify(httpClient,times(0)).postJson(eq("http://pgserver"), anyString(), anyInt(), any(Header[].class));
+		assertNull(uacService.getAppToken());
+		verify(httpClient,times(0)).postJson(eq("http://localhost:8100/svc-gov"), anyString(), anyInt(), any(Header[].class));
 	}
 	
 }

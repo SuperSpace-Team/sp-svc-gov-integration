@@ -4,6 +4,7 @@ package com.yh.infra.svc.gov.sdk.init.service;
 import com.yh.infra.svc.gov.sdk.auth.uac.UacService;
 import com.yh.infra.svc.gov.sdk.command.AccessTokenCommand;
 import com.yh.infra.svc.gov.sdk.command.AccountAuthReturnObj;
+import com.yh.infra.svc.gov.sdk.command.BaseResponseEntity;
 import com.yh.infra.svc.gov.sdk.config.AppRegConfig;
 import com.yh.infra.svc.gov.sdk.init.command.VersionQueryReq;
 import com.yh.infra.svc.gov.sdk.init.command.VersionQueryResp;
@@ -48,10 +49,10 @@ public class SendReceiveService2Test {
 		mockServer = ClientAndServer.startClientAndServer(1278);
 
 		cfg = new AppRegConfig();
-		cfg.setAppKey("TEST-APP");
-		cfg.setAppSecret("12345678");
-		cfg.setAppAuthUrl("http://localhost:1278/uac");
-		cfg.setGovPlatformUrl("http://localhost:1278/pg/version/query");
+		cfg.setAppKey("demo--yh-test-svc");
+		cfg.setAppSecret("rPuKYUvnb6xYGSqXOzhwd7IDU1WaeKQc");
+		cfg.setAppAuthUrl("http://localhost:8100/svc-gov/app");
+		cfg.setGovPlatformUrl("http://localhost:8100/svc-gov/version/query");
 		cfg.setEnableVersionChecker(false);
 		
 		ctx = new AppRegContext(cfg);
@@ -64,14 +65,14 @@ public class SendReceiveService2Test {
 		uac = new UacService(ctx);
 		service = new SendReceiveService(ctx, uac);
 		
-		AccountAuthReturnObj aaro = new AccountAuthReturnObj();
-		aaro.setResultFlag(true);
-		aaro.setData("CODE-1234");
+		BaseResponseEntity aaro = new BaseResponseEntity();
+		aaro.setIsSuccess(true);
+		aaro.setData("428704779334717440");
 		String aaroCodeJson = JsonUtil.writeValue(aaro);
 		
 		AccessTokenCommand token = new AccessTokenCommand();
-		token.setAccessToken("TOKEN123");
-		token.setExpireTime(312312312l);
+		token.setAccessToken("svc-gov-app-token-428630176021221376");
+		token.setExpireTime(68548517L);
 		aaro.setData(JsonUtil.writeValue(token));
 		String aaroTokenJson = JsonUtil.writeValue(aaro);
 
@@ -122,11 +123,11 @@ public class SendReceiveService2Test {
 
 	@Test
 	public void test_Send_VersionQueryReq_success() {
-		VersionQueryReq req = TestVoUtil.voVersionQueryReq("UT-APP1", "localhost", 12);
+		VersionQueryReq req = TestVoUtil.voVersionQueryReq("demo--yh-test-svc", "localhost", 12);
 		
 		VersionQueryResp resp = service.send(req);
 		assertNotNull(resp);
-		assertEquals(4, resp.getCode().intValue());
+		assertEquals(5, resp.getCode().intValue());
 	}
 
 }

@@ -29,7 +29,7 @@ public class GsLogServiceImplTest {
         appRegLauncher.setEnabled(true);
         appRegLauncher.setAppKey("noa-dev");
         appRegLauncher.setAppSecret("12345678");
-        appRegLauncher.setUnionGatewayUrl("http://sit-api-base.baozun.com/api");
+        appRegLauncher.setUnionGatewayUrl("http://localhost:8100");
         appRegLauncher.setAppRegConfig(appRegConfig);
         appRegLauncher.init();
     }

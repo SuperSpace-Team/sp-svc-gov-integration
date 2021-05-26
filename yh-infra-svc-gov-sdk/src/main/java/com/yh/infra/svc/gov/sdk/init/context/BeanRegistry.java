@@ -36,25 +36,29 @@ public class BeanRegistry {
             return false;
         }
         
-        Vector serviceList = null;
-        Object existBean = regBeansMap.get(clazz.getName());
-        if (existBean == null) {
+        List serviceList;
+        Object beanList = regBeansMap.get(clazz.getName());
+        boolean existFlag = false;
+        if (beanList == null) {
         	serviceList=new Vector();
-        	serviceList.add(obj);
-        	regBeansMap.put(clazz.getName(),serviceList);
+        	regBeansMap.put(clazz.getName(), serviceList);
       }
-       if (!(existBean instanceof List)) {
+       if (!(beanList instanceof List)) {
            return false;
         }
 
-        List svcList = (List) existBean;
-        for (Object item : svcList) {
+        serviceList = (List) beanList;
+        for (Object item : serviceList) {
             if (item == obj) {
-                return false;
+               existFlag = true;
+               break;
             }
-
-            svcList.add(item);
         }
+
+        if(!existFlag){
+            serviceList.add(obj);
+        }
+
         return true;
     }
     

@@ -56,9 +56,13 @@ public class VersionCheckerTest {
         BeanRegistry.getInstance().register(SdkCommonConstant.SDK_INITIALIZED_FLAG, true);
         
         appRegConfig = new AppRegConfig();
+        appRegConfig.setAppKey("demo--yh-test-svc");
+        appRegConfig.setGovPlatformUrl("http://localhost:8100");
         // test 拉取版本间隔1s
         appRegConfig.setVersionPullInterval(1);
-        
+        appRegConfig.setSdkVersion("1.0.0-SNAPSHOT");
+        appRegConfig.setHostName("test-pc");
+
         appRegContext = new AppRegContext(appRegConfig);
         versionChecker = new VersionChecker(appRegContext,sendReceiveService,configService);
     }
@@ -97,7 +101,7 @@ public class VersionCheckerTest {
     	versionChecker.start();
 //        ThreadUtil.sleep(2000);
         WaitUtil.wait(2000);
-        verify(mockLogger, times(1)).info(eq("found new callback. reset version to -1"));
+        verify(mockLogger, times(1)).info(eq("Found new callback, reset version to -1."));
         
     }
 
