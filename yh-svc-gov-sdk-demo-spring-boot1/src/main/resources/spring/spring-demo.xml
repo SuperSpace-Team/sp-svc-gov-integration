@@ -11,9 +11,9 @@
 	<!-- 配置 client -->
 <!-- 	
 	<bean id="pgClientLauncher" class="com.yh.infra.svc.gov.sdk.init.AppRegLauncher" init-method="init"  >
-		<property name="appId" value="${svc-gov-sdk.appId}" />
-		<property name="secret" value="${svc-gov-sdk.secret}"/>
-		<property name="apiGateWayUrl" value="${svc-gov-sdk.gatewayUrl}" />
+		<property name="appId" value="${svc-gov-sdk.appKey}" />
+		<property name="secret" value="${svc-gov-sdk.appSecret}"/>
+		<property name="apiGateWayUrl" value="${svc-gov-sdk.unionGatewayUrl}" />
 		<property name="enabled" value="true" />
 	</bean>
 -->
@@ -22,8 +22,8 @@
 
 	<!-- 
 	<bean id="pgConfig" class="com.yh.infra.svc.gov.sdk.config.AppRegConfig" >
-		<property name="hostname" value="${svc-gov-sdk.appId}" />
-		<property name="ip" value="${svc-gov-sdk.appId}" />
+		<property name="hostname" value="${svc-gov-sdk.appKey}" />
+		<property name="ip" value="${svc-gov-sdk.appKey}" />
 	</bean> 
 	
 	
