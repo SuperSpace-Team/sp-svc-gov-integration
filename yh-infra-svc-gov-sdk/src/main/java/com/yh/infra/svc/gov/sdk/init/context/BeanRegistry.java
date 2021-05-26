@@ -40,9 +40,12 @@ public class BeanRegistry {
         Object beanList = regBeansMap.get(clazz.getName());
         boolean existFlag = false;
         if (beanList == null) {
-        	serviceList=new Vector();
+        	serviceList = new Vector();
         	regBeansMap.put(clazz.getName(), serviceList);
-      }
+            serviceList.add(obj);
+            return true;
+        }
+
        if (!(beanList instanceof List)) {
            return false;
         }

@@ -54,7 +54,8 @@ public class SendReceiveService2Test {
 		cfg.setAppAuthUrl("http://localhost:8100/svc-gov/app");
 		cfg.setGovPlatformUrl("http://localhost:8100/svc-gov/version/query");
 		cfg.setEnableVersionChecker(false);
-		
+		cfg.setSdkVersion("1.0.0-SNAPSHOT");
+
 		ctx = new AppRegContext(cfg);
 		ctx.setCurrentVersion(22);
 		
@@ -127,7 +128,7 @@ public class SendReceiveService2Test {
 		
 		VersionQueryResp resp = service.send(req);
 		assertNotNull(resp);
-		assertEquals(5, resp.getCode().intValue());
+		assertEquals(1, resp.getCode().intValue());
 	}
 
 }

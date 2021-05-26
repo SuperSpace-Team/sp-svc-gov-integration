@@ -45,7 +45,8 @@ public class SendReceiveServiceTest {
 		cfg.setAppSecret("rPuKYUvnb6xYGSqXOzhwd7IDU1WaeKQc");
 		cfg.setAppAuthUrl("http://localhost:8100/svc-gov/app");
 		cfg.setGovPlatformUrl("http://localhost:8100/svc-gov/version/query");
-		
+		cfg.setSdkVersion("1.0.0-SNAPSHOT");
+
 		ctx = new AppRegContext(cfg);
 		ctx.setCurrentVersion(22);
 		
