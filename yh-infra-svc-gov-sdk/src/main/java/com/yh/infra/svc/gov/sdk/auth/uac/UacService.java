@@ -40,7 +40,7 @@ public class UacService {
 	private AppRegContext context = null;
 
 	/**
-	 * UAC传入的token
+	 * 服务治理基础服务应用授权管理API返回的授权appToken
 	 */
 	private AccessTokenCommand appTokenRespInfo = null;
 	private String appTokenStr = null;

@@ -55,10 +55,10 @@ public class FusingManagerTest {
 
     }
 
-    class BzCallable implements Callable<Boolean> {
+    class YhCallable implements Callable<Boolean> {
         FusingManager fusing;
 
-        public BzCallable(FusingManager fusing) {
+        public YhCallable(FusingManager fusing) {
             this.fusing = fusing;
         }
 

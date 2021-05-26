@@ -140,5 +140,4 @@ public class SendReceiveService_1Test {
 		assertNull(uacService.getAppToken());
 		verify(httpClient,times(0)).postJson(eq("http://localhost:8100/svc-gov"), anyString(), anyInt(), any(Header[].class));
 	}
-	
 }

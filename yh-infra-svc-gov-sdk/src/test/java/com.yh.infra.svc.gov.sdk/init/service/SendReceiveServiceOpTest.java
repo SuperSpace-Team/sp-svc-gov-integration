@@ -64,6 +64,7 @@ public class SendReceiveServiceOpTest {
 		token.setAccessToken("svc-gov-app-token-428630176021221376");
 		
 		VersionQueryReq req = TestVoUtil.voVersionQueryReq("demo--yh-test-svc", "10.67.84.149", -1);
+		req.setSdkVersion("1.0.0-SNAPSHOT");
 		VersionQueryResp resp = service.send(req);
 		assertEquals(1, resp.getCode().intValue());
 	}

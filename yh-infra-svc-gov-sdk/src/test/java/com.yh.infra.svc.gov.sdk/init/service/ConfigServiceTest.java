@@ -57,8 +57,8 @@ public class ConfigServiceTest {
 
     @After
     public void tearDown() throws Exception {
-//    	Map<String, Object> beanRegistry = new ConcurrentHashMap<String, Object>();
-//    	TestReflectionUtils.setValue(BeanRegistry.getInstance(), "beanRegistry", beanRegistry);
+    	Map<String, Object> beanRegistry = new ConcurrentHashMap<String, Object>();
+    	TestReflectionUtils.setValue(BeanRegistry.getInstance(), "regBeansMap", beanRegistry);
     	if (oriLogger != null)
             TestReflectionUtils.setStaticValue(ConfigService.class, "logger", oriLogger);
     }

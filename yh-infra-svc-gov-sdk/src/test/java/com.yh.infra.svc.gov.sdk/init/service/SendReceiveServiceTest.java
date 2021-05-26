@@ -12,6 +12,7 @@ import com.yh.infra.svc.gov.sdk.init.command.VersionQueryResp;
 import com.yh.infra.svc.gov.sdk.init.context.AppRegContext;
 import com.yh.infra.svc.gov.sdk.init.context.BeanRegistry;
 import com.yh.infra.svc.gov.sdk.net.HttpClientProxy;
+import com.yh.infra.svc.gov.sdk.net.impl.HttpClientProxyImpl;
 import com.yh.infra.svc.gov.sdk.util.JsonUtil;
 import com.yh.infra.svc.gov.sdk.util.TestVoUtil;
 import org.apache.http.Header;
@@ -32,8 +33,7 @@ public class SendReceiveServiceTest {
 	SendReceiveService service;
 	AppRegConfig cfg;
 	AppRegContext ctx;
-	
-	@Mock
+
     HttpClientProxy httpClient;
 	
 	@Before
@@ -49,8 +49,8 @@ public class SendReceiveServiceTest {
 
 		ctx = new AppRegContext(cfg);
 		ctx.setCurrentVersion(22);
-		
-		
+
+		httpClient = new HttpClientProxyImpl();
 		BeanRegistry sc = BeanRegistry.getInstance();
 		sc.register(ctx);
 		sc.register(HttpClientProxy.class.getName(), httpClient);
