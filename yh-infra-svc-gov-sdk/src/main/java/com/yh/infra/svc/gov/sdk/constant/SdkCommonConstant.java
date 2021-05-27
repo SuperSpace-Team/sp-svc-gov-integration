@@ -88,7 +88,7 @@ public final class SdkCommonConstant {
 
     /** 通用配置 **/
     public static final int PG_CONNECT_TIMEOUT = 5; //默认网络连接超时
-    public static final String PG_LOCAL_FILE_LOGGER_NAME = "PG-Monitor-Log"; //写到本地日志的时候，logger的name。
+    public static final String PG_LOCAL_FILE_LOGGER_NAME = "ALM-Monitor-Log"; //写到本地日志的时候，logger的name。
 
     /** 用于版本 **/
     public static final int PG_VERSION_POLLING_INTERVAL = 30; //轮询 30s 间隔。

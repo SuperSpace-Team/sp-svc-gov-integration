@@ -9,15 +9,11 @@
     <packaging>pom</packaging>
     <version>1.0.0-SNAPSHOT</version>
     <name>yh-svc-gov-integration</name>
-    <description>YH union infrastructure of service governance</description>
+    <description>Yonghui service governance SDK integration product</description>
 
     <modules>
         <module>yh-infra-svc-gov-sdk</module>
         <module>yh-infra-svc-gov-agent</module>
-        <module>yh-svc-gov-sdk-demo-dubbo</module>
-        <module>yh-svc-gov-sdk-demo-spring-boot1</module>
-        <module>yh-svc-gov-sdk-demo-spring-boot2</module>
-        <module>yh-svc-gov-sdk-demo-tomcat</module>
     </modules>
 
     <properties>
