@@ -13,8 +13,7 @@ import java.util.Map;
 /**
  * 版本数据. 会被多个线程访问，取得entry的数据。 所以需要线程同步。
  * 
- * @author qinzhiyuan
- * @email 80961464@yonghui.cn
+ * @author luchao
  * @date 2021/4/25 5:49 下午
  */
 public class MonitorRulesData {

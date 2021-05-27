@@ -12,8 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author qinzhiyuan
- * @email 80961464@yonghui.cn
+ * @author luchao
  * @date 2021/4/25 8:26 下午
  */
 public class MonitorLogSender implements Runnable {

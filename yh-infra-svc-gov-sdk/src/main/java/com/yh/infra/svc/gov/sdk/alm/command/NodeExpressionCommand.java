@@ -3,8 +3,7 @@ package com.yh.infra.svc.gov.sdk.alm.command;
 import org.springframework.expression.Expression;
 
 /**
- * @author qinzhiyuan
- * @email 80961464@yonghui.cn
+ * @author luchao
  * @date 2021/4/25 5:49 下午
  */
 public class NodeExpressionCommand {

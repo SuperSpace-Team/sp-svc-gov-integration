@@ -5,8 +5,7 @@ import com.yh.infra.svc.gov.sdk.init.context.ResponseStatusEnum;
 /**
  * 发送返回状态。发送给熔断守护服务使用。
  *
- * @author qinzhiyuan
- * @email 80961464@yonghui.cn
+ * @author luchao
  * @date 2021/4/25 6:09 下午
  */
 public class ResponseStatusCommand {

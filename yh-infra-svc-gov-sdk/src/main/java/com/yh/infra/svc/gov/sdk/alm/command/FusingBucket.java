@@ -5,8 +5,7 @@ import com.yh.infra.svc.gov.sdk.init.context.ResponseStatusEnum;
 /**
  * 计数器，熔断用
  *
- * @author qinzhiyuan
- * @email 80961464@yonghui.cn
+ * @author luchao
  * @date 2021/4/25 6:13 下午
  */
 public class FusingBucket {

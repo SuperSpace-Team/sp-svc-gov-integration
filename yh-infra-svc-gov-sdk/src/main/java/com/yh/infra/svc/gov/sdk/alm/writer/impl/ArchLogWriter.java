@@ -9,8 +9,7 @@ import com.yh.infra.svc.gov.sdk.constant.SdkCommonConstant;
 import java.util.List;
 
 /**
- * @author qinzhiyuan
- * @email 80961464@yonghui.cn
+ * @author luchao
  * @date 2021/4/25 8:33 下午
  */
 public class ArchLogWriter implements LogWriter {

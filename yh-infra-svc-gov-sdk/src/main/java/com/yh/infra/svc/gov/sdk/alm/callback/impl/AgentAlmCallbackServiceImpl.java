@@ -17,9 +17,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author qinzhiyuan
- * @email 80961464@yonghui.cn
- * @date 2021/4/25 5:45 下午
+ * @author luchao
+ * @date 2021/4/21
  */
 public class AgentAlmCallbackServiceImpl {
 	private static final Logger logger = LoggerFactory.getLogger(AgentAlmCallbackServiceImpl.class);
@@ -32,12 +31,14 @@ public class AgentAlmCallbackServiceImpl {
 		//不需要判空。因为在init阶段会做。
 		ClassLoader almClassLoader = BeanRegistry.getInstance().getBean(SdkCommonConstant.ALM_CLASS_LOADER);
 			
-		boolean validate = false;
+		boolean validate;
 		try {
 			if (almService == null) {
-				Method m = ClazzUtil.getMethod(almClassLoader, SdkCommonConstant.ALM_REGISTRY_CLASSPATH_NAME, SdkCommonConstant.GET_BEAN, String.class);
+				Method m = ClazzUtil.getMethod(almClassLoader, SdkCommonConstant.ALM_REGISTRY_CLASSPATH_NAME,
+						SdkCommonConstant.GET_BEAN, String.class);
 				BaseResponseEntity bre = new BaseResponseEntity();
-				if ((! ClazzUtil.invoke(bre, m, SdkCommonConstant.ALM_CALLBACK_CLASSPATH_NAME)) || (bre.getData() == null)){
+				if ((! ClazzUtil.invoke(bre, m, SdkCommonConstant.ALM_CALLBACK_CLASSPATH_NAME))
+						|| (bre.getData() == null)){
 					logger.warn("cannot get the alm bean registry.");
 					cbDataMap.put(SdkCommonConstant.IGNORE_ALM, true);
 					return true;
@@ -47,7 +48,8 @@ public class AgentAlmCallbackServiceImpl {
 					logger.debug("got the AlmCallbackServiceImpl. {}", almService);
 			}
 			if (validateMethod == null) {
-				validateMethod = ClazzUtil.getMethod(almClassLoader, SdkCommonConstant.ALM_CALLBACK_CLASSPATH_NAME, SdkCommonConstant.VALIDATE, Map.class);
+				validateMethod = ClazzUtil.getMethod(almClassLoader, SdkCommonConstant.ALM_CALLBACK_CLASSPATH_NAME,
+						SdkCommonConstant.VALIDATE, Map.class);
 			}
 			
 			// 旧版的agent不支持 自定义节点。 所以要过滤掉。
@@ -75,8 +77,10 @@ public class AgentAlmCallbackServiceImpl {
 	 * @param cbDataMap
 	 */
 	private void filterCustomizeNode(Map<String, Object> cbDataMap) {
-		VersionQueryResp resp = JsonUtil.readValueSafe(String.valueOf(cbDataMap.get(SdkCommonConstant.CB_MAP_CONFIG_RESP)), VersionQueryResp.class);
-		if ((resp.getCode() == SdkCommonConstant.RESP_STATUS_NO_UPDATE) || (resp.getCode() == SdkCommonConstant.RESP_STATUS_UPDATE_DISABLED)) {
+		VersionQueryResp resp = JsonUtil.readValueSafe(
+				String.valueOf(cbDataMap.get(SdkCommonConstant.CB_MAP_CONFIG_RESP)), VersionQueryResp.class);
+		if ((resp.getCode() == SdkCommonConstant.RESP_STATUS_NO_UPDATE)
+				|| (resp.getCode() == SdkCommonConstant.RESP_STATUS_UPDATE_DISABLED)) {
 			return ;
 		}
 
@@ -88,9 +92,7 @@ public class AgentAlmCallbackServiceImpl {
 			}
 		}
 		cfg.getMonitor().setNodes(nlist);
-		
 		resp.setConfig(JsonUtil.writeValueSafe(cfg));
-		
 		cbDataMap.put(SdkCommonConstant.CB_MAP_CONFIG_RESP, JsonUtil.writeValueSafe(resp));
 	}
 	

@@ -11,8 +11,7 @@ import java.util.Map;
 
 /**
  * SkyWalking traceId、segmentId、spanId生成类
- * @author qinzhiyuan
- * @email 80961464@yonghui.cn
+ * @author luchao
  * @date 2021/4/25 8:47 下午
  */
 public class SkyWalkingGenerator {

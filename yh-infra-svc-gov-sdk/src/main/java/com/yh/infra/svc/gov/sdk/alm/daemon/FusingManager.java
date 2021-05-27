@@ -14,8 +14,7 @@ import org.slf4j.LoggerFactory;
 /**
  * 处理发送日志的结果，计算并管理熔断状态。 单线程，无限循环
  *
- * @author qinzhiyuan
- * @email 80961464@yonghui.cn
+ * @author luchao
  * @date 2021/4/25 8:25 下午
  */
 public class FusingManager extends Thread {

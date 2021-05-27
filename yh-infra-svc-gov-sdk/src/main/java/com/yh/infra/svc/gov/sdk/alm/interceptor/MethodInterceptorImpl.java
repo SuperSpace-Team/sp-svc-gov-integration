@@ -23,8 +23,7 @@ import java.util.Deque;
  * 所以logger等的使用， 打印出的类和位置，以原始类的。不利于排查。
  * 所以单独抽到一个独立的类中。
  *
- * @author qinzhiyuan
- * @email 80961464@yonghui.cn
+ * @author luchao
  * @date 2021/4/25 8:27 下午
  */
 public class MethodInterceptorImpl implements MethodInterceptor {

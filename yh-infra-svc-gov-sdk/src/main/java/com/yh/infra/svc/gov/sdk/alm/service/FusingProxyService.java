@@ -18,8 +18,7 @@ import java.util.Map;
 /**
  * 所有需要使用熔断机制的 方法调用。 都需要在本service中做一个方法，以代理模式使用。
  *
- * @author qinzhiyuan
- * @email 80961464@yonghui.cn
+ * @author luchao
  * @date 2021/4/25 8:31 下午
  */
 public class FusingProxyService {
@@ -72,7 +71,7 @@ public class FusingProxyService {
 	}
 	
 	/**
-	 * 实际发送日志数据。
+	 * 实际发送日志数据
 	 * 
 	 * @param logList
 	 * @param logType

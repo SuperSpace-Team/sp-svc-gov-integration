@@ -16,8 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author qinzhiyuan
- * @email 80961464@yonghui.cn
+ * @author luchao
  * @date 2021/4/25 5:53 下午
  */
 public class VersionDataBuilder {

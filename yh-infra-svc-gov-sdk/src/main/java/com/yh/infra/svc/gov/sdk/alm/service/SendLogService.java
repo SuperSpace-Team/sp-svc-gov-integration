@@ -19,8 +19,7 @@ import java.util.Map;
 /**
  * 日志发送/写入。 仅限于全链路日志的使用。
  *
- * @author qinzhiyuan
- * @email 80961464@yonghui.cn
+ * @author luchao
  * @date 2021/4/25 8:31 下午
  */
 public class SendLogService {

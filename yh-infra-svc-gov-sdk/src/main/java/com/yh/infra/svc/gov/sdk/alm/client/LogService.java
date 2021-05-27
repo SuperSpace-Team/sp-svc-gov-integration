@@ -17,8 +17,7 @@ import java.util.List;
 /**
  * 给业务应用使用的日志接口
  *
- * @author qinzhiyuan
- * @email 80961464@yonghui.cn
+ * @author luchao
  * @date 2021/4/25 6:16 下午
  */
 public class LogService {

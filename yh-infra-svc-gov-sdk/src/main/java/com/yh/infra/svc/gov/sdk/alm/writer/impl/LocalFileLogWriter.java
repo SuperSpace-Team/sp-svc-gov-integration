@@ -11,8 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 /**
- * @author qinzhiyuan
- * @email 80961464@yonghui.cn
+ * @author luchao
  * @date 2021/4/25 8:33 下午
  */
 public class LocalFileLogWriter implements LogWriter {

@@ -5,8 +5,7 @@ import java.util.List;
 /**
  * 只能放针对一个entry的的调用的日志，全链路监控 日志。
  *
- * @author qinzhiyuan
- * @email 80961464@yonghui.cn
+ * @author luchao
  * @date 2021/4/25 6:03 下午
  */
 public class MonitorLogMessage extends LogMessage {

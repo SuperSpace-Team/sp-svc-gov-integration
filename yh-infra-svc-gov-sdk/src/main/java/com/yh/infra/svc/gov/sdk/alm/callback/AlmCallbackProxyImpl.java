@@ -11,22 +11,19 @@ import org.slf4j.LoggerFactory;
 import java.util.Map;
 
 /**
- * @author qinzhiyuan
- * @email 80961464@yonghui.cn
+ * @author luchao
  * @date 2021/4/25 5:43 下午
  */
 public class AlmCallbackProxyImpl implements CallbackService {
 	private static final Logger logger = LoggerFactory.getLogger(AlmCallbackProxyImpl.class);
-
-	
-	private AgentAlmCallbackServiceImpl agentCallback = new AgentAlmCallbackServiceImpl();
 	private LocalAlmCallbackServiceImpl localCallback = new LocalAlmCallbackServiceImpl();
-	
-	
+
 	@Override
 	public synchronized boolean validate(Map<String, Object> cbDataMap) {
-		if (logger.isDebugEnabled())
+		if (logger.isDebugEnabled()) {
 			logger.debug("begin to validate the config. {}", cbDataMap);
+		}
+
 		Boolean almEnabled =  BeanRegistry.getInstance().getBean(SdkCommonConstant.SDK_ENABLE_FLAG_MONITOR);
 
 		if (almEnabled == null || (! almEnabled)) {
@@ -40,11 +37,6 @@ public class AlmCallbackProxyImpl implements CallbackService {
 		}
 
 		String embeddedType = BeanRegistry.getInstance().<String>getBean(SdkCommonConstant.ALM_EMBEDDED_TYPE);
-		if ("agent".equals(embeddedType)) {
-			if (logger.isDebugEnabled())
-				logger.debug("use Agent embedded ALM.");
-			return agentCallback.validate(cbDataMap);
-		}
 		if (logger.isDebugEnabled())
 			logger.debug("use service governance SDK embedded ALM.");
 		return localCallback.validate(cbDataMap);
@@ -65,13 +57,7 @@ public class AlmCallbackProxyImpl implements CallbackService {
 		}
 
 		String embeddedType = BeanRegistry.getInstance().<String>getBean(SdkCommonConstant.ALM_EMBEDDED_TYPE);
-		if ("agent".equals(embeddedType)) {
-			agentCallback.process(data);
-			if (logger.isDebugEnabled())
-				logger.debug("finished the agent embedded callback.");
-		} else {
-			localCallback.process(data);
-		}
+		localCallback.process(data);
 	}
 
 	@Override

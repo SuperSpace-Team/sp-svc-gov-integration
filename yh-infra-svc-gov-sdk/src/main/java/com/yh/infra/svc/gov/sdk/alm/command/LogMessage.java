@@ -5,8 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @author qinzhiyuan
- * @email 80961464@yonghui.cn
+ * @author luchao
  * @date 2021/4/25 6:00 下午
  */
 @Data

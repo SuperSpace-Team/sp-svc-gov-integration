@@ -4,8 +4,7 @@ package com.yh.infra.svc.gov.sdk.alm.config;
 import com.yh.infra.svc.gov.sdk.constant.SdkCommonConstant;
 
 /**
- * @author qinzhiyuan
- * @email 80961464@yonghui.cn
+ * @author luchao
  * @date 2021/4/25 5:58 下午
  */
 public class AlmConfig {

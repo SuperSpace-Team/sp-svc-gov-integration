@@ -7,8 +7,7 @@ import org.slf4j.LoggerFactory;
 /**
  * 熔断状态管理， 针对节点。本类的修改操作只会被 FusingManager调用。 不用线程同步。
  *
- * @author qinzhiyuan
- * @email 80961464@yonghui.cn
+ * @author luchao
  * @date 2021/4/25 6:11 下午
  */
 public class FusingStatus {
