@@ -12,7 +12,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisSentinelPool;
 
 import java.util.HashSet;
@@ -35,10 +37,9 @@ public class UacServiceOpTest {
 		AppRegConfig cfg;
 		AppRegContext ctx;
 		cfg = new AppRegConfig();
-		cfg.setAppKey("pg-app-demo1");
-		cfg.setAppSecret("12345678");
-		cfg.setAppAuthUrl("http://uat-api-base.yonghui.cn/api");
-		
+		cfg.setAppKey("demo--yh-test-svc");
+		cfg.setAppSecret("rPuKYUvnb6xYGSqXOzhwd7IDU1WaeKQc");
+		cfg.setAppAuthUrl("http://localhost:8100/svc-gov/app");
 		ctx = new AppRegContext(cfg);
 		
 		BeanRegistry sc = BeanRegistry.getInstance();
@@ -58,18 +59,17 @@ public class UacServiceOpTest {
         BeanRegistry br = BeanRegistry.getInstance();
         UacService uacService = br.getBean(UacService.class);
 
-        // 执行
+        //执行登录或刷新app token
         String token = uacService.getAppToken();
-        AccessTokenCommand tokenCmd0 = (AccessTokenCommand)TestReflectionUtils.getValue(uacService, "uacToken");
-
-        System.out.println("get token after login: " + tokenCmd0);
+        AccessTokenCommand tokenCmd0 = (AccessTokenCommand)TestReflectionUtils.getValue(uacService, "appTokenRespInfo");
+        System.out.println("Get token after login: " + tokenCmd0);
 
         removeRedis(token);
 	}
 	
 	@Test
 	public void test_refresh() {
-		String token = "A-64255s";
+		String token = "svc-gov-app-token-428630176021221376";
 		removeRedis(token);
 		BeanRegistry br = BeanRegistry.getInstance();
         UacService uacService = br.getBean(UacService.class);
@@ -77,40 +77,39 @@ public class UacServiceOpTest {
 		AccessTokenCommand tokenCmd0 = new AccessTokenCommand();
 		tokenCmd0.setExpireTime(System.currentTimeMillis());
 		tokenCmd0.setAccessToken(token);
-		TestReflectionUtils.setValue(uacService, "uacToken", tokenCmd0);
+		TestReflectionUtils.setValue(uacService, "appTokenRespInfo", tokenCmd0);
 
         token = uacService.getAppToken();
         
         AccessTokenCommand tokenCmd1 = (AccessTokenCommand)TestReflectionUtils.getValue(uacService, "uacToken");
         
-        System.out.println("get token aftre refresh, cmd0 : " + tokenCmd0);
-        System.out.println("get token aftre refresh, cmd1 : " + tokenCmd1);
+        System.out.println("Get token aftre refresh, cmd0 : " + tokenCmd0);
+        System.out.println("Get token aftre refresh, cmd1 : " + tokenCmd1);
 	}
 
 	private void removeRedis(String token) {
-		String key="cus-web-uat_" + token;
-		
-		Set<String> sentinels = new HashSet<String>();
-		sentinels.add("ecs-uat-redis-01.yonghui.cn:27000");
-		sentinels.add("ecs-uat-redis-02.yonghui.cn:27000");
-		sentinels.add("ecs-uat-redis-03.yonghui.cn:27000");
-		
-		JedisSentinelPool redisPool = new JedisSentinelPool("ecs-uat-redis01",sentinels);
-		Jedis jedis = null;
-		jedis = redisPool.getResource();
-		long ret = jedis.del(key);
+		String key="demo--yh-test-svc-" + "rPuKYUvnb6xYGSqXOzhwd7IDU1WaeKQc";
+
+		Set<HostAndPort> nodes = new HashSet();
+		nodes.add(new HostAndPort("10.251.76.39", 7001));
+		nodes.add(new HostAndPort("10.251.76.21", 7002));
+		nodes.add(new HostAndPort("10.251.76.22", 7003));
+		nodes.add(new HostAndPort("10.251.76.39", 7004));
+		nodes.add(new HostAndPort("10.251.76.21", 7005));
+		nodes.add(new HostAndPort("10.251.76.22", 7006));
+
+		JedisCluster jedisCluster = new JedisCluster(nodes);
+		long ret = jedisCluster.del(key);
 		if (ret == 0) {
 			System.out.println("NO token key deleted.");
 			return;
-		}			
-		key = "cus-web-uat_pg-app-demo112345678";
-		ret = jedis.del(key);
+		}
+
+		key = "base-svc-gov-dev_svc-gov-app-token-428630176021221376";
+		ret = jedisCluster.del(key);
 		if (ret == 0) {
 			System.out.println("NO app key deleted.");
 			return;
-		}		
-		jedis.disconnect();
-		redisPool.destroy();
+		}
 	}
-
 }

@@ -53,7 +53,7 @@ public class HttpClientProxyImplTest {
 					.withHeaders(org.mockserver.model.Header.header("content-type", "application/json"))
 					.withBody("{\"result\": \"success\"}"));
 		
-		Map<String, String> ret = proxy.postJson("http://localhost:1278/json", "dummy message", 10, headers);
+		Map<String, String> ret = proxy.postJson("http://localhost:8100/svc-gov/json", "dummy message", 10, headers);
 		assertEquals("200", ret.get("status"));
 		assertNull(ret.get("error"));
 		assertEquals("{\"result\": \"success\"}", ret.get("result"));

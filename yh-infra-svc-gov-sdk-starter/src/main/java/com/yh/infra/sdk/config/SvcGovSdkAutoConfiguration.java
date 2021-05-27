@@ -25,7 +25,7 @@ public class SvcGovSdkAutoConfiguration {
 	public AppRegLauncher initSvcGovSdkByStarter(@Autowired AlmProperties almProperties,
 												 @Value("${svc-gov-sdk.versionChecker:true}") boolean enableVersionChecker,
 												 @Value("${svc-gov-sdk.appKey}") String appKey,
-												 @Value("${svc-gov-sdk.secret}") String secret,
+												 @Value("${svc-gov-sdk.appSecret}") String secret,
 												 @Value("${svc-gov-sdk.unionGatewayUrl}") String apiGatewayUrl,
 												 @Value("${svc-gov-sdk.versionPullInterval:30}") int versionPullInterval) {
 

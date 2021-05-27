@@ -1,6 +1,3 @@
-/*
- * SpringConvertTest.java Created On 2019年3月4日 Copyright(c) 2019 Baozun Inc. ALL Rights Reserved.
- */
 package com.yh.infra.svc.gov.sdk.util;
 
 import com.yh.infra.svc.gov.sdk.util.converter.ConvertException;

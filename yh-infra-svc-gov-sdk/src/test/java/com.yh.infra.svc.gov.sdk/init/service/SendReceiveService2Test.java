@@ -125,7 +125,8 @@ public class SendReceiveService2Test {
 	@Test
 	public void test_Send_VersionQueryReq_success() {
 		VersionQueryReq req = TestVoUtil.voVersionQueryReq("demo--yh-test-svc", "localhost", 12);
-		
+		req.setSdkVersion("1.0.0-SNAPSHOT");
+
 		VersionQueryResp resp = service.send(req);
 		assertNotNull(resp);
 		assertEquals(1, resp.getCode().intValue());

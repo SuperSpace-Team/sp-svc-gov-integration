@@ -3,6 +3,7 @@ package com.yh.infra.svc.gov.sdk.uac;
 import com.yh.infra.svc.gov.sdk.auth.uac.UacService;
 import com.yh.infra.svc.gov.sdk.command.AccessTokenCommand;
 import com.yh.infra.svc.gov.sdk.command.AccountAuthReturnObj;
+import com.yh.infra.svc.gov.sdk.command.BaseResponseEntity;
 import com.yh.infra.svc.gov.sdk.command.RefreshToken;
 import com.yh.infra.svc.gov.sdk.config.AppRegConfig;
 import com.yh.infra.svc.gov.sdk.init.context.AppRegContext;
@@ -51,9 +52,9 @@ public class UacServiceTest {
 		AppRegConfig cfg;
 		AppRegContext ctx;
 		cfg = new AppRegConfig();
-		cfg.setAppKey("TEST-APP");
-		cfg.setAppSecret("12345678");
-		cfg.setAppAuthUrl("http://localhost:9081");
+		cfg.setAppKey("demo--yh-test-svc");
+		cfg.setAppSecret("rPuKYUvnb6xYGSqXOzhwd7IDU1WaeKQc");
+		cfg.setAppAuthUrl("http://localhost:8100/svc-gov/app");
 		
 		ctx = new AppRegContext(cfg);
 		ctx.setCurrentVersion(11);
@@ -86,52 +87,50 @@ public class UacServiceTest {
 	 */
 	@Test
 	public void test_getToken_normal() {
+		//准备应用鉴权码
+		BaseResponseEntity res = new BaseResponseEntity();
+		res.setData("428970405202628608");
+		res.setCode("20000");
+		res.setIsSuccess(true);
+		String respJson = JsonUtil.writeValueSafe(res);
+		prepareMockServer("/app/getAppAuthCode", respJson);
 		
-		// 准备 ramdom code
-		AccountAuthReturnObj aaro = new AccountAuthReturnObj();
-		aaro.setData("ramdom-code-12345");
-		aaro.setErrorCode(0);
-		aaro.setResultFlag(true);
-		String respJson = JsonUtil.writeValueSafe(aaro);
-		prepareMockServer("/appmember/member/encrypt/code", respJson);
-		
-		// 准备 token
+		//准备应用Token
 		AccessTokenCommand tokenCmd = new AccessTokenCommand();
-		tokenCmd.setAccessToken("token-12345");
+		tokenCmd.setAccessToken("svc-gov-app-token-428630176021221376");
 		tokenCmd.setExpireTime(System.currentTimeMillis() + 10000);
 		respJson = JsonUtil.writeValueSafe(tokenCmd);
-		aaro.setData(respJson);
-		respJson = JsonUtil.writeValueSafe(aaro);
+		res.setData(respJson);
+		respJson = JsonUtil.writeValueSafe(res);
 		prepareMockServer("/app/login", respJson);
 		
-		// uac service
+		//服务治理应用授权
         BeanRegistry br = BeanRegistry.getInstance();
         UacService uacService = br.getBean(UacService.class);
         uacService.resetToken();
 
         // 执行
         String token = uacService.getAppToken();
-        
-        assertEquals("token-12345", token);
+        assertEquals("svc-gov-app-token-428630176021221376", token);
 	}
 
 	/**
-	 * 第一次登录， 或者token被reset。 取得token失败，失败原因是getRandom失败
+	 * 第一次登录，或者token被reset。获取token失败，失败原因为获取应用鉴权码失败
 	 * 
 	 */
 	@Test
-	public void test_getToken_failed_because_getRamdom_fail() {
+	public void test_getToken_failed_because_getApoAuth_fail() {
        	oriLogger = TestReflectionUtils.setStaticValue(UacService.class, "logger", mockLogger);
 
-       	// 准备 ramdom code
-		prepareMockServerFail("/appmember/member/encrypt/code", HttpStatusCode.INTERNAL_SERVER_ERROR_500.code());
+       	// 准备应用鉴权码
+		prepareMockServerFail("/app/getAppAuthCode", HttpStatusCode.INTERNAL_SERVER_ERROR_500.code());
 		
-		// uac service
+		// 服务治理应用授权
         BeanRegistry br = BeanRegistry.getInstance();
         UacService uacService = br.getBean(UacService.class);
         uacService.resetToken();
 
-        // 执行
+        //执行
         String token = uacService.getAppToken();
         assertNull(token);
         verify(mockLogger, times(1)).warn(eq("result : {}"),any(Map.class));
@@ -146,42 +145,42 @@ public class UacServiceTest {
 	public void test_getToken_refresh_expired() {
        	oriLogger = TestReflectionUtils.setStaticValue(UacService.class, "logger", mockLogger);
 		
-		// 准备 ramdom code
+		//准备应用鉴权码
 		AccountAuthReturnObj aaro = new AccountAuthReturnObj();
-		aaro.setData("ramdom-code-12345");
+		aaro.setData("428970405202628608");
 		aaro.setErrorCode(0);
 		aaro.setResultFlag(true);
 		String respJson = JsonUtil.writeValueSafe(aaro);
-		prepareMockServer("/appmember/member/encrypt/code", respJson);
+		prepareMockServer("/app/getAppAuthCode", respJson);
 		
-		// 准备 token
+		//准备app token
 		RefreshToken rt = new RefreshToken();
 		rt.setExpireDate(System.currentTimeMillis() + 10000000);
 		rt.setRefreshFlag(true);
-		rt.setToken("new-token-12345");
+		rt.setToken("svc-gov-app-token-428630176021221376");
 		String rtJson = JsonUtil.writeValueSafe(rt);
 		
 		aaro = new AccountAuthReturnObj();
 		aaro.setData(rtJson);
 		aaro.setResultFlag(true);
 		respJson = JsonUtil.writeValueSafe(aaro);
-		prepareMockServer("/appmember/member/refreshNewToken", respJson);
+		prepareMockServer("/app/refreshNewToken", respJson);
 
         BeanRegistry br = BeanRegistry.getInstance();
         UacService uacService = br.getBean(UacService.class);
 
 		AccessTokenCommand tokenCmd = new AccessTokenCommand();
 		tokenCmd.setExpireTime(System.currentTimeMillis());
-        tokenCmd.setAccessToken("old-token-12345");
-		TestReflectionUtils.setValue(uacService, "uacToken", tokenCmd);
-		TestReflectionUtils.setValue(uacService, "uacTokenStr", "old-token-12345");
+        tokenCmd.setAccessToken("svc-gov-app-token-428630176021221376");
+		TestReflectionUtils.setValue(uacService, "appTokenRespInfo", tokenCmd);
+		TestReflectionUtils.setValue(uacService, "appTokenStr", "svc-gov-app-token-428630176021221376");
 		
-        // 执行
+        //执行
         String token = uacService.getAppToken();
-        verify(mockLogger, times(1)).debug(startsWith("begin to refresh token. reLoginFlag:"),any(), any());
-        assertEquals("new-token-12345", token);
+        verify(mockLogger, times(1)).debug(startsWith("Begin to refresh token. reLoginFlag:"),any(), any());
+        assertEquals("svc-gov-app-token-428630176021221376", token);
         
-        tokenCmd = (AccessTokenCommand)TestReflectionUtils.getValue(uacService, "uacToken");
+        tokenCmd = (AccessTokenCommand)TestReflectionUtils.getValue(uacService, "appTokenRespInfo");
         assertTrue(tokenCmd.getExpireTime() > System.currentTimeMillis());
 	}
 	
@@ -199,7 +198,7 @@ public class UacServiceTest {
 		
 		// 准备 token
 		AccessTokenCommand uacToken = new AccessTokenCommand();
-		uacToken.setAccessToken("token-12345");
+		uacToken.setAccessToken("svc-gov-app-token-428630176021221376");
 		uacToken.setExpireTime(System.currentTimeMillis() + 60 * 60 * 1000);
 		TestReflectionUtils.setValue(uacService, "uacToken", uacToken);
 		TestReflectionUtils.setValue(uacService, "uacTokenStr", "token-12345");
@@ -211,9 +210,9 @@ public class UacServiceTest {
 		prepareMockServer("/oms/create", respJson, 500);
 
 		
-        // 执行
-		Map<String, String>  retmap = uacService.sendRequestWithToken("http://localhost:9081/oms/create", "abc" , 10000);
-		verify(mockLogger, times(1)).warn(eq("received a response asking for relogin. {}, {}"),any(), any());
+        //执行
+		Map<String, String> retmap = uacService.sendRequestWithToken("http://localhost:9081/oms/create", "abc" , 10000);
+		verify(mockLogger, times(1)).warn(eq("Received a response asking for re-login. {}, {}"),any(), any());
 	}
 	
 	

@@ -1,8 +1,3 @@
-/*
- * CollectionUtilsTest.java Created On 2019年3月5日
- * Copyright(c) 2019 Baozun Inc.
- * ALL Rights Reserved.
- */
 package com.yh.infra.svc.gov.sdk.util;
 
 import org.junit.After;
