@@ -13,6 +13,11 @@
     <version.jdk>1.7</version.jdk>
     <version.byte-buddy>1.10.9</version.byte-buddy>
 
+    <premain.class>com.yh.infra.svc.gov.agent.agent.Agent</premain.class>
+    <custom.package.name>com.yh.infra.svc.gov</custom.package.name>
+    <shade.net.bytebuddy.source>net.bytebuddy</shade.net.bytebuddy.source>
+    <shade.net.bytebuddy.target>${custom.package.name}.${shade.net.bytebuddy.source}</shade.net.bytebuddy.target>
+
     <sonar.sources>
       src/main/java
     </sonar.sources>
@@ -71,6 +76,46 @@
     </pluginManagement>
     <plugins>
       <plugin>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.2.1</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <shadedArtifactAttached>false</shadedArtifactAttached>
+              <createDependencyReducedPom>false</createDependencyReducedPom>
+              <createSourcesJar>false</createSourcesJar>
+              <shadeSourcesContent>true</shadeSourcesContent>
+              <transformers>
+                <transformer
+                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <manifestEntries>
+                    <Premain-Class>${premain.class}</Premain-Class>
+                    <Can-Redefine-Classes>true</Can-Redefine-Classes>
+                    <Can-Retransform-Classes>true</Can-Retransform-Classes>
+                  </manifestEntries>
+                </transformer>
+              </transformers>
+              <artifactSet>
+                <excludes>
+                  <exclude>ch.qos.logback:*</exclude>
+                  <exclude>commons-codec:commons-codec</exclude>
+                </excludes>
+              </artifactSet>
+              <relocations>
+                <relocation>
+                  <pattern>${shade.net.bytebuddy.source}</pattern>
+                  <shadedPattern>${shade.net.bytebuddy.target}</shadedPattern>
+                </relocation>
+              </relocations>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.1</version>
@@ -115,7 +160,7 @@
         <configuration>
           <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
           <generateGitPropertiesFile>true</generateGitPropertiesFile>
-          <generateGitPropertiesFilename>${project.build.outputDirectory}/META-INF/${project.groupId}/agent/yh-infra-svc-gov-agent/agent-git.properties</generateGitPropertiesFilename>
+          <generateGitPropertiesFilename>${project.build.outputDirectory}/META-INF/${project.groupId}/yh-infra-svc-gov-agent/agent-git.properties</generateGitPropertiesFilename>
         </configuration>
       </plugin>
     </plugins>
