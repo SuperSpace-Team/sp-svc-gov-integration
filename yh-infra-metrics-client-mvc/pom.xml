@@ -6,7 +6,7 @@
 
     <groupId>com.yh.infra.svc.gov</groupId>
     <artifactId>yh-infra-metrics-client-mvc</artifactId>
-    <version>1.0.0-RELEASE</version>
+    <version>1.0.0-SNAPSHOT</version>
     <name>yh-infra-metrics-client-mvc</name>
 
     <properties>
