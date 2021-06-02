@@ -64,26 +64,17 @@ public class MetricsLogAspect {
 		ReadLock rlock = locker.readLock();
 		rlock.lock();
 
-		try {
+		if (! registerStatus.contains(name)) {
+			rlock.unlock();
+			WriteLock wlock = locker.writeLock();
+			wlock.lock();
+			// 重新取一次。确保前面取之后，没有被更新过。
 			if (! registerStatus.contains(name)) {
-				rlock.unlock();
-				WriteLock wlock = locker.writeLock();
-				wlock.lock();
-
-				try {
-					// 重新取一次。确保前面取之后，没有被更新过。
-					if (!registerStatus.contains(name)) {
-						registerStatus.add(name);
-						helper.registerTimer(name, new double[]{0.5, 0.9, 0.99}, tags);
-					}
-				}finally {
-					wlock.unlock();
-				}
-
-				rlock.unlock();
-				return;
+				registerStatus.add(name);
+				helper.registerTimer(name, new double[]{0.5, 0.9, 0.99}, tags);
 			}
-		}finally {
+			wlock.unlock();
+		} else {
 			rlock.unlock();
 		}
 	}
