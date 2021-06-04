@@ -92,6 +92,7 @@
 		</plugins>
 	</build>
 
+	<!--ITWork环境-->
 	<distributionManagement>
 		<repository>
 			<id>nexus_releases</id>
@@ -106,4 +107,16 @@
 			<uniqueVersion>false</uniqueVersion>
 		</snapshotRepository>
 	</distributionManagement>
+
+	<!-- t1环境-->
+<!--	<distributionManagement>-->
+<!--		<repository>-->
+<!--			<id>nexus-releases</id>-->
+<!--			<url>http://nexus.yonghuivip.com/nexus/content/repositories/releases</url>-->
+<!--		</repository>-->
+<!--		<snapshotRepository>-->
+<!--			<id>nexus-snapshots</id>-->
+<!--			<url>http://nexus.yonghuivip.com/nexus/content/repositories/snapshots</url>-->
+<!--		</snapshotRepository>-->
+<!--	</distributionManagement>-->
 </project>
