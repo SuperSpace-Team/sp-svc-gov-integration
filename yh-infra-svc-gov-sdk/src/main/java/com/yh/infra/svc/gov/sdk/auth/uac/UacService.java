@@ -148,7 +148,7 @@ public class UacService {
 			return null;
 		}
 
-		if (responseVO.getData() != null) {
+		if (responseVO.getSuccess() && responseVO.getData() != null) {
 			AccessTokenCommand appTokenCmd = JsonUtil.objectToBean(responseVO.getData(), AccessTokenCommand.class);
 			if (appTokenCmd == null) {
 				logger.warn("Parse app token info failed. {} ",
@@ -203,7 +203,7 @@ public class UacService {
 				return false;
 			}
 
-			if (responseVO.getData() != null) {
+			if (responseVO.getSuccess() && responseVO.getData() != null) {
 				logger.info("Successfully refreshed app token.New app token {}.", responseVO.getData());
 
 				AccessTokenCommand appTokenCmd = JsonUtil.objectToBean(responseVO.getData(), AccessTokenCommand.class);
