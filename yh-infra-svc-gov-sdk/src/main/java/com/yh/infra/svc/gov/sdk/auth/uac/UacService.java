@@ -5,6 +5,7 @@ import com.yh.infra.svc.gov.sdk.auth.uac.app.command.AppLoginReqCommand;
 import com.yh.infra.svc.gov.sdk.auth.uac.app.command.GetAppAuthCodeReqCommand;
 import com.yh.infra.svc.gov.sdk.auth.uac.app.command.RefreshNewTokenReqCommand;
 import com.yh.infra.svc.gov.sdk.command.BaseResponseEntity;
+import com.yh.infra.svc.gov.sdk.command.ResponseVO;
 import com.yh.infra.svc.gov.sdk.config.AppRegConfig;
 import com.yh.infra.svc.gov.sdk.constant.SdkCommonConstant;
 import com.yh.infra.svc.gov.sdk.init.context.AppRegContext;
@@ -91,8 +92,8 @@ public class UacService {
 			logger.debug("Get the app auth code result: {} ", retMap);
 		}
 
-		BaseResponseEntity responseVO = JsonUtil.readValueSafe(retMap.get(
-				SdkCommonConstant.RESP_KEY_RESULT), BaseResponseEntity.class);
+		ResponseVO responseVO = JsonUtil.readValueSafe(retMap.get(
+				SdkCommonConstant.RESP_KEY_RESULT), ResponseVO.class);
 		if (responseVO == null) {
 			logger.warn("Parse BaseResponseEntity of app auth code failed! {} ",
 					retMap.get(SdkCommonConstant.RESP_KEY_RESULT));
@@ -140,14 +141,14 @@ public class UacService {
 			return null;
 		}
 
-		BaseResponseEntity responseVO = JsonUtil.readValueSafe(
-				retMap.get(SdkCommonConstant.RESP_KEY_RESULT), BaseResponseEntity.class);
+		ResponseVO responseVO = JsonUtil.readValueSafe(
+				retMap.get(SdkCommonConstant.RESP_KEY_RESULT), ResponseVO.class);
 		if (responseVO == null) {
 			logger.warn("Parse BaseResponseEntity of app login failed. {} ", retMap);
 			return null;
 		}
 
-		if (responseVO.getIsSuccess() && responseVO.getData() != null) {
+		if (responseVO.getSuccess() && responseVO.getData() != null) {
 			AccessTokenCommand appTokenCmd = JsonUtil.objectToBean(responseVO.getData(), AccessTokenCommand.class);
 			if (appTokenCmd == null) {
 				logger.warn("Parse app token info failed. {} ",
@@ -195,14 +196,14 @@ public class UacService {
 
 		retInfoTmp = retMap.get(SdkCommonConstant.RESP_KEY_STATUS);
 		if (SdkCommonConstant.HTTP_STATUS_OK.equals(retInfoTmp)) {
-			BaseResponseEntity responseVO = JsonUtil.readValueSafe(
-					retMap.get(SdkCommonConstant.RESP_KEY_RESULT), BaseResponseEntity.class);
+		    ResponseVO responseVO = JsonUtil.readValueSafe(
+					retMap.get(SdkCommonConstant.RESP_KEY_RESULT), ResponseVO.class);
 			if (responseVO == null) {
 				logger.warn("Parse BaseResponseEntity of refresh app token failed! {} ", retMap);
 				return false;
 			}
 
-			if (responseVO.getIsSuccess() && responseVO.getData() != null) {
+			if (responseVO.getSuccess() && responseVO.getData() != null) {
 				logger.info("Successfully refreshed app token.New app token {}.", responseVO.getData());
 
 				AccessTokenCommand appTokenCmd = JsonUtil.objectToBean(responseVO.getData(), AccessTokenCommand.class);
