@@ -5,6 +5,7 @@ import com.yh.infra.svc.gov.sdk.init.callback.CallbackService;
 import com.yh.infra.svc.gov.sdk.init.command.VersionQueryResp;
 import com.yh.infra.svc.gov.sdk.init.context.AppRegContext;
 import com.yh.infra.svc.gov.sdk.init.context.BeanRegistry;
+import com.yh.infra.svc.gov.sdk.util.CollectionUtils;
 import com.yh.infra.svc.gov.sdk.util.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,11 +49,14 @@ public class ConfigService {
         List<CallbackService> cbList = BeanRegistry.getInstance().getBeanList(CallbackService.class);
         Map<String, Object> cbDataMap = new HashMap<String, Object>();
         String respStr = JsonUtil.writeValue(resp);
+        if(CollectionUtils.isEmpty(cbList)){
+            logger.warn("No callback found when alm init.");
+        }
 
         // 如果任一个callback失败，则不更新版本。所以try-catch在最外层。
         try {
             for (CallbackService svr : cbList) {
-                Map<String, Object> datamap = new HashMap<String, Object>();
+                Map<String, Object> datamap = new HashMap();
 
                 // 重建一个副本。避免第三方应用修改其中的值。
                 datamap.put(SdkCommonConstant.CB_MAP_CONFIG_RESP, respStr);
