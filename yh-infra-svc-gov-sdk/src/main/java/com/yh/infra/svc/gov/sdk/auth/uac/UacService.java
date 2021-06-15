@@ -148,7 +148,7 @@ public class UacService {
 			return null;
 		}
 
-		if (responseVO.getSuccess() && responseVO.getData() != null) {
+		if (responseVO.getData() != null) {
 			AccessTokenCommand appTokenCmd = JsonUtil.objectToBean(responseVO.getData(), AccessTokenCommand.class);
 			if (appTokenCmd == null) {
 				logger.warn("Parse app token info failed. {} ",
@@ -203,7 +203,7 @@ public class UacService {
 				return false;
 			}
 
-			if (responseVO.getSuccess() && responseVO.getData() != null) {
+			if (responseVO.getData() != null) {
 				logger.info("Successfully refreshed app token.New app token {}.", responseVO.getData());
 
 				AccessTokenCommand appTokenCmd = JsonUtil.objectToBean(responseVO.getData(), AccessTokenCommand.class);
@@ -299,13 +299,11 @@ public class UacService {
 			}
 			//字符串清空
 			appTokenStr = null;
-			
 			//没有token，或者refresh失败，需要login
 			String code = getAppAuthCode(config.getAppAuthUrl(), config.getAppKey());
 			if (StringUtils.isEmpty(code)) {
 				return;
 			}
-
 			appTokenRespInfo = appLogin(config.getAppAuthUrl(), config.getAppKey(), config.getAppSecret(), code);
 		} catch (Exception e) {
 			logger.warn("System error when refresh token.", e);
