@@ -72,12 +72,12 @@ public class SendReceiveService {
 	    logger.debug("Received data from  server : {}", result);
 	}
 
-	ResponseVO responseVO = JsonUtil.readValueSafe(result, ResponseVO.class);
+	ResponseVO<VersionQueryResp> responseVO = JsonUtil.readValueSafe(result, ResponseVO.class);
 	if (responseVO == null || responseVO.getData() == null) {
 	    logger.warn("JSON parse failed. {} ", result);
 	    return null;
 	}
-	VersionQueryResp versionQueryResp = (VersionQueryResp) responseVO.getData();
+	VersionQueryResp versionQueryResp = JsonUtil.objectToBean(responseVO.getData(), VersionQueryResp.class);
 	return versionQueryResp.getCode() == null ? null : versionQueryResp;
     }
 }
