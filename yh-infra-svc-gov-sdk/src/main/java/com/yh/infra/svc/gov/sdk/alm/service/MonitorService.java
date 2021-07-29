@@ -7,9 +7,9 @@ import com.yh.infra.svc.gov.sdk.alm.util.ExpressionHelper;
 import com.yh.infra.svc.gov.sdk.command.cfg.Node;
 import com.yh.infra.svc.gov.sdk.command.cfg.TransformNode;
 import com.yh.infra.svc.gov.sdk.constant.SdkCommonConstant;
-import com.yh.infra.svc.gov.sdk.skywalking.SkyWalkingGenerator;
 import com.yh.infra.svc.gov.sdk.util.CollectionUtils;
 import com.yh.infra.svc.gov.sdk.util.StringUtils;
+import org.apache.skywalking.apm.toolkit.trace.TraceContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.expression.EvaluationContext;
@@ -254,19 +254,16 @@ public class MonitorService {
 	}
 
 	/**
-	 * 将skywalking信息填入 消息。
-	 * 
+	 * 将skywalking信息填入日志消息
 	 * @param lmc
 	 */
 	private void fillSkywalkingInfo(MonitorLogMessage lmc) {
 		try {
-			Map<String,String> retMap = SkyWalkingGenerator.getSkyWalkingMap();
-			
-			lmc.setSwSegment(retMap.get(SdkCommonConstant.SKYWALKING_MAP_SEGMENTID_KEY));
-			lmc.setSwTrace(retMap.get(SdkCommonConstant.SKYWALKING_MAP_TRACEID_KEY));
-			lmc.setSwSpan(retMap.get(SdkCommonConstant.SKYWALKING_MAP_SPANID_KEY));
+			lmc.setSwSegment(TraceContext.segmentId());
+			lmc.setSwTrace(TraceContext.traceId());
+			lmc.setSwSpan(String.valueOf(TraceContext.spanId()));
 		} catch (Exception e) {
-			logger.error("failed to fill sw info. ", e);
+			logger.error("Failed to fill skywalking trace info. ", e);
 		}
 	}
 	
@@ -413,14 +410,12 @@ public class MonitorService {
 				logger.error("no message generated for biz {}" , lmc.getBizCode());
 			} else {
 				logger.info("generate a monitor/transform message for biz: {}, size:{}", lmc.getBizCode(), lmc.getMonitorLogList().size());
-				// 确定要发送日志了， 再填写sw信息。
-				// 不在pre那地方填， 1）有可能不发送。 2） 有可能sw数据还没生成。
+				// 确定要发送日志了，再填写Skywalking的trace信息
+				// 不在pre那地方填：1）有可能不发送。 2）有可能sw数据还没生成。
 				fillSkywalkingInfo(lmc);
-				
 				fusingProxyService.addLog(lmc);
 			}
 		}
-
 	}
 
 	/**
