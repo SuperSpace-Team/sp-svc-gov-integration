@@ -14,6 +14,7 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author luchao
@@ -78,13 +79,15 @@ public class VersionDataBuilder {
                 BizEntryRule ber = new BizEntryRule();
                 boolean found = false;
                 for (Node n : nodeList) {
-                    if (n.getEntryCode().equals(entry.getCode()) && n.getBizCode().equals(factor.getCode())) {
+                    // 自定义节点entryCode为空
+                    if (Objects.equals(n.getEntryCode(), entry.getCode()) && Objects.equals(n.getBizCode(), factor.getCode())) {
                         found = true;
                         ber.getNodeList().add(n);
                     }
                 }
                 for (TransformNode n : tNodeList) {
-                    if (n.getEntryCode().equals(entry.getCode()) && n.getBizCode().equals(factor.getCode())) {
+                    // 自定义转换节点entryCode为空
+                    if (Objects.equals(n.getEntryCode(), entry.getCode()) && Objects.equals(n.getBizCode(), factor.getCode())) {
                         found = true;
                         ber.getTransformNodeList().add(n);
                     }
@@ -118,7 +121,8 @@ public class VersionDataBuilder {
         for (Entry entry : entryList) {
             for (BizFactor factor : bizList) {
                 for (Node n : nodeList) {
-                    if (n.getEntryCode().equals(entry.getCode()) && n.getBizCode().equals(factor.getCode())) {
+                    // 自定义节点entryCode为空
+                    if (Objects.equals(n.getEntryCode(), entry.getCode()) && Objects.equals(n.getBizCode(), factor.getCode())) {
                         NodeExpressionCommand expCmd = new NodeExpressionCommand();
                         expCmd.setNodeCode(n.getCode());
                         if (StringUtils.isNotEmpty(n.getSeqMatchExp())) {
@@ -149,7 +153,8 @@ public class VersionDataBuilder {
                     }
                 }
                 for (TransformNode n : tNodeList) {
-                    if (n.getEntryCode().equals(entry.getCode()) && n.getBizCode().equals(factor.getCode())) {
+                    // 自定义节点entryCode为空
+                    if (Objects.equals(n.getEntryCode(), entry.getCode()) && Objects.equals(n.getBizCode(), factor.getCode())) {
                         NodeExpressionCommand expCmd = new NodeExpressionCommand();
                         expCmd.setNodeCode(n.getCode());
                         if (StringUtils.isNotEmpty(n.getMatchExp())) {

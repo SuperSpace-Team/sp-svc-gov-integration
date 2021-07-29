@@ -26,13 +26,12 @@ public class BeanRegistryProxyTest {
 	public void test() throws Exception {
 		AppRegContext ctx = BeanRegistry.getInstance().getBean(AppRegContext.class);
     	assertFalse(ctx.isNewCallback());
-		
-		BeanRegistryProxy.add(DemoService1.class, new DemoService1());
+
+    	assertTrue(BeanRegistryProxy.add(DemoService1.class, new DemoService1()));
     	assertFalse(ctx.isNewCallback());
-    	
-    	BeanRegistryProxy.add(RequestHandler.class, new DemoRequestHandler());
+
+    	assertTrue(BeanRegistryProxy.add(RequestHandler.class, new DemoRequestHandler()));
     	assertTrue(ctx.isNewCallback());
-    	
 	}
 
 	class DemoRequestHandler implements RequestHandler {

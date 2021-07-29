@@ -1,0 +1,122 @@
+@startuml
+autonumber
+participant SDK order 1
+participant blp order 2
+participant blm order 3
+participant kafka order 999
+participant mongo order 1000
+
+== topic订阅 ==
+blm --> kafka: 原始日志数据 base-blp-data-src-[env] KafkaBizLogConsumerImpl
+blm --> kafka: 监控日志-业务监控 base-blm-bizlink-monitor-[env]-[index] KafkaBizMonitorLogConsumerImpl
+blm --> kafka: 监控日志-系统监控 base-blm-bizlink-sys-[env]-[index] KafkaSysMonitorLogConsumerImpl
+blm --> kafka: 转换日志 base-blm-bizlink-transform-[env]-[index] KafkaBizTransformLogConsumerImpl
+blm --> kafka: 数据分析器的异常事件信息 base-blm-da-event-[env] KafkaDaEventAlarmConsumerImpl
+blm --> kafka: 服务器状态 base-blm-server-status-[env] KafkaServerStatusConsumerImpl
+
+
+newpage base-blp-data-src-[env] 【KafkaBizLogConsumerImpl】
+SDK -> blp: /blp/monitorLog
+blp -> kafka: 发送 base-blp-data-src-[env]
+
+kafka -> blm: 推送 base-blp-data-src-[env]
+blm -> blm: 解析消息体
+note left
+    1. 服务端状态日志：ip、host、lastLogTime
+    2. 筛选原始日志：根据业务维度的analyseMode筛选，
+        仅处理2(数据分析)、3(两者都要)、4(系统分析)
+    3. 从筛选后的原始日志解析出监控日志，转换日志
+end note
+
+group trace日志
+    blm -> blm: 根据traceId聚合bizKey、原始日志id
+    blm -> mongo: 存储链路日志 blm_trace_[index]
+    note left: trace_id存在则追加更新，否则新增记录
+end
+
+group 监控日志
+    blm -> mongo: 存储监控日志 blm_log_[index]
+    blm -> kafka: 发送 base-blm-bizlink-monitor-[env]-[index]
+    note left: 业务维度analyseMode为2(数据分析)、3(两者都要)时
+    blm -> kafka: 发送 base-blm-bizlink-sys-[env]-[index]
+    note left: 业务维度analyseMode为4(系统分析)时
+end
+
+group 转换日志
+    blm -> kafka: 发送 base-blm-bizlink-transform-[env]-[index]
+    blm -> mongo: kafka发送失败时，将mq信息存到blm_log_kafka_retry
+end
+
+group 服务状态
+    blm -> blm: 按host + ip聚合，取最后的lastLogTime
+    blm -> kafka: 发送 base-blm-server-status-[env]
+end
+
+'==========================================================================='
+
+newpage base-blm-bizlink-monitor-[env]-[index] 【KafkaBizMonitorLogConsumerImpl】
+kafka -> blm: 推送 base-blm-bizlink-monitor-[env]-[index]
+blm -> kafka: 发送 base-blm-da-event-[env]
+note left
+    1. 遍历监控日志，若其业务维度配置了实时分析器（目前仅有
+        MethodTimeoutAnalyserHandler），遍历分析器进行分析
+    2. 分析出异常信息则发送kafka
+end note
+
+blm -> mongo: 存储链路日志 blm_data_[bizCode]_m_[index]
+note left
+    根据bizKey查询，有记录则追加detail、traceIds，
+    更新lastNode、lastLogTime、finished，
+    没记录则新增
+end note
+
+
+'==========================================================================='
+
+newpage base-blm-bizlink-sys-[env]-[index] 【KafkaSysMonitorLogConsumerImpl】
+kafka -> blm: 推送 base-blm-bizlink-sys-[env]-[index]
+blm -> mongo: 存储系统日志 blm_data_[bizCode]_m_[index]
+
+'==========================================================================='
+
+newpage base-blm-bizlink-transform-[env]-[index] 【KafkaBizTransformLogConsumerImpl】
+kafka -> blm: 推送 base-blm-bizlink-transform-[env]-[index]
+blm -> mongo: 根据 bizKey 查询 blm_data_[bizCode]_m_[index]
+mongo -> blm: 返回 BlmBizMonitorLogModel
+note left
+    1. 根据srcKey、targetKey查询链路日志
+    2. 记录依赖关系，
+        将target信息记录到src日志的cref列表中，
+        将src信息记录到target日志的pref列表中
+end note
+blm -> mongo: 更新 blm_data_[bizCode]_m_[index]
+
+blm -> mongo: 存储转换信息 blm_data_[bizCode]_t BlmBizMonitorLogModel
+note left: 前面更新失败才会存
+
+'==========================================================================='
+
+newpage base-blm-da-event-[env] 【KafkaDaEventAlarmConsumerImpl】
+kafka -> blm: 推送 base-blm-da-event-[env]
+blm -> blm:
+note left
+    1. 查找对应的AlarmHandler（GeneralAlarmHandler）
+    2. 从mongo查找告警历史
+    3. 根据告警历史确定是否需要告警
+    4. 需要告警则向接收人推送告警信息
+end note
+blm -> mongo: 存储告警记录blm_his_alarm BlmAlarmHistoryModel
+
+'==========================================================================='
+
+newpage base-blm-server-status-[env] 【KafkaServerStatusConsumerImpl】
+kafka -> blm: 推送 base-blm-server-status-[env]
+blm -> blm: 服务器信息存到queue
+blm -> mongo: 存储/更新服务器信息 blm_data_server
+note left
+    1. 启动线程 ServerAccessUpdateThread 消费queue
+    2. 按host + ip合并服务器信息，取最新的lastLogTime
+    3. 存到mongo
+end note
+
+@enduml

@@ -3,6 +3,7 @@
  */
 package com.yh.infra.svc.gov.sdk.alm.service;
 
+import com.alibaba.fastjson.JSON;
 import com.yh.infra.svc.gov.sdk.alm.command.MonitorLogMessage;
 import com.yh.infra.svc.gov.sdk.alm.command.MonitorRulesData;
 import com.yh.infra.svc.gov.sdk.alm.config.AlmConfig;
@@ -15,9 +16,9 @@ import com.yh.infra.svc.gov.sdk.command.cfg.Entry;
 import com.yh.infra.svc.gov.sdk.command.cfg.Node;
 import com.yh.infra.svc.gov.sdk.command.cfg.TransformNode;
 import com.yh.infra.svc.gov.sdk.config.AppRegConfig;
-import com.yh.infra.svc.gov.sdk.constant.SdkCommonConstant;
 import com.yh.infra.svc.gov.sdk.util.OrderService;
 import com.yh.infra.svc.gov.sdk.util.TestVoUtil;
+import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,6 +39,7 @@ import static org.mockito.Mockito.*;
  *
  */
 public class MonitorServiceTest {
+	private Logger logger = Logger.getLogger(MonitorServiceTest.class);
 
 	MonitorService service;
 
@@ -67,6 +69,7 @@ public class MonitorServiceTest {
 	public void test_preFetchData_success() {
 		
 		AppConfig ac = prepareAC();
+		logger.info(JSON.toJSONString(ac.getMonitor()));
 		
 		MonitorRulesData vd = TestVoUtil.voMonitorRulesData(ac);		
 		ctx.updateRulesData(vd);
@@ -82,6 +85,9 @@ public class MonitorServiceTest {
 		assertEquals("pf code is TB10033", loglist.get(0));
 		assertEquals(1, lmcList.size());
 		assertEquals(11, lmcList.get(0).getBizCode().intValue());
+
+		logger.info(JSON.toJSONString(ic));
+		logger.info(JSON.toJSONString(lmcList));
 	}
 
 	
@@ -105,6 +111,9 @@ public class MonitorServiceTest {
 		assertEquals("TB10033", lmc.getTransformLogList().get(0).getSrcKey());
 		assertEquals("PACS2567", lmc.getTransformLogList().get(0).getTargetKey());
 		assertEquals(41, lmc.getTransformLogList().get(0).getCode());
+
+		logger.info(JSON.toJSONString(ic));
+		logger.info(JSON.toJSONString(ic.getBizLogCmdList()));
 	}
 
 	@Test
@@ -128,6 +137,8 @@ public class MonitorServiceTest {
 		assertEquals("TB10033", lmc.getTransformLogList().get(0).getSrcKey());
 		assertEquals("PACS2567", lmc.getTransformLogList().get(0).getTargetKey());
 		assertEquals(41, lmc.getTransformLogList().get(0).getCode());
+
+		logger.info(JSON.toJSONString(ic.getBizLogCmdList()));
 	}
 	/**
 	 * 多个返回值， 拆单场景， 数组方式返回值
@@ -135,12 +146,15 @@ public class MonitorServiceTest {
 	@Test
 	public void test_postHandle_multi_suborder_array() {
 		AppConfig ac = prepareAC2();
-		MonitorRulesData vd = TestVoUtil.voMonitorRulesData(ac);		
+		MonitorRulesData vd = TestVoUtil.voMonitorRulesData(ac);
+		logger.info(JSON.toJSONString(ac.getMonitor()));
 		ctx.updateRulesData(vd);
 
 		InvokeContext ic = prepareIC();
 		String[] strs = { "PACS2567", "PACS5555" };
 		ic.setReturned(strs);
+
+		logger.info(JSON.toJSONString(ic.getBizLogCmdList()));
 		service.postHandle(ic);
 
 		verify(fusingProxyService, times(1)).addLog(argument.capture());
@@ -159,6 +173,8 @@ public class MonitorServiceTest {
 		assertEquals("TB10033", lmc.get(0).getTransformLogList().get(1).getSrcKey());
 		assertEquals("PACS2567 aaa", lmc.get(0).getTransformLogList().get(0).getTargetKey());
 		assertEquals(41, lmc.get(0).getTransformLogList().get(1).getCode());
+
+		logger.info(JSON.toJSONString(ic.getBizLogCmdList()));
 	}
 
 	/**

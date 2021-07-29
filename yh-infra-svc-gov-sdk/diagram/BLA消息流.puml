@@ -1,0 +1,65 @@
+@startuml
+autonumber
+participant SDK order 1
+participant blp order 2
+participant bla order 3
+participant kafka order 999
+participant mongo order 1000
+
+== topic订阅 ==
+bla --> kafka: 原始日志数据 base-blp-data-src-[env] KafkaLevel1ConsumerImpl
+bla --> kafka: node中转 base-bla-t2-1-[env]-[random] KafkaT2NodeConsumerImpl
+bla --> kafka: entry中转 base-bla-t2-2-[env]-[random] KafkaT2MethodConsumerImpl
+bla --> kafka: node调用记录 base-bla-l2-1-[env] KafkaLevel2NodeConsumerImpl
+bla --> kafka: entry调用记录 base-bla-l2-2-[env] KafkaLevel2MethodConsumerImpl
+
+
+== 流程 ==
+SDK -> blp: /blp/monitorLog
+blp -> kafka: 发送 base-blp-data-src-[env]
+
+group "base-blp-data-src-[env]"
+    kafka -> bla: 推送 base-blp-data-src-[env]
+
+    bla -> kafka: 发送 base-bla-t2-1-[env]-[random]
+    note left: 提取nodeCode、ip、host
+
+    bla -> kafka: 发送 base-bla-t2-2-[env]-[random]
+    note left: 提取entryCode、ip、host
+end
+
+group "base-bla-t2-1-[env]-[random]"
+    kafka -> bla: 推送 base-bla-t2-1-[env]-[random]
+    bla -> bla: 计数数据放入queue，type=NODE
+    note left: 按server、node、minute计数
+end
+
+group "base-bla-t2-2-[env]-[random]"
+    kafka -> bla: 推送 base-bla-t2-2-[env]-[random]
+    bla -> bla: 计数数据放入queue，type=METHOD
+    note left: 按server、node、minute计数
+end
+
+group 启动线程PunctuateThread，循环消费queue
+    bla -> bla: 间隔时间内，不断从queue中取数据，\n按type、code、minute、server计数
+    bla -> kafka: 发送 base-bla-l2-1-[env]
+    note left: CountVo.type = NODE时
+    bla -> kafka: 发送 base-bla-l2-2-[env]
+    note left: CountVo.type = METHOD时
+end
+
+group "base-bla-l2-1-[env]"
+    kafka -> bla: 推送 base-bla-l2-1-[env]
+    bla -> mongo: 根据code、minute、server查询统计数据
+    mongo -> bla: FlmNodeInvokeModel
+    bla -> mongo: 有则累加调用数，没有则新增
+end
+
+group "base-bla-l2-2-[env]"
+    kafka -> bla: 推送 base-bla-l2-2-[env]
+    bla -> mongo: 根据分钟时间、code、调用server查询统计数据
+    mongo -> bla: FlmMethodInvokeModel
+    bla -> mongo: 有则累加调用数，没有则新增
+end
+
+@enduml
