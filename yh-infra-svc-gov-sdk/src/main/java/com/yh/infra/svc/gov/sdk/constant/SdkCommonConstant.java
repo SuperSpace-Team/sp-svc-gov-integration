@@ -292,11 +292,6 @@ public final class SdkCommonConstant {
     /****************************用于sky walking相关  *********************************/
     public static final String SKYWALKING_CONTEXT_CLASSPATH_NAME = "org.apache.skywalking.apm.agent.core.context.ContextManager";
     public static final String SKYWALKING_CONTEXT_METHOD_NAME = "getContextMap";
-    public static final String SKYWALKING_MAP_TRACEID_KEY = "traceId";
-    public static final String SKYWALKING_MAP_SPANID_KEY = "spanId";
-    public static final String SKYWALKING_MAP_SEGMENTID_KEY = "segmentId";
-
-
 
     /********************* 主键服务**********************************************/
     public static final int PRIMARY_KEY_CONNECT_TIMEOUT = 15;//主键服务链接超时时间
