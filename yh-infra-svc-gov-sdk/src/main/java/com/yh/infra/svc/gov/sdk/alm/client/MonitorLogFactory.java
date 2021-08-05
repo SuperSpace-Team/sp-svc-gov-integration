@@ -8,9 +8,16 @@ import org.slf4j.Logger;
  * @date 2021/8/3 6:23 下午
  */
 public class MonitorLogFactory {
-    private static MonitorLogFactory instance = new MonitorLogFactory();
+    private volatile static MonitorLogFactory instance;
 
     public static MonitorLogFactory getInstance() {
+        if (instance == null) {
+            synchronized (MonitorLogFactory.class) {
+                if (instance == null) {
+                    instance = new MonitorLogFactory();
+                }
+            }
+        }
         return instance;
     }
 
