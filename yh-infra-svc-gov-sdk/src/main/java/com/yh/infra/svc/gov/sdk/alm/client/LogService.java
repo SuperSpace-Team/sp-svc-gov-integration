@@ -55,23 +55,23 @@ public class LogService {
 		context.addLog(lmc);
 	}
 	
-	private static boolean checkStatus() {
+	protected static boolean checkStatus() {
 		// 必须是治理SDK类型的 监控
 		String almType = BeanRegistry.getInstance().getBean(SdkCommonConstant.ALM_EMBEDDED_TYPE);
 		if (! SdkCommonConstant.ALM_TYPE_SVC_GOV_SDK.equals(almType)) {
-			logger.error("Function disabled. Need to update agent version.");
+			logger.warn("Function disabled. Need to update agent version.");
 			return false;
 		}
 		// 必须是 已经初始化  成功。
 		Boolean init = BeanRegistry.getInstance().getBean(SdkCommonConstant.ALM_INITIALIZED_FLAG);
 		if (! Boolean.TRUE.equals(init)) {
-			logger.error("ALM has not been initialized.");
+			logger.warn("ALM has not been initialized.");
 			return false;
 		}
 		return true;
 	}
-	
-	private static MonitorLogMessage genLogMessage(int bizCode) {
+
+	protected static MonitorLogMessage genLogMessage(int bizCode) {
 		MonitorGlobalContext context = BeanRegistry.getInstance().getBean(MonitorGlobalContext.class);
 		
 		MonitorLogMessage lmc = new MonitorLogMessage(SdkCommonConstant.LOG_TYPE_MONITOR);
@@ -102,7 +102,7 @@ public class LogService {
 		MonitorGlobalContext context = BeanRegistry.getInstance().getBean(MonitorGlobalContext.class);
 		TransformNode n = context.getCustomizeTnode(code);
 		if (n == null) {
-			logger.error("No transform node found for {}.", code);
+			logger.warn("No transform node found for {}.", code);
 			return;
 		}
 		MonitorLogMessage lmc = genLogMessage(n.getBizCode());

@@ -247,9 +247,15 @@ public class MonitorGlobalContext {
      */
     
     public Node getCustomizeNode(int code) {
+        if (rulesData == null || rulesData.getCustomizeNodeMap() == null) {
+            return null;
+        }
     	return rulesData.getCustomizeNodeMap().get(code);
     }
     public TransformNode getCustomizeTnode(int code) {
+        if (rulesData == null || rulesData.getCustomizeTnodeMap() == null) {
+            return null;
+        }
     	return rulesData.getCustomizeTnodeMap().get(code);
     }
 }
