@@ -9,7 +9,7 @@ import com.yh.infra.svc.gov.sdk.command.cfg.TransformNode;
 import com.yh.infra.svc.gov.sdk.constant.SdkCommonConstant;
 import com.yh.infra.svc.gov.sdk.util.CollectionUtils;
 import com.yh.infra.svc.gov.sdk.util.StringUtils;
-import org.apache.skywalking.apm.toolkit.trace.TraceContext;
+import com.yh.infra.svc.gov.sdk.util.TraceUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.expression.EvaluationContext;
@@ -254,21 +254,6 @@ public class MonitorService {
 	}
 
 	/**
-	 * 将skywalking信息填入日志消息
-	 * @param lmc
-	 */
-	private void fillSkywalkingInfo(MonitorLogMessage lmc) {
-		try {
-			lmc.setSwSegment(TraceContext.segmentId());
-			lmc.setSwTrace(TraceContext.traceId());
-			lmc.setSwSpan(String.valueOf(TraceContext.spanId()));
-		} catch (Exception e) {
-			logger.error("Failed to fill skywalking trace info. ", e);
-		}
-	}
-	
-
-	/**
 	 * 判断是否可以匹配  某个node/tnode。
 	 * 
 	 * @param expCmd
@@ -412,7 +397,7 @@ public class MonitorService {
 				logger.info("generate a monitor/transform message for biz: {}, size:{}", lmc.getBizCode(), lmc.getMonitorLogList().size());
 				// 确定要发送日志了，再填写Skywalking的trace信息
 				// 不在pre那地方填：1）有可能不发送。 2）有可能sw数据还没生成。
-				fillSkywalkingInfo(lmc);
+				TraceUtil.fillSkyWalkingInfo(lmc);
 				fusingProxyService.addLog(lmc);
 			}
 		}

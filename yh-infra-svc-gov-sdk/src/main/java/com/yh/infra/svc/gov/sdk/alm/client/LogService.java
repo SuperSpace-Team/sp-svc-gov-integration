@@ -8,6 +8,7 @@ import com.yh.infra.svc.gov.sdk.command.cfg.Node;
 import com.yh.infra.svc.gov.sdk.command.cfg.TransformNode;
 import com.yh.infra.svc.gov.sdk.constant.SdkCommonConstant;
 import com.yh.infra.svc.gov.sdk.init.context.BeanRegistry;
+import com.yh.infra.svc.gov.sdk.util.TraceUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -84,6 +85,7 @@ public class LogService {
 		lmc.setSdkVersion(context.getSdkVersion());
 		lmc.setThreadName(Thread.currentThread().getName());
 		lmc.setTimeStamp(System.currentTimeMillis());
+		TraceUtil.fillSkyWalkingInfo(lmc);
 		return lmc;
 	}
 	
