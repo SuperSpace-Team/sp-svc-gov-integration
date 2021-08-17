@@ -14,6 +14,7 @@
     <modules>
         <module>yh-infra-svc-gov-sdk</module>
         <module>yh-infra-svc-gov-sdk-common</module>
+        <module>yh-infra-svc-gov-sdk-starter</module>
         <module>yh-infra-svc-gov-agent</module>
     </modules>
 
