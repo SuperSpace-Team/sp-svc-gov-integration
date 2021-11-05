@@ -24,7 +24,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<svc-gov-sdk-common.version>1.0.0-SNAPSHOT</svc-gov-sdk-common.version>
-		<version.consul-retry-starter>1.0.0-RELEASE</version.consul-retry-starter>
+		<version.consul-retry-starter>1.0.0-SNAPSHOT</version.consul-retry-starter>
 	</properties>
 
 	<dependencies>
