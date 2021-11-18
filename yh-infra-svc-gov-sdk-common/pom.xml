@@ -20,7 +20,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.7</java.version>
-		<yh-infra-svc-gov-sdk.version>1.0.0-SNAPSHOT</yh-infra-svc-gov-sdk.version>
+		<yh-infra-svc-gov-sdk.version>1.0.0-RELEASE</yh-infra-svc-gov-sdk.version>
 		<spring.version>4.3.22.RELEASE</spring.version>
 	</properties>
 
