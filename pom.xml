@@ -7,7 +7,7 @@
     <groupId>com.yh.infra.svc.gov</groupId>
     <artifactId>yh-svc-gov-integration</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0-RELEASE</version>
     <name>yh-svc-gov-integration</name>
     <description>Yonghui service governance SDK integration product</description>
 
