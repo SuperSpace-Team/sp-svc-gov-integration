@@ -41,7 +41,7 @@ public class ConfigService {
         }
 
         if (resp.getCode() == SdkCommonConstant.RESP_STATUS_VERSION_NOT_SUPPORTED) {
-            logger.warn("Current sdk version {} is not supported, need upgrade.", context.getConfig().getSdkVersion());
+            logger.warn("Current sdk version {} is not supported, need to be upgraded.", context.getConfig().getSdkVersion());
             return ;
         }
 
@@ -50,7 +50,8 @@ public class ConfigService {
         Map<String, Object> cbDataMap = new HashMap<String, Object>();
         String respStr = JsonUtil.writeValue(resp);
         if(CollectionUtils.isEmpty(cbList)){
-            logger.warn("No callback found when alm init.");
+            logger.warn("No callback found when ALM init.");
+            return;
         }
 
         // 如果任一个callback失败，则不更新版本。所以try-catch在最外层。
