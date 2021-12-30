@@ -50,12 +50,14 @@
         <spring-security.version>3.2.10.RELEASE</spring-security.version>
         <version.mockserver>5.5.1</version.mockserver>
         <version.micrometer>1.6.2</version.micrometer>
-        <version.consul-retry-starter>1.0.0-RELEASE</version.consul-retry-starter>
-        <version.yh-common-utilities>1.0.0-RELEASE</version.yh-common-utilities>
-        <version.yh-infra-svc-gov-agent>1.0.0-RELEASE</version.yh-infra-svc-gov-agent>
-        <version.yh-lark-common>1.0.0-RELEASE</version.yh-lark-common>
-        <version.yh-common-exception>1.0.0-RELEASE</version.yh-common-exception>
-        <version.metrics-client>1.0.0-RELEASE</version.metrics-client>
+        <version.consul-retry-starter>1.0.0-SNAPSHOT</version.consul-retry-starter>
+
+        <version.yh-common-utilities>1.0.0-SNAPSHOT</version.yh-common-utilities>
+        <version.yh-infra-svc-gov-agent>1.0.0-SNAPSHOT</version.yh-infra-svc-gov-agent>
+        <version.yh-lark-common>1.0.0-SNAPSHOT</version.yh-lark-common>
+        <version.yh-common-exception>1.0.0-SNAPSHOT</version.yh-common-exception>
+        <version.metrics-client>1.0.0-SNAPSHOT</version.metrics-client>
+        <yh.base.dependencies.version>1.0.0-SNAPSHOT</yh.base.dependencies.version>
 
         <sonar.exclusions>
             src/main/java/com/yh/**
@@ -65,6 +67,14 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- 永辉公共基础依赖集 -->
+            <dependency>
+                <groupId>com.yh.base</groupId>
+                <artifactId>yh-base-dependencies</artifactId>
+                <version>${yh.base.dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.aspectj</groupId>
                 <artifactId>aspectjweaver</artifactId>
@@ -101,25 +111,6 @@
                 <version>${version.commons-lang3}</version>
             </dependency>
 
-            <!-- 以下组件 compile 模式 -->
-            <!--日志包依赖-->
-            <!--日志包log4j2依赖标准模式-->
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-api</artifactId>
-                <version>${version.slf4j}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-core</artifactId>
-                <version>${version.slf4j}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-slf4j-impl</artifactId>
-                <version>${version.slf4j}</version>
-            </dependency>
-
             <!--日志包兼容模式-->
             <dependency>
                 <groupId>org.slf4j</groupId>
@@ -127,13 +118,6 @@
                 <version>${version.slf4j-api}</version>
                 <scope>provided</scope>
             </dependency>
-            <dependency>
-                <groupId>log4j</groupId>
-                <artifactId>log4j</artifactId>
-                <version>${version.log4j}</version>
-                <scope>provided</scope>
-            </dependency>
-
             <!--序列化工具-->
             <dependency>
                 <groupId>com.alibaba</groupId>
