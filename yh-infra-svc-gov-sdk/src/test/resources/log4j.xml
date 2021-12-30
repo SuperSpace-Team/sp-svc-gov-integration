@@ -1,23 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">-->
 
-<log4j:configuration>
-    <appender name="ConsoleAppender" class="org.apache.log4j.ConsoleAppender">
-        <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss:SSS z}] [%t] %5p %l: %m%n" />
-        </layout>
-        <filter class="org.apache.log4j.varia.LevelRangeFilter">
-            <param name="levelMin" value="INFO" />
-            <param name="levelMax" value="ERROR" />
-            <param name="AcceptOnMatch" value="true" />
-        </filter>
-    </appender>
+<!--<log4j:configuration>-->
+<!--    <appender name="ConsoleAppender" class="org.apache.log4j.ConsoleAppender">-->
+<!--        <layout class="org.apache.log4j.PatternLayout">-->
+<!--            <param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss:SSS z}] [%t] %5p %l: %m%n" />-->
+<!--        </layout>-->
+<!--        <filter class="org.apache.log4j.varia.LevelRangeFilter">-->
+<!--            <param name="levelMin" value="INFO" />-->
+<!--            <param name="levelMax" value="ERROR" />-->
+<!--            <param name="AcceptOnMatch" value="true" />-->
+<!--        </filter>-->
+<!--    </appender>-->
 
 
- -->
-    <root>
-        <level value ="INFO"/>
-        <appender-ref ref="ConsoleAppender"/>
-    </root>
+<!-- &ndash;&gt;-->
+<!--    <root>-->
+<!--        <level value ="INFO"/>-->
+<!--        <appender-ref ref="ConsoleAppender"/>-->
+<!--    </root>-->
 
-</log4j:configuration>
+<!--</log4j:configuration>-->

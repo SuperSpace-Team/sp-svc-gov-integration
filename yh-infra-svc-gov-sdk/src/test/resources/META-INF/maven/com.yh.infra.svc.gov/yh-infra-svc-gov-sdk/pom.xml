@@ -36,14 +36,6 @@
                     <groupId>org.apache.poi</groupId>
                     <artifactId>poi-ooxml</artifactId>
                 </exclusion>
-                <exclusion>
-                    <artifactId>log4j</artifactId>
-                    <groupId>log4j</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>slf4j-log4j12</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
@@ -196,26 +188,18 @@
         </dependency>
 
 
-        <!-- 日志包依赖：兼容模式 -->
+        <!-- ========== log4j2日志包依赖 ========== -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
-            <version>${version.log4j2}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

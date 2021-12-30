@@ -11,16 +11,28 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <slf4j.version>1.7.30</slf4j.version>
         <spring.version>3.2.18.RELEASE</spring.version>
         <fastjson.version>1.2.70</fastjson.version>
-        <log4j2.version>2.11.2</log4j2.version>
         <metrics-client.version>1.1.0-SNAPSHOT</metrics-client.version>
         <micrometer.version>1.6.4</micrometer.version>
         <jackson.version>2.10.3</jackson.version>
         <aspectj.version>1.9.6</aspectj.version>
         <simpleclient.version>0.9.0</simpleclient.version>
+        <yh.base.dependencies.version>1.0.0-SNAPSHOT</yh.base.dependencies.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- 永辉公共基础依赖集 -->
+            <dependency>
+                <groupId>com.yh.base</groupId>
+                <artifactId>yh-base-dependencies</artifactId>
+                <version>${yh.base.dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -73,7 +85,6 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
