@@ -1,15 +1,15 @@
 /**
- * Copyright (c) 2013 Yonghui All Rights Reserved.
+ * Copyright (c) 2013 SuperSpace All Rights Reserved.
  *
- * This software is the confidential and proprietary information of Yonghui.
+ * This software is the confidential and proprietary information of SuperSpace.
  * You shall not disclose such Confidential Information and shall use it only in
  * accordance with the terms of the license agreement you entered into
- * with Yonghui.
+ * with SuperSpace.
  *
- * YONGHUI MAKES NO REPRESENTATIONS OR WARRANTIES ABOUT THE SUITABILITY OF THE
+ * SUPERSPACE MAKES NO REPRESENTATIONS OR WARRANTIES ABOUT THE SUITABILITY OF THE
  * SOFTWARE, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
- * PURPOSE, OR NON-INFRINGEMENT. YONGHUI SHALL NOT BE LIABLE FOR ANY DAMAGES
+ * PURPOSE, OR NON-INFRINGEMENT. SUPERSPACE SHALL NOT BE LIABLE FOR ANY DAMAGES
  * SUFFERED BY LICENSEE AS A RESULT OF USING, MODIFYING OR DISTRIBUTING
  * THIS SOFTWARE OR ITS DERIVATIVES.
  *

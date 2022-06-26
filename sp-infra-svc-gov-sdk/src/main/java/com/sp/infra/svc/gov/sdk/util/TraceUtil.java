@@ -6,7 +6,6 @@ import org.apache.skywalking.apm.toolkit.trace.TraceContext;
 
 /**
  * @author qinzhiyuan
- * @email 80961464@yonghui.cn
  * @date 2021/8/10 8:40 下午
  */
 @Slf4j

@@ -18,7 +18,7 @@ public class SaasTenantServiceTest {
         AppRegLauncher.setEnabled(true);
         AppRegLauncher.setAppKey("gs-archive-sit");
         AppRegLauncher.setAppSecret("123456qwer");
-        AppRegLauncher.setUnionGatewayUrl("http://sit-api-base.yonghui.cn/api");
+        AppRegLauncher.setUnionGatewayUrl("http://sit-api-base.superspace.cn/api");
         AppRegLauncher.setAppRegConfig(AppRegConfig);
         AppRegLauncher.init();
     }

@@ -1,6 +1,6 @@
 /*
  * TaskPlanExecuteManager.java Created On 2017年12月17日
- * Copyright(c) 2017 Yonghui Inc.
+ * Copyright(c) 2017 SuperSpace Inc.
  * ALL Rights Reserved.
  */
 package com.sp.infra.svc.gov.sdk.platform.baseservice.task.manager.task;
