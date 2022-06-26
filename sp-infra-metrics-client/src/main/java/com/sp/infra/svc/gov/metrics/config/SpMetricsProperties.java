@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.sp.infra.svc.gov.metrics.config;
 
 import java.util.ArrayList;
@@ -14,7 +11,7 @@ import java.util.Map;
  * @author luchao  2020-12-07
  *
  */
-public class YhMetricsProperties {
+public class SpMetricsProperties {
 	private Map<String, MeterProperty> meters = new HashMap<>();
 	
 	public Map<String, MeterProperty> getMeters() {
@@ -96,7 +93,6 @@ public class YhMetricsProperties {
 			builder.append("]");
 			return builder.toString();
 		}
-
 	}
 
 }

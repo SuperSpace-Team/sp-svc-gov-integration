@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import com.sp.infra.svc.gov.metrics.config.YhMetricsProperties;
-import com.sp.infra.svc.gov.metrics.config.YhMetricsProperties.MeterProperty;
+import com.sp.infra.svc.gov.metrics.config.SpMetricsProperties;
+import com.sp.infra.svc.gov.metrics.config.SpMetricsProperties.MeterProperty;
 import com.sp.infra.svc.gov.metrics.constant.MetricsType;
 import com.sp.infra.svc.gov.metrics.util.TagUtil;
 
@@ -35,7 +35,7 @@ public class BizMetricsBinder implements MeterBinder {
 	private MetricsProvider curtomerProvider;
 	
 	@Autowired
-	private YhMetricsProperties properties;
+	private SpMetricsProperties properties;
 	
     @Override
     public void bindTo(MeterRegistry meterRegistry) {

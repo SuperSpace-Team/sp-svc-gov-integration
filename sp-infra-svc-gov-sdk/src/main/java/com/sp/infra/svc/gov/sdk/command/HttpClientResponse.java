@@ -1,8 +1,3 @@
-/*
- * HttpClientResponse.java Created On 2019年3月5日
- * Copyright(c) 2019 Yonghui Inc.
- * ALL Rights Reserved.
- */
 package com.sp.infra.svc.gov.sdk.command;
 
 import java.io.Serializable;

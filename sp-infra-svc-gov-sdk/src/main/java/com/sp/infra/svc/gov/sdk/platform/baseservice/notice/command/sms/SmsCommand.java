@@ -6,9 +6,7 @@ import java.util.Map;
 
 /**
  * 短信参数command
- * @Company:Yonghui
  * @Description:短信目前支持单个接收人
- * @Copyright:Copyright (c) 2016
  * @Version:1.0
  */
 public class SmsCommand implements Serializable {
@@ -50,7 +48,7 @@ public class SmsCommand implements Serializable {
 
 	/**
 	 * @Description 获得模板变量列表
-	 * @author jiuzhou.hu@yonghui.cn
+	 * @author jiuzhou.hu@superspace.cn
 	 * @date 2016年1月12日 下午5:19:09
 	 * @return
 	 */
@@ -63,7 +61,7 @@ public class SmsCommand implements Serializable {
 	
 	/**
 	 * @Description 设置模板变量列表
-	 * @author jiuzhou.hu@yonghui.cn
+	 * @author jiuzhou.hu@superspace.cn
 	 * @date 2016年1月12日 下午5:19:21
 	 * @param dataMap
 	 */
@@ -73,7 +71,7 @@ public class SmsCommand implements Serializable {
 
 	/**
 	 * @Description 添加模板变量的值
-	 * @author jiuzhou.hu@yonghui.cn
+	 * @author jiuzhou.hu@superspace.cn
 	 * @date 2015年12月29日 上午10:20:30
 	 * @param key		模板中的变量名称
 	 * @param value		模板中的变量值
@@ -84,7 +82,7 @@ public class SmsCommand implements Serializable {
 
 	/**
 	 * @Description 获得模板编码
-	 * @author jiuzhou.hu@yonghui.cn
+	 * @author jiuzhou.hu@superspace.cn
 	 * @date 2016年1月12日 下午5:19:55
 	 * @return
 	 */
@@ -94,7 +92,7 @@ public class SmsCommand implements Serializable {
 
 	/**
 	 * @Description 设置模板编码
-	 * @author jiuzhou.hu@yonghui.cn
+	 * @author jiuzhou.hu@superspace.cn
 	 * @date 2016年1月12日 下午5:20:06
 	 * @param templateCode
 	 */
@@ -104,7 +102,7 @@ public class SmsCommand implements Serializable {
 
 	/**
 	 * @Description 获得租户编码
-	 * @author jiuzhou.hu@yonghui.cn
+	 * @author jiuzhou.hu@superspace.cn
 	 * @date 2016年1月12日 下午5:20:47
 	 * @return
 	 */
@@ -114,7 +112,7 @@ public class SmsCommand implements Serializable {
 
 	/**
 	 * @Description 设置租户编码
-	 * @author jiuzhou.hu@yonghui.cn
+	 * @author jiuzhou.hu@superspace.cn
 	 * @date 2016年1月12日 下午5:21:00
 	 * @param customerCode
 	 */
@@ -134,7 +132,7 @@ public class SmsCommand implements Serializable {
 	 * @Description 设置手机号码
 	 * 手机号码如果有国际区号，需要去掉前面的+号
 	 * 手机号码正则表达式规则配置在  pattern.sms.regex 属性中
-	 * @author jiuzhou.hu@yonghui.cn
+	 * @author jiuzhou.hu@superspace.cn
 	 * @date 2016年1月12日 下午6:07:15
 	 * @param mobile
 	 */

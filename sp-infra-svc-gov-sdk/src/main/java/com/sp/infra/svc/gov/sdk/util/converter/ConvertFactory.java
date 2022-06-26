@@ -1,5 +1,5 @@
 /*
- * ConvertFactory.java Created On 2017年11月28日 Copyright(c) 2017 Yonghui Inc. ALL Rights Reserved.
+ * ConvertFactory.java Created On 2017年11月28日 Copyright(c) 2017 SuperSpace Inc. ALL Rights Reserved.
  */
 package com.sp.infra.svc.gov.sdk.util.converter;
 

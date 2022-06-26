@@ -23,7 +23,7 @@ public final class SdkCommonConstant {
      * 默认统一API网关URL
      */
     public static final String DEFAULT_UNION_GATEWAY_URL = "http://sp-union-gateway-"
-            + System.getenv(SDK_APP_ENV_VAR) + ".yonghui.cn";
+            + System.getenv(SDK_APP_ENV_VAR) + ".superspace.cn";
 
     /**
      * 默认治理平台BFF服务URL

@@ -35,7 +35,6 @@ import java.util.concurrent.Executors;
 
 /**
  * @author luchao
- * @email lucaho1@yonghui.cn
  * @date 2021/5/14 3:30 下午
  */
 public class AlmComponentInit implements ComponentInit {
