@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+	<properties>
+		<!-- 文件输出格式 -->
+		<property name="PATTERN">[%d{yyyy-MM-dd HH:mm:ss:SSS z}] [%t] %5p %l: %m%n</property>
+	    <Property name="FILE_PATH">../logs</Property>
+    </properties>
+
+	<appenders>
+		<Console name="CONSOLE" target="system_out">
+			<PatternLayout pattern="${PATTERN}" />
+		</Console>
+		<!-- error -->
+		<RollingFile name="errorRollingFile" fileName="${FILE_PATH}/error.log" filePattern="${FILE_PATH}/error-%i.log">
+
+			<SizeBasedTriggeringPolicy size="500MB" />
+			<!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，这里设置了10 -->
+			<DefaultRolloverStrategy max="10" />
+			<ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY" />
+			<PatternLayout pattern="${PATTERN}" />
+		</RollingFile>
+
+		<!-- warn -->
+		<RollingFile name="warnRollingFile" fileName="${FILE_PATH}/warn.log" filePattern="${FILE_PATH}/warn-%i.log">
+			<SizeBasedTriggeringPolicy size="500MB" />
+			<!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，这里设置了10 -->
+			<DefaultRolloverStrategy max="10" />
+			<Filters>
+				<ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL" />
+				<ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY" />
+			</Filters>
+			<PatternLayout pattern="${PATTERN}" />
+		</RollingFile>
+
+		<!-- info -->
+		<RollingFile name="infoRollingFile" fileName="${FILE_PATH}/info.log" filePattern="${FILE_PATH}/info-%i.log">
+			<SizeBasedTriggeringPolicy size="500MB" />
+			<!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，这里设置了10 -->
+			<DefaultRolloverStrategy max="10" />
+			<Filters>
+				<ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL" />
+				<ThresholdFilter level="warn" onMatch="DENY" onMismatch="NEUTRAL" />
+				<ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY" />
+			</Filters>
+			<PatternLayout pattern="${PATTERN}" />
+		</RollingFile>
+
+		<!-- debug -->
+		<RollingFile name="debugRollingFile" fileName="${FILE_PATH}/debug.log" filePattern="${FILE_PATH}/debug-%i.log">
+			<SizeBasedTriggeringPolicy size="500MB" />
+			<!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，这里设置了10 -->
+			<DefaultRolloverStrategy max="10" />
+			<Filters>
+				<ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL" />
+				<ThresholdFilter level="warn" onMatch="DENY" onMismatch="NEUTRAL" />
+				<ThresholdFilter level="info" onMatch="DENY" onMismatch="NEUTRAL" />
+				<ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY" />
+			</Filters>
+			<PatternLayout pattern="${PATTERN}" />
+		</RollingFile>
+	</appenders>
+
+
+
+	<loggers>
+ 		<logger name="com.sp.infra.svc.gov.sdk" level="ERROR" />
+
+		<logger name="RocketmqClient" level="WARN" additivity="false" />
+		<root level="info">
+			<appenderref ref="CONSOLE" />
+		</root>
+	</loggers>
+
+</configuration>  
