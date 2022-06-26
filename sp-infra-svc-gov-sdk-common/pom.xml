@@ -6,12 +6,12 @@
 	<parent>
 		<groupId>com.sp.infra.svc.gov</groupId>
 		<artifactId>sp-svc-gov-integration</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>1.0.0-RELEASE</version>
 	</parent>
 
 	<groupId>com.sp.infra.svc.gov</groupId>
 	<artifactId>sp-infra-svc-gov-sdk-common</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0-RELEASE</version>
 	<packaging>jar</packaging>
 	<name>sp-infra-svc-gov-sdk-common</name>
 	<description>sp-infra-svc-gov-sdk-common</description>
