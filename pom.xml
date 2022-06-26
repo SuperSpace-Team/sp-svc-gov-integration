@@ -4,22 +4,22 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.yh.infra.svc.gov</groupId>
-    <artifactId>yh-svc-gov-integration</artifactId>
+    <groupId>com.sp.infra.svc.gov</groupId>
+    <artifactId>sp-svc-gov-integration</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0-RELEASE</version>
-    <name>yh-svc-gov-integration</name>
-    <description>Yonghui service governance SDK integration product</description>
+    <name>sp-svc-gov-integration</name>
+    <description>SuperSpace service governance SDK integration product</description>
 
     <modules>
-        <module>yh-infra-consul-retry-starter</module>
-        <module>yh-infra-svc-gov-sdk</module>
-        <module>yh-infra-svc-gov-sdk-common</module>
-        <module>yh-infra-svc-gov-sdk-starter</module>
-        <module>yh-infra-svc-gov-agent</module>
-        <module>yh-infra-metrics-client</module>
-        <module>yh-infra-metrics-client-boot</module>
-        <module>yh-infra-metrics-client-mvc</module>
+        <module>sp-infra-consul-retry-starter</module>
+        <module>sp-infra-svc-gov-sdk</module>
+        <module>sp-infra-svc-gov-sdk-common</module>
+        <module>sp-infra-svc-gov-sdk-starter</module>
+        <module>sp-infra-svc-gov-agent</module>
+        <module>sp-infra-metrics-client</module>
+        <module>sp-infra-metrics-client-boot</module>
+        <module>sp-infra-metrics-client-mvc</module>
     </modules>
 
     <properties>
@@ -50,26 +50,26 @@
         <version.micrometer>1.6.2</version.micrometer>
         <version.consul-retry-starter>1.0.0-SNAPSHOT</version.consul-retry-starter>
 
-        <version.yh-common-utilities>1.0.0-SNAPSHOT</version.yh-common-utilities>
-        <version.yh-infra-svc-gov-agent>1.0.0-SNAPSHOT</version.yh-infra-svc-gov-agent>
-        <version.yh-lark-common>1.0.0-SNAPSHOT</version.yh-lark-common>
-        <version.yh-common-exception>1.0.0-SNAPSHOT</version.yh-common-exception>
+        <version.sp-common-utilities>1.0.0-SNAPSHOT</version.sp-common-utilities>
+        <version.sp-infra-svc-gov-agent>1.0.0-SNAPSHOT</version.sp-infra-svc-gov-agent>
+        <version.sp-lark-common>1.0.0-SNAPSHOT</version.sp-lark-common>
+        <version.sp-common-exception>1.0.0-SNAPSHOT</version.sp-common-exception>
         <version.metrics-client>1.0.0-SNAPSHOT</version.metrics-client>
-        <yh.base.dependencies.version>1.0.0-SNAPSHOT</yh.base.dependencies.version>
+        <sp.base.dependencies.version>1.0.0-SNAPSHOT</sp.base.dependencies.version>
 
         <sonar.exclusions>
-            src/main/java/com/yh/**
+            src/main/java/com/sp/**
             src/test/java/**/*.*
         </sonar.exclusions>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-            <!-- 永辉公共基础依赖集 -->
+            <!-- SuperSpace公共基础依赖集 -->
             <dependency>
-                <groupId>com.yh.base</groupId>
-                <artifactId>yh-base-dependencies</artifactId>
-                <version>${yh.base.dependencies.version}</version>
+                <groupId>com.sp.base</groupId>
+                <artifactId>sp-base-dependencies</artifactId>
+                <version>${sp.base.dependencies.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -241,29 +241,29 @@
 
             <!--YH公共组件-->
             <dependency>
-                <groupId>com.yh.infra.svc.gov</groupId>
-                <artifactId>yh-infra-svc-gov-agent</artifactId>
-                <version>${version.yh-infra-svc-gov-agent}</version>
+                <groupId>com.sp.infra.svc.gov</groupId>
+                <artifactId>sp-infra-svc-gov-agent</artifactId>
+                <version>${version.sp-infra-svc-gov-agent}</version>
             </dependency>
             <dependency>
-                <groupId>com.yh.common.utilities</groupId>
-                <artifactId>yh-common-utilities</artifactId>
-                <version>${version.yh-common-utilities}</version>
+                <groupId>com.sp.common.utilities</groupId>
+                <artifactId>sp-common-utilities</artifactId>
+                <version>${version.sp-common-utilities}</version>
             </dependency>
             <dependency>
-                <groupId>com.yh.common</groupId>
-                <artifactId>yh-common-exception</artifactId>
-                <version>${version.yh-common-exception}</version>
+                <groupId>com.sp.common</groupId>
+                <artifactId>sp-common-exception</artifactId>
+                <version>${version.sp-common-exception}</version>
             </dependency>
             <dependency>
-                <groupId>com.yh.common</groupId>
-                <artifactId>yh-lark-common</artifactId>
-                <version>${version.yh-lark-common}</version>
+                <groupId>com.sp.common</groupId>
+                <artifactId>sp-lark-common</artifactId>
+                <version>${version.sp-lark-common}</version>
             </dependency>
             <!-- Metrics客户端-->
             <dependency>
-                <groupId>com.yh.infra.svc.gov</groupId>
-                <artifactId>yh-infra-metrics-client</artifactId>
+                <groupId>com.sp.infra.svc.gov</groupId>
+                <artifactId>sp-infra-metrics-client</artifactId>
                 <version>${version.metrics-client}</version>
                 <exclusions>
                     <exclusion>
@@ -278,8 +278,8 @@
                 <version>${version.micrometer}</version>
             </dependency>
             <dependency>
-                <groupId>com.yh.infra.svc.gov</groupId>
-                <artifactId>yh-infra-consul-retry-starter</artifactId>
+                <groupId>com.sp.infra.svc.gov</groupId>
+                <artifactId>sp-infra-consul-retry-starter</artifactId>
                 <version>${version.consul-retry-starter}</version>
             </dependency>
         </dependencies>
@@ -306,6 +306,20 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- 原生log4j2主包 -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
         </dependency>
     </dependencies>
 
