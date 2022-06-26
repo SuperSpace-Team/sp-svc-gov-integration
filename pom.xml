@@ -4,29 +4,29 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.yh.infra.svc.gov</groupId>
-    <artifactId>yh-svc-gov-integration</artifactId>
+    <groupId>com.sp.infra.svc.gov</groupId>
+    <artifactId>sp-svc-gov-integration</artifactId>
     <packaging>pom</packaging>
     <version>1.1.0-SNAPSHOT</version>
-    <name>yh-svc-gov-integration</name>
-    <description>Yonghui service governance SDK integration product</description>
+    <name>sp-svc-gov-integration</name>
+    <description>SuperSpace service governance SDK integration product</description>
 
     <modules>
-        <module>yh-infra-consul-retry-starter</module>
-        <module>yh-infra-svc-gov-sdk</module>
-        <module>yh-infra-svc-gov-sdk-common</module>
-        <module>yh-infra-svc-gov-sdk-starter</module>
-        <module>yh-infra-svc-gov-agent</module>
-        <module>yh-infra-metrics-client</module>
-        <module>yh-infra-metrics-client-boot</module>
-        <module>yh-infra-metrics-client-mvc</module>
+        <module>sp-infra-consul-retry-starter</module>
+        <module>sp-infra-svc-gov-sdk</module>
+        <module>sp-infra-svc-gov-sdk-common</module>
+        <module>sp-infra-svc-gov-sdk-starter</module>
+        <module>sp-infra-svc-gov-agent</module>
+        <module>sp-infra-metrics-client</module>
+        <module>sp-infra-metrics-client-boot</module>
+        <module>sp-infra-metrics-client-mvc</module>
     </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.7</java.version>
+        <java.version>1.8</java.version>
         <version.jackson>2.9.8</version.jackson>
         <version.slf4j>2.11.2</version.slf4j>
         <version.slf4j-api>1.7.25</version.slf4j-api>
@@ -50,26 +50,26 @@
         <version.micrometer>1.6.2</version.micrometer>
         <version.consul-retry-starter>1.1.0-SNAPSHOT</version.consul-retry-starter>
 
-        <version.yh-common-utilities>1.0.0-SNAPSHOT</version.yh-common-utilities>
-        <version.yh-infra-svc-gov-agent>1.0.0-SNAPSHOT</version.yh-infra-svc-gov-agent>
-        <version.yh-lark-common>1.0.0-SNAPSHOT</version.yh-lark-common>
-        <version.yh-common-exception>1.0.0-SNAPSHOT</version.yh-common-exception>
-        <version.metrics-client>1.0.0-SNAPSHOT</version.metrics-client>
-        <yh.base.dependencies.version>1.0.0-SNAPSHOT</yh.base.dependencies.version>
+        <version.sp-framework-utilities>1.0.0-SNAPSHOT</version.sp-framework-utilities>
+        <version.sp-infra-svc-gov-agent>1.1.0-SNAPSHOT</version.sp-infra-svc-gov-agent>
+        <version.metrics-client>1.1.0-SNAPSHOT</version.metrics-client>
+
+        <sp.base.dependencies.version>1.1.0-SNAPSHOT</sp.base.dependencies.version>
+        <version.sp-framework-lark-common>1.0.0-SNAPSHOT</version.sp-framework-lark-common>
 
         <sonar.exclusions>
-            src/main/java/com/yh/**
+            src/main/java/com/sp/**
             src/test/java/**/*.*
         </sonar.exclusions>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-            <!-- 永辉公共基础依赖集 -->
+            <!-- SuperSpace Team公共基础依赖集 -->
             <dependency>
-                <groupId>com.yh.base</groupId>
-                <artifactId>yh-base-dependencies</artifactId>
-                <version>${yh.base.dependencies.version}</version>
+                <groupId>com.sp.base</groupId>
+                <artifactId>sp-base-dependencies</artifactId>
+                <version>${sp.base.dependencies.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -241,29 +241,24 @@
 
             <!--YH公共组件-->
             <dependency>
-                <groupId>com.yh.infra.svc.gov</groupId>
-                <artifactId>yh-infra-svc-gov-agent</artifactId>
-                <version>${version.yh-infra-svc-gov-agent}</version>
+                <groupId>com.sp.infra.svc.gov</groupId>
+                <artifactId>sp-infra-svc-gov-agent</artifactId>
+                <version>${version.sp-infra-svc-gov-agent}</version>
             </dependency>
             <dependency>
-                <groupId>com.yh.common.utilities</groupId>
-                <artifactId>yh-common-utilities</artifactId>
-                <version>${version.yh-common-utilities}</version>
+                <groupId>com.sp.framework</groupId>
+                <artifactId>sp-framework-utilities</artifactId>
+                <version>${version.sp-framework-utilities}</version>
             </dependency>
             <dependency>
-                <groupId>com.yh.common</groupId>
-                <artifactId>yh-common-exception</artifactId>
-                <version>${version.yh-common-exception}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.yh.common</groupId>
-                <artifactId>yh-lark-common</artifactId>
-                <version>${version.yh-lark-common}</version>
+                <groupId>com.sp.framework</groupId>
+                <artifactId>sp-framework-lark-common</artifactId>
+                <version>${version.sp-framework-lark-common}</version>
             </dependency>
             <!-- Metrics客户端-->
             <dependency>
-                <groupId>com.yh.infra.svc.gov</groupId>
-                <artifactId>yh-infra-metrics-client</artifactId>
+                <groupId>com.sp.infra.svc.gov</groupId>
+                <artifactId>sp-infra-metrics-client</artifactId>
                 <version>${version.metrics-client}</version>
                 <exclusions>
                     <exclusion>
@@ -278,8 +273,8 @@
                 <version>${version.micrometer}</version>
             </dependency>
             <dependency>
-                <groupId>com.yh.infra.svc.gov</groupId>
-                <artifactId>yh-infra-consul-retry-starter</artifactId>
+                <groupId>com.sp.infra.svc.gov</groupId>
+                <artifactId>sp-infra-consul-retry-starter</artifactId>
                 <version>${version.consul-retry-starter}</version>
             </dependency>
         </dependencies>
@@ -308,6 +303,45 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>nexus-releases</id>
+            <url>http://129.211.33.206:8088/repository/maven-public/</url>
+        </repository>
+        <repository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>https://repo.spring.io/libs-snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>nexus-snapshots</id>
+            <url>http://129.211.33.206:8088/repository/maven-snapshots/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+    <distributionManagement>
+        <repository>
+            <id>nexus-releases</id>
+            <url>http://129.211.33.206:8088/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <url>http://129.211.33.206:8088/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <build>
         <pluginManagement>
@@ -356,10 +390,12 @@
             <plugin>  <!-- 运行mvn install时跳过Test -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.16</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.2</version>
             </plugin>
         </plugins>
     </build>

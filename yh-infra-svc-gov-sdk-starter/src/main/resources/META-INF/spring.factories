@@ -1,2 +1,0 @@
-#永辉服务治理SDK
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.yh.infra.sdk.config.SvcGovSdkAutoConfiguration
