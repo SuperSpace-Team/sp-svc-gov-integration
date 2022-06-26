@@ -7,7 +7,7 @@
     <groupId>com.sp.infra.svc.gov</groupId>
     <artifactId>sp-svc-gov-integration</artifactId>
     <packaging>pom</packaging>
-    <version>1.1.0-SNAPSHOT</version>
+    <version>1.1.0-RELEASE</version>
     <name>sp-svc-gov-integration</name>
     <description>SuperSpace service governance SDK integration product</description>
 
