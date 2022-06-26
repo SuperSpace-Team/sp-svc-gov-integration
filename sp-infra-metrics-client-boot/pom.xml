@@ -17,7 +17,7 @@
 		<spring.version>4.3.25.RELEASE</spring.version>
 		<metrics-client.version>1.0.0-SNAPSHOT</metrics-client.version>
 		<micrometer.version>1.6.4</micrometer.version>
-		<yh.base.dependencies.version>1.1.0-SNAPSHOT</yh.base.dependencies.version>
+		<sp.base.dependencies.version>1.1.0-SNAPSHOT</sp.base.dependencies.version>
 	</properties>
 
 	<dependencyManagement>
@@ -26,7 +26,7 @@
 			<dependency>
 				<groupId>com.sp.base</groupId>
 				<artifactId>sp-base-dependencies</artifactId>
-				<version>${yh.base.dependencies.version}</version>
+				<version>${sp.base.dependencies.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>

@@ -1,6 +1,6 @@
 /*
  * AbstractObjectConvert.java Created On 2017年11月29日
- * Copyright(c) 2017 Yonghui Inc.
+ * Copyright(c) 2017 SuperSpace Inc.
  * ALL Rights Reserved.
  */
 package com.sp.infra.svc.gov.sdk.util.converter;

@@ -73,7 +73,6 @@ public class EmailCommand  implements Serializable {
 	private Map<String, Object> dataMap;
 	/**
 	 * @Description 添加附件
-	 * @author jiuzhou.hu@yonghui.cn
 	 * @date 2016年1月11日 下午6:20:31
 	 * @param fileName	附件显示名称
 	 * @param bytes		附件转化的流
@@ -92,7 +91,6 @@ public class EmailCommand  implements Serializable {
 
 	/**
 	 * @Description 设置附件
-	 * @author jiuzhou.hu@yonghui.cn
 	 * @date 2016年1月12日 下午5:12:41
 	 * @param attachFile
 	 */
@@ -102,7 +100,7 @@ public class EmailCommand  implements Serializable {
 	
 	/**
 	 * @Description 获得收件人地址列表
-	 * @author jiuzhou.hu@yonghui.cn
+	 * @author jiuzhou.hu@superspace.cn
 	 * @date 2016年1月12日 下午5:13:56
 	 * @return
 	 */
@@ -115,7 +113,7 @@ public class EmailCommand  implements Serializable {
 
 	/**
 	 * @Description 设置收件人地址列表
-	 * @author jiuzhou.hu@yonghui.cn
+	 * @author jiuzhou.hu@superspace.cn
 	 * @date 2016年1月12日 下午5:14:18
 	 * @param to
 	 */
@@ -125,7 +123,7 @@ public class EmailCommand  implements Serializable {
 	
 	/**
 	 * @Description 添加接收人地址
-	 * @author jiuzhou.hu@yonghui.cn
+	 * @author jiuzhou.hu@superspace.cn
 	 * @date 2015年12月28日 下午2:35:05
 	 * @param to
 	 */
@@ -137,7 +135,7 @@ public class EmailCommand  implements Serializable {
 
 	/**
 	 * @Description 获得抄送人地址列表
-	 * @author jiuzhou.hu@yonghui.cn
+	 * @author jiuzhou.hu@superspace.cn
 	 * @date 2016年1月12日 下午5:14:54
 	 * @return
 	 */
@@ -150,7 +148,7 @@ public class EmailCommand  implements Serializable {
 
 	/**
 	 * @Description 设置抄送人地址列表
-	 * @author jiuzhou.hu@yonghui.cn
+	 * @author jiuzhou.hu@superspace.cn
 	 * @date 2016年1月12日 下午5:15:06
 	 * @param cc
 	 */
@@ -159,7 +157,7 @@ public class EmailCommand  implements Serializable {
 	}
 	/**
 	 * @Description 添加抄送地址
-	 * @author jiuzhou.hu@yonghui.cn
+	 * @author jiuzhou.hu@superspace.cn
 	 * @date 2015年12月28日 下午2:34:45
 	 * @param cc
 	 */
@@ -171,7 +169,7 @@ public class EmailCommand  implements Serializable {
 	
 	/**
 	 * @Description 获得密送人地址列表
-	 * @author jiuzhou.hu@yonghui.cn
+	 * @author jiuzhou.hu@superspace.cn
 	 * @date 2016年1月12日 下午5:15:36
 	 * @return
 	 */
@@ -184,7 +182,7 @@ public class EmailCommand  implements Serializable {
 
 	/**
 	 * @Description 设置密送人地址列表
-	 * @author jiuzhou.hu@yonghui.cn
+	 * @author jiuzhou.hu@superspace.cn
 	 * @date 2016年1月12日 下午5:15:52
 	 * @param bcc
 	 */
@@ -193,7 +191,7 @@ public class EmailCommand  implements Serializable {
 	}
 	/**
 	 * @Description 添加密送地址
-	 * @author jiuzhou.hu@yonghui.cn
+	 * @author jiuzhou.hu@superspace.cn
 	 * @date 2015年12月28日 下午2:34:45
 	 * @param bcc
 	 */
@@ -205,7 +203,7 @@ public class EmailCommand  implements Serializable {
 
 	/**
 	 * @Description 获得附件列表
-	 * @author jiuzhou.hu@yonghui.cn
+	 * @author jiuzhou.hu@superspace.cn
 	 * @date 2016年1月12日 下午5:16:09
 	 * @return
 	 */
@@ -218,7 +216,7 @@ public class EmailCommand  implements Serializable {
 	
 	/**
 	 * @Description 设置附件列表
-	 * @author jiuzhou.hu@yonghui.cn
+	 * @author jiuzhou.hu@superspace.cn
 	 * @date 2016年1月12日 下午5:16:20
 	 * @param dataMap
 	 */
@@ -228,7 +226,7 @@ public class EmailCommand  implements Serializable {
 
 	/**
 	 * @Description 添加模板变量的值
-	 * @author jiuzhou.hu@yonghui.cn
+	 * @author jiuzhou.hu@superspace.cn
 	 * @date 2015年12月29日 上午10:20:30
 	 * @param key		模板变量名称
 	 * @param value		模板变量值
@@ -239,7 +237,7 @@ public class EmailCommand  implements Serializable {
 
 	/**
 	 * @Description 获得模板代码
-	 * @author jiuzhou.hu@yonghui.cn
+	 * @author jiuzhou.hu@superspace.cn
 	 * @date 2016年1月12日 下午5:17:05
 	 * @return
 	 */
@@ -249,7 +247,7 @@ public class EmailCommand  implements Serializable {
 
 	/**
 	 * @Description 设置模板代码
-	 * @author jiuzhou.hu@yonghui.cn
+	 * @author jiuzhou.hu@superspace.cn
 	 * @date 2016年1月12日 下午5:17:20
 	 * @param templateCode
 	 */
@@ -259,7 +257,7 @@ public class EmailCommand  implements Serializable {
 
 	/**
 	 * @Description 获得租户编码
-	 * @author jiuzhou.hu@yonghui.cn
+	 * @author jiuzhou.hu@superspace.cn
 	 * @date 2016年1月12日 下午5:17:31
 	 * @return
 	 */
@@ -269,7 +267,7 @@ public class EmailCommand  implements Serializable {
 
 	/**
 	 * @Description 设置租户编码
-	 * @author jiuzhou.hu@yonghui.cn
+	 * @author jiuzhou.hu@superspace.cn
 	 * @date 2016年1月12日 下午5:17:44
 	 * @param customerCode
 	 */

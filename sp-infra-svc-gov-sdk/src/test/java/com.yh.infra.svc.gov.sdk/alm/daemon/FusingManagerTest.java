@@ -9,7 +9,6 @@ import com.sp.infra.svc.gov.sdk.alm.context.MonitorGlobalContext;
 import com.sp.infra.svc.gov.sdk.init.context.ResponseStatusEnum;
 import com.sp.infra.svc.gov.sdk.config.AppRegConfig;
 import com.sp.infra.svc.gov.sdk.constant.SdkCommonConstant;
-import com.sp.infra.svc.gov.sdk.constant.SdkCommonConstant;
 import com.sp.infra.svc.gov.sdk.init.context.BeanRegistry;
 import com.sp.infra.svc.gov.sdk.util.TestReflectionUtils;
 import com.sp.infra.svc.gov.sdk.util.TestVoUtil;
@@ -55,10 +54,10 @@ public class FusingManagerTest {
 
     }
 
-    class YhCallable implements Callable<Boolean> {
+    class SpCallable implements Callable<Boolean> {
         FusingManager fusing;
 
-        public YhCallable(FusingManager fusing) {
+        public SpCallable(FusingManager fusing) {
             this.fusing = fusing;
         }
 

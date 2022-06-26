@@ -13,7 +13,7 @@
     <artifactId>sp-infra-svc-gov-sdk</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <name>sp-infra-svc-gov-sdk</name>
-    <description>YH union sdk of service governance</description>
+    <description>SuperSpace union sdk of service governance</description>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -29,18 +29,8 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.sp.common.utilities</groupId>
-            <artifactId>sp-common-utilities</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.poi</groupId>
-                    <artifactId>poi-ooxml</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.sp.common</groupId>
-            <artifactId>sp-lark-common</artifactId>
+            <groupId>com.sp.frameowrk</groupId>
+            <artifactId>sp-frameowrk-lark-common</artifactId>
         </dependency>
         <!-- Metrics客户端 -->
         <dependency>

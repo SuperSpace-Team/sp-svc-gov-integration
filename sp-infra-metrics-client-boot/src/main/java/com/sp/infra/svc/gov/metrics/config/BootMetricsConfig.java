@@ -9,5 +9,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  *
  */
 @ConfigurationProperties("sp.metrics")
-public class BootMetricsConfig extends YhMetricsProperties {
+public class BootMetricsConfig extends SpMetricsProperties {
 }

@@ -26,7 +26,7 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.7</java.version>
+        <java.version>1.8</java.version>
         <version.jackson>2.9.8</version.jackson>
         <version.slf4j>2.11.2</version.slf4j>
         <version.slf4j-api>1.7.25</version.slf4j-api>
@@ -239,25 +239,15 @@
                 </exclusions>
             </dependency>
 
-            <!--YH公共组件-->
+            <!--SuperSpace公共组件-->
             <dependency>
                 <groupId>com.sp.infra.svc.gov</groupId>
                 <artifactId>sp-infra-svc-gov-agent</artifactId>
                 <version>${version.sp-infra-svc-gov-agent}</version>
             </dependency>
             <dependency>
-                <groupId>com.sp.common.utilities</groupId>
-                <artifactId>sp-common-utilities</artifactId>
-                <version>${version.sp-common-utilities}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.sp.common</groupId>
-                <artifactId>sp-common-exception</artifactId>
-                <version>${version.sp-common-exception}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.sp.common</groupId>
-                <artifactId>sp-lark-common</artifactId>
+                <groupId>com.sp.frameowrk</groupId>
+                <artifactId>sp-frameowrk-lark-common</artifactId>
                 <version>${version.sp-lark-common}</version>
             </dependency>
             <!-- Metrics客户端-->

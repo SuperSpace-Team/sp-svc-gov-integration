@@ -27,9 +27,9 @@ public class AgentLoadListener implements AgentBuilder.Listener {
 	@Override
 	public void onTransformation(TypeDescription typeDescription, ClassLoader classLoader, JavaModule module, boolean loaded, DynamicType dynamicType) {
 		String typeName = typeDescription.getName();
-		if (typeName.startsWith(Constants.PKG_NAME_YONGHUI_FULL)
-				|| typeName.startsWith(Constants.PKG_NAME_YONGHUI_SHORT)
-				|| typeName.startsWith(Constants.PKG_NAME_YONGHUI_JUMBO)) {
+		if (typeName.startsWith(Constants.PKG_NAME_SUPERSPACE_FULL)
+				|| typeName.startsWith(Constants.PKG_NAME_SUPERSPACE_SHORT)
+				|| typeName.startsWith(Constants.PKG_NAME_SUPERSPACE_JUMBO)) {
 			logger.info("TRANSFORM : " + typeName);
 		}
 	}
@@ -38,7 +38,7 @@ public class AgentLoadListener implements AgentBuilder.Listener {
 	public void onIgnored(TypeDescription typeDescription, ClassLoader classLoader, JavaModule module, boolean loaded) {
 //		if (logger.isLoggable(Level.FINE)) {
 //			String typeName = typeDescription.getName();
-//			if (typeName.startsWith(Constants.PKG_YONGHUI))
+//			if (typeName.startsWith(Constants.PKG_SUPERSPACE))
 //				logger.fine("IGNORE    : " + typeName);
 //		}
 	}
@@ -50,7 +50,7 @@ public class AgentLoadListener implements AgentBuilder.Listener {
 
 	@Override
 	public void onComplete(String typeName, ClassLoader classLoader, JavaModule module, boolean loaded) {
-//		if (logger.isLoggable(Level.FINE) && typeName.startsWith(Constants.PKG_YONGHUI)) {
+//		if (logger.isLoggable(Level.FINE) && typeName.startsWith(Constants.PKG_SUPERSPACE)) {
 //			logger.fine("COMPLETE  : " + typeName);
 //		}
 	}
